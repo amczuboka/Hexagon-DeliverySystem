@@ -29,4 +29,4 @@ Languages: <br />
     ~Back-End: Firebase Service <br />
 Frameworks: Angular, Bootstrap <br />
 Environment: Node.js <br />
-IDE: Visual Studio Code <br />
+IDE/Code Editor: Visual Studio Code <br />
