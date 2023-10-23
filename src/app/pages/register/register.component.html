@@ -27,14 +27,14 @@
                     <mat-icon
                       matSuffix
                       *ngIf="
-                        registerForm.controls.FirstName.hasError('required') &&
-                        registerForm.controls.FirstName.touched
+                        registerForm.controls['FirstName'].hasError('required') &&
+                        registerForm.controls['FirstName'].touched
                       "
                       >error_outline
                     </mat-icon>
                     <mat-error
                       *ngIf="
-                        registerForm.controls.FirstName.hasError('required')
+                        registerForm.controls['FirstName'].hasError('required')
                       "
                       >Enter your first name
                     </mat-error>
@@ -60,14 +60,14 @@
                     <mat-icon
                       matSuffix
                       *ngIf="
-                        registerForm.controls.LastName.hasError('required') &&
-                        registerForm.controls.LastName.touched
+                        registerForm.controls['LastName'].hasError('required') &&
+                        registerForm.controls['LastName'].touched
                       "
                       >error_outline
                     </mat-icon>
                     <mat-error
                       *ngIf="
-                        registerForm.controls.LastName.hasError('required')
+                        registerForm.controls['LastName'].hasError('required')
                       "
                       >Enter your last name
                     </mat-error>
@@ -93,22 +93,22 @@
                     <mat-icon
                       matSuffix
                       *ngIf="
-                        (registerForm.controls.Email.hasError('email') ||
-                          registerForm.controls.Email.hasError('required')) &&
-                        registerForm.controls.Email.touched
+                        (registerForm.controls['Email'].hasError('email') ||
+                          registerForm.controls['Email'].hasError('required')) &&
+                        registerForm.controls['Email'].touched
                       "
                       >error_outline</mat-icon
                     >
                     <mat-error
                       *ngIf="
-                        registerForm.controls.Email.hasError('email') &&
-                        !registerForm.controls.Email.hasError('required')
+                        registerForm.controls['Email'].hasError('email') &&
+                        !registerForm.controls['Email'].hasError('required')
                       "
                     >
                       Please enter a valid email address
                     </mat-error>
                     <mat-error
-                      *ngIf="registerForm.controls.Email.hasError('required')"
+                      *ngIf="registerForm.controls['Email'].hasError('required')"
                     >
                       Email is <strong>required</strong>
                     </mat-error>
@@ -135,10 +135,10 @@
                       matSuffix
                       *ngIf="
                         (emailConfirmationValidator(registerForm) ||
-                          registerForm.controls.ConfirmEmail.hasError(
+                          registerForm.controls['ConfirmEmail'].hasError(
                             'email'
                           )) &&
-                        registerForm.controls.ConfirmEmail.touched
+                        registerForm.controls['ConfirmEmail'].touched
                       "
                       >error_outline</mat-icon
                     >
@@ -168,26 +168,26 @@
                     <mat-icon
                       matSuffix
                       *ngIf="
-                        (registerForm.controls.Password.hasError('minlength') ||
-                          registerForm.controls.Password.hasError(
+                        (registerForm.controls['Password'].hasError('minlength') ||
+                          registerForm.controls['Password'].hasError(
                             'required'
                           )) &&
-                        registerForm.controls.Password.touched
+                        registerForm.controls['Password'].touched
                       "
                       >error_outline</mat-icon
                     >
 
                     <mat-error
                       *ngIf="
-                        registerForm.controls.Password.hasError('required')
+                        registerForm.controls['Password'].hasError('required')
                       "
                     >
                       Password is <strong>required</strong>
                     </mat-error>
                     <mat-error
                       *ngIf="
-                        registerForm.controls.Password.hasError('minlength') &&
-                        !registerForm.controls.Password.hasError('required')
+                        registerForm.controls['Password'].hasError('minlength') &&
+                        !registerForm.controls['Password'].hasError('required')
                       "
                     >
                       Your password must be at least 6 characters long
@@ -227,10 +227,10 @@
                       matSuffix
                       *ngIf="
                         (passwordConfirmationValidator(registerForm) ||
-                          registerForm.controls.ConfirmPassword.hasError(
+                          registerForm.controls['ConfirmPassword'].hasError(
                             'minlength'
                           )) &&
-                        registerForm.controls.ConfirmPassword.touched
+                        registerForm.controls['ConfirmPassword'].touched
                       "
                       >error_outline</mat-icon
                     >
@@ -268,13 +268,13 @@
                   <mat-icon
                     matSuffix
                     *ngIf="
-                      registerForm.controls.Authority.hasError('required') &&
-                      registerForm.controls.Authority.touched
+                      registerForm.controls['Authority'].hasError('required') &&
+                      registerForm.controls['Authority'].touched
                     "
                     >error_outline</mat-icon
                   >
                   <mat-error
-                    *ngIf="registerForm.controls.Authority.hasError('required')"
+                    *ngIf="registerForm.controls['Authority'].hasError('required')"
                   >
                     Be sure to select a type of user
                   </mat-error>

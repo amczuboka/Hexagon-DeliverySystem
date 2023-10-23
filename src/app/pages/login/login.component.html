@@ -47,22 +47,22 @@
                       <mat-icon
                         matSuffix
                         *ngIf="
-                          (loginForm.controls.Email.hasError('email') ||
-                            loginForm.controls.Email.hasError('required')) &&
-                          loginForm.controls.Email.touched
+                          (loginForm.controls['Email'].hasError('email') ||
+                            loginForm.controls['Email'].hasError('required')) &&
+                          loginForm.controls['Email'].touched
                         "
                         >error_outline</mat-icon
                       >
                       <mat-error
                         *ngIf="
-                          loginForm.controls.Email.hasError('email') &&
-                          !loginForm.controls.Email.hasError('required')
+                          loginForm.controls['Email'].hasError('email') &&
+                          !loginForm.controls['Email'].hasError('required')
                         "
                       >
                         Please enter a valid email address
                       </mat-error>
                       <mat-error
-                        *ngIf="loginForm.controls.Email.hasError('required')"
+                        *ngIf="loginForm.controls['Email'].hasError('required')"
                       >
                         Email is <strong>required</strong>
                       </mat-error>
@@ -89,26 +89,26 @@
                     <mat-icon
                       matSuffix
                       *ngIf="
-                        (loginForm.controls.Password.hasError('minlength') ||
-                        loginForm.controls.Password.hasError(
+                        (loginForm.controls['Password'].hasError('minlength') ||
+                        loginForm.controls['Password'].hasError(
                             'required'
                           )) &&
-                          loginForm.controls.Password.touched
+                          loginForm.controls['Password'].touched
                       "
                       >error_outline</mat-icon
                     >
 
                     <mat-error
                       *ngIf="
-                      loginForm.controls.Password.hasError('required')
+                      loginForm.controls['Password'].hasError('required')
                       "
                     >
                       Password is <strong>required</strong>
                     </mat-error>
                     <mat-error
                       *ngIf="
-                      loginForm.controls.Password.hasError('minlength') &&
-                        !loginForm.controls.Password.hasError('required')
+                      loginForm.controls['Password'].hasError('minlength') &&
+                        !loginForm.controls['Password'].hasError('required')
                       "
                     >
                       Your password must be at least 6 characters long

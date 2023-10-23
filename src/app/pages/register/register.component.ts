@@ -34,6 +34,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+[x: string]: any;
   registerForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
   hide = true;
