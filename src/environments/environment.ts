@@ -3,16 +3,16 @@
 
 export const environment = {
     prduction:false,
-    firebase: {
-        apiKey: "AIzaSyBa5SiLS3bjj4_bgl6qFUQSb7Li_JXhMuU",
-        authDomain: "hexagon-fa0b4.firebaseapp.com",
-        projectId: "hexagon-fa0b4",
-        storageBucket: "hexagon-fa0b4.appspot.com",
-        messagingSenderId: "366162364932",
-        appId: "1:366162364932:web:8c79f1a04891ea2c41c351",
-        measurementId: "G-E7CGM3Q48G"
-      }
+  firebase: {
+    projectId: 'hexagon-fa0b4',
+    appId: '1:366162364932:web:8c79f1a04891ea2c41c351',
+    databaseURL: 'https://hexagon-fa0b4-default-rtdb.firebaseio.com',
+    storageBucket: 'hexagon-fa0b4.appspot.com',
+    apiKey: 'AIzaSyBa5SiLS3bjj4_bgl6qFUQSb7Li_JXhMuU',
+    authDomain: 'hexagon-fa0b4.firebaseapp.com',
+    messagingSenderId: '366162364932',
+    measurementId: 'G-E7CGM3Q48G',
+  }
 
 };
-
 

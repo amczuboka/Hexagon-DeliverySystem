@@ -40,7 +40,7 @@ import {provideAuth} from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import {provideDatabase,getDatabase} from '@angular/fire/database';
-import { environment } from './environments/environment';
+import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RegisterComponent } from './pages/register/register.component';
@@ -48,6 +48,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthguardGuard } from './services/auth.guard';
 import { StorageService } from './services/storage.service';
+import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,10 +67,6 @@ import { StorageService } from './services/storage.service';
     MatMenuModule,
     MatSelectModule,
     HttpClientModule,
-    AngularFireAuthModule,
-    AngularFireStorageModule,
-    AngularFirestoreModule,
-    AngularFireDatabaseModule,
     FontAwesomeModule,
     FormsModule,
     MatCardModule,
@@ -88,7 +85,12 @@ import { StorageService } from './services/storage.service';
     provideFirestore(()=>getFirestore()),
     provideStorage(()=>getStorage()),
     provideAuth(()=>getAuth()),
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFirestoreModule,
+    AngularFireDatabaseModule,
     MatProgressSpinnerModule,
+    provideMessaging(() => getMessaging()),
   ],
   providers: [CookieService, StorageService, AuthService, AuthguardGuard],
   bootstrap: [AppComponent]
