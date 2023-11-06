@@ -27,6 +27,10 @@ export class StorageService {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
 
+  /**
+   * Displays a notification using the MatSnackBar.
+   * @param text - The text to display in the notification.
+   */
   sendNotification(text: string) {
     this.snackBar.open(text, '', {
       duration: 3000,
@@ -35,17 +39,20 @@ export class StorageService {
     });
   }
 
-  async uploadToFirestore(
-    file: any,
-    path: string,
-    storage: Storage
-  ): Promise<string> {
+  /**
+   * Uploads a file to Firebase Storage and returns the download URL and a temporary name.
+   * @param file - The file to upload.
+   * @param path - The path in Firebase Storage where the file should be stored.
+   * @param storage - The Firebase Storage instance to use.
+   * @returns A Promise that resolves to a string containing the download URL and temporary name.
+   */
+  async uploadToFirestore(file: any, path: string, storage: Storage): Promise<string> {
     let url = '';
     let tempName = '';
     let storageRef = ref_storage(storage, path + file.name);
 
     try {
-      let url = await getDownloadURL(storageRef);
+      url = await getDownloadURL(storageRef);
     } catch (err) {
       url = '';
     }
@@ -55,7 +62,7 @@ export class StorageService {
       try {
         tempName = Math.random().toString(36).substring(2);
         storageRef = ref_storage(storage, path + tempName + file.name);
-        let url = await getDownloadURL(storageRef);
+        url = await getDownloadURL(storageRef);
       } catch (err) {
         break;
       }
@@ -70,8 +77,12 @@ export class StorageService {
     return downloadURL + ',' + tempName;
   }
 
-  // Creates a unique id to store the postings in the database
-  // Will mostly be used for job postings, as the users' id will be created by the authentication
+  /**
+   * Generates a unique ID for storing data in the Firebase Realtime Database.
+   * @param path - The path in the database where the ID will be used.
+   * @param database - The Firebase Database instance to use.
+   * @returns A unique ID as a string.
+   */
   async IDgenerator(path: string, database: Database) {
     let id = '';
     let isGood = false;
