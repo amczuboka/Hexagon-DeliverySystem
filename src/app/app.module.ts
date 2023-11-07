@@ -49,6 +49,7 @@ import { AuthService } from './services/auth.service';
 import { AuthguardGuard } from './services/auth.guard';
 import { StorageService } from './services/storage.service';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +59,7 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
     RegisterComponent,
     LoginComponent,
     NavComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,

@@ -34,7 +34,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-[x: string]: any;
+  [x: string]: any;
   registerForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
   hide = true;
@@ -57,7 +57,20 @@ export class RegisterComponent implements OnInit {
       Password: ['', [Validators.required, Validators.minLength(6)]],
       ConfirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       Authority: ['', [Validators.required]],
+      CompanyName: ['', [this.companyNameValidator()]],
     });
+  }
+
+  companyNameValidator() {
+    return (control: FormControl) => {
+      if (this.registerForm != undefined) {
+        const authority = this.registerForm.value.Authority;
+        if (authority === 'Company' && !control.value) {
+          return { required: true };
+        }
+      }
+      return null;
+    };
   }
 
   passwordConfirmationValidator(form: FormGroup) {
@@ -96,10 +109,12 @@ export class RegisterComponent implements OnInit {
     this.Uploading = true;
     let authority = this.registerForm.value.Authority;
     let path = '';
-    if (authority == 'Student') {
-      path = 'students/';
-    } else if (authority == 'Employer') {
-      path = 'employers/';
+    if (authority == 'Individual') {
+      path = 'individual/';
+    } else if (authority == 'Company') {
+      path = 'company/';
+    } else if (authority == 'Staff') {
+      path = 'staff/';
     }
     let rid: string = '';
 
@@ -113,42 +128,44 @@ export class RegisterComponent implements OnInit {
       return;
     }
     await this.registerUser(this.registerForm.value, rid, path);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
+    //await new Promise((resolve) => setTimeout(resolve, 3000));
     // this.router.navigate(['/profile', rid, authority]);
-    this.router.navigate(['']);
+    //this.router.navigate(['']);
     this.Uploading = false;
   }
 
   async registerUser(value: any, id: string, path: string) {
-    if (path == 'students/') {
+    if (path == 'individual/') {
       set(ref(this.database, path + id), {
+        ID: id,
         FirstName: value.FirstName,
         LastName: value.LastName,
-        PhoneNumber: '',
         Email: value.Email,
-        Language: '',
-        Program: '',
-        Description: '',
-        CV: '',
-        CVName: '',
-        JobsApplied: '', // list vof ids
-        SelectedInterviews: '',
-        ID: id,
-        Favorites: '',
+        Authority: value.Authority,
+        DeliveryIDs: '',
       });
-    } else if (path == 'employers/') {
+    } else if (path == 'company/') {
       set(ref(this.database, path + id), {
         ID: id,
-        Company: '',
+        CompanyName: value.CompanyName,
         FirstName: value.FirstName,
         LastName: value.LastName,
         Email: value.Email,
-        Language: '',
+        Authority: value.Authority,
+        DeliveryIDs: '',
+      });
+    } else if (path == 'staff/') {
+      set(ref(this.database, path + id), {
+        ID: id,
+        FirstName: value.FirstName,
+        LastName: value.LastName,
+        Email: value.Email,
+        Authority: value.Authority,
       });
     }
 
     this.storageService.sendNotification(
-      'user created! Make sure to add information to your profile'
+      'User created! Make sure to confirm your email'
     );
   }
 }

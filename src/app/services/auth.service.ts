@@ -6,6 +6,7 @@ import {
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,7 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
+    private storageService: StorageService,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
     /* Saving user data in localstorage when 
@@ -34,52 +36,62 @@ export class AuthService {
   }
 
   // Sign in with email/password
-  async SignIn(email: string, password: string) {
+  SignIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
-        this.afAuth.authState.subscribe((user) => {
-          if (user) {
-            this.router.navigate(['']);
-          }
-        });
+        if (result.user?.emailVerified) {
+          this.SetUserData(result.user);
+          this.router.navigate(['']);
+        } else {
+          this.storageService.sendNotification(
+            'Please verify your email before login'
+          );
+        }
       })
       .catch((error) => {
-        window.alert(error.message);
-        return true;
+        console.error(error);
+        // Handle error here, e.g. show error message to user
       });
   }
 
-  getUser(){
+  getUser() {
     return JSON.parse(localStorage.getItem('user')!);
   }
 
   // Sign up with email/password
-  async SignUp(
-    email: string,
-    password: string,
-    authority: string,
-  ) {
+  async SignUp(email: string, password: string, authority: string) {
     try {
       const result = await this.afAuth.createUserWithEmailAndPassword(
         email,
         password
       );
 
+      /* Call the SendVerificaitonMail() function when new user sign 
+        up and returns promise */
+      this.SendVerificationMail();
       this.SetUserData(result.user, authority);
 
       const user = result.user;
       // once we get user object then update user display name using following method
-      await user!.updateProfile({photoURL: authority});
+      await user!.updateProfile({ photoURL: authority });
       return user!.uid;
     } catch (error: Error | any) {
-      if(error.code == "auth/email-already-in-use"){
-        window.alert("Error: Email already in use");
+      if (error.code == 'auth/email-already-in-use') {
+        window.alert('Error: Email already in use');
         return '';
       }
     }
     return '';
+  }
+
+  // Send email verfificaiton when new user sign up
+  SendVerificationMail() {
+    return this.afAuth.currentUser
+      .then((u: any) => u.sendEmailVerification())
+      .then(() => {
+        this.router.navigate(['verify-email']);
+      });
   }
 
   // Returns true when user is looged in and email is verified
@@ -99,18 +111,19 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       photoURL: authority ? authority : user.photoURL,
+      emailVerified: user.emailVerified,
     };
+    localStorage.setItem('user', JSON.stringify(userData));
     return userRef.set(userData, {
       merge: true,
     });
   }
 
-    // Sign out
-    async SignOut() {
-      return this.afAuth.signOut().then(() => {
-        localStorage.removeItem('user');
-        this.router.navigate(['login']);
-        location.reload();
-      });
-    }
+  // Sign out
+  async SignOut() {
+    return this.afAuth.signOut().then(() => {
+      localStorage.removeItem('user');
+      this.router.navigate(['login']);
+    });
+  }
 }

@@ -21,9 +21,15 @@ export class AuthguardGuard {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.authService.isLoggedIn !== true) {
+    const user = JSON.parse(localStorage.getItem('user')!);
+    if (user && user.emailVerified) {
+      return true;
+    } else if (user) {
+      this.router.navigate(['verify-email']);
+      return false;
+    } else {
       this.router.navigate(['login']);
+      return false;
     }
-    return true;
   }
 }
