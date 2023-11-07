@@ -128,9 +128,6 @@ export class RegisterComponent implements OnInit {
       return;
     }
     await this.registerUser(this.registerForm.value, rid, path);
-    //await new Promise((resolve) => setTimeout(resolve, 3000));
-    // this.router.navigate(['/profile', rid, authority]);
-    //this.router.navigate(['']);
     this.Uploading = false;
   }
 
