@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "Hexagon-DeliverySystem",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

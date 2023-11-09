@@ -5,7 +5,8 @@
     "outDir": "./out-tsc/app",
     "types": [
       "@angular/localize"
-    ]
+    ],
+    "skipLibCheck": true,
   },
   "files": [
     "src/main.ts"

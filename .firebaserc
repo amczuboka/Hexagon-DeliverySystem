@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "hexagon-fa0b4": {
+      "hosting": {
+        "Hexagon-DeliverySystem": [
+          "hexagon-fa0b4"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "hexagon-fa0b4"
+  }
+}
