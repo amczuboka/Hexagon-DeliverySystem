@@ -2,7 +2,6 @@ import { AfterViewChecked, Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -13,16 +12,15 @@ export class NavComponent implements AfterViewChecked {
   myUser!: any;
   constructor(
     public authService: AuthService,
-    private router: Router,
     private Acrouter: ActivatedRoute
   ) {}
 
   ngAfterViewChecked() {
     this.myUser = this.authService.getUser();
     const type = this.Acrouter.snapshot.params['type'];
-     if (type!= undefined) {
-       this.authority = type;
-     }
+    if (type != undefined) {
+      this.authority = type;
+    }
     if (this.myUser) {
       this.authority = this.myUser.photoURL;
     }
