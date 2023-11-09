@@ -8,14 +8,14 @@
 
 /* Style for the call to action section */
 .action-container {
-    height: 125px;
+    min-height: 125px;
     text-align: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding-left: 20px;
+    padding: 20px;
     padding-right: 20px;
 }
 
@@ -24,7 +24,7 @@
     color: #000000;
     font-size: 36px;
     font-weight: bold;
-    margin: 0;
+    margin-top: 10px;
 }
 
 /* Style for the slogan */
@@ -92,5 +92,73 @@
     }
     .title {
         font-size: 20px; 
+    }
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    .slogan {
+        font-size: 16px; 
+    }
+    .title {
+        font-size: 20px; 
+    }
+}
+
+/* Media query for responsiveness */
+@media (max-width: 810px) {
+    .image-container{
+        height: 300px; 
+    }
+    .button-container {
+        top: 525px;
+        width: 30%;
+    }
+    .action-button img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 5px;
+    }
+    .button-text {
+        font-size: 10px;
+    }
+}
+
+/* Media query for responsiveness */
+@media (max-height: 670px) {
+    .image-container {
+        height: 150px; 
+    }
+    .button-container {
+        top: 425px;
+        width: 20%;
+    }
+    .action-button img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 5px;
+    }
+    .button-text {
+        font-size: 10px;
+    }
+}
+
+
+/* Media query for responsiveness */
+@media (max-height: 600px) {
+    .image-container {
+        height: 150px; 
+    }
+    .button-container {
+        top: 325px;
+        width: 20%;
+    }
+    .action-button img {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 5px;
+    }
+    .button-text {
+        font-size: 10px;
     }
 }
