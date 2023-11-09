@@ -27,13 +27,14 @@ export class NavComponent implements AfterViewChecked {
   }
 
   myFunction() {
-    let x = document.getElementById('myDIV');
-
-    if (x != null)
-      if (x.style.display === 'none') {
-        x.style.display = 'block';
-      } else {
-        x.style.display = 'none';
-      }
-  }
+    let x = document.getElementById("myDIV");
+    
+    if (x != null) {
+        if (x.classList.contains("show")) {
+            x.classList.remove("show");
+        } else {
+            x.classList.add("show");
+        }
+    }
+}
 }
