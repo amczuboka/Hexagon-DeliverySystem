@@ -5,12 +5,14 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AuthguardGuard } from './services/auth.guard';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { RequestDeliveryQuotationComponent } from './pages/request-delivery-quotation/request-delivery-quotation.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthguardGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'request-delivery-quotation', component: RequestDeliveryQuotationComponent}
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

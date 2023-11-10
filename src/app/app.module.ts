@@ -40,16 +40,17 @@ import {provideAuth} from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import {provideDatabase,getDatabase} from '@angular/fire/database';
-import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
-import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthguardGuard } from './services/auth.guard';
 import { StorageService } from './services/storage.service';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { RequestDeliveryQuotationComponent } from './pages/request-delivery-quotation/request-delivery-quotation.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { environment } from 'src/environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +61,7 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     LoginComponent,
     NavComponent,
     VerifyEmailComponent,
+    RequestDeliveryQuotationComponent,
   ],
   imports: [
     BrowserModule,
