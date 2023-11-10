@@ -17,6 +17,7 @@ export interface Review {
   deliveryID: string;
 }
 export interface ItemInterface {
+  Name: string;
   Quantity: number;
   Height: number;
   Length: number;
@@ -24,7 +25,7 @@ export interface ItemInterface {
   Weight: number;
   calculateItemPrice(): number;
 }
-enum DeliveryStatus {
+export enum DeliveryStatus {
   Quotation = 'Quotation',
   Pending = 'Pending',
   EnRoute = 'En Route',
@@ -48,35 +49,41 @@ export class Delivery implements DeliveryInterface {
   items: Item[] = [];
   Total: number = this.calculateTotal();
 
+  constructor(init?: Partial<Delivery>) {
+    Object.assign(this, init);
+  }
+
   calculateTotal(): number {
     return 0;
   }
 }
 
 export class Item implements ItemInterface {
-    Quantity: number = 0;
-    Height: number = 0;
-    Length: number = 0;
-    Width: number = 0;
-    Weight: number = 0;
-    itemPrice = this.calculateItemPrice();
+  Name: string = '';
+  Quantity: number = 0;
+  Height: number = 0;
+  Length: number = 0;
+  Width: number = 0;
+  Weight: number = 0;
+  itemPrice = this.calculateItemPrice();
 
-    constructor(
-        quantity: number,
-        height: number,
-        length: number,
-        width: number,
-        weight: number
-    ) {
-        this.Quantity = quantity;
-        this.Height = height;
-        this.Length = length;
-        this.Width = width;
-        this.Weight = weight;
-    }
+  constructor(
+    name: string,
+    quantity: number,
+    height: number,
+    length: number,
+    width: number,
+    weight: number
+  ) {
+    this.Name = name;
+    this.Quantity = quantity;
+    this.Height = height;
+    this.Length = length;
+    this.Width = width;
+    this.Weight = weight;
+  }
 
-    calculateItemPrice(): number {
-        return 0;
-    }
+  calculateItemPrice(): number {
+    return 0;
+  }
 }
-
