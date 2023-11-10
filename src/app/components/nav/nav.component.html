@@ -12,7 +12,8 @@
         <div id="myDIV" class="collapse navbar-collapse" >
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" aria-current="page" href="">Home</a></li>
-
+                <li *ngIf="authService.isLoggedIn" class="nav-item"><a class="nav-link" aria-current="page" href="request-delivery-quotation">Get Delivery</a></li>
+                <li *ngIf="authService.isLoggedIn" class="nav-item"><a class="nav-link" aria-current="page" href="request-delivery-quotation">Get Quotation</a></li>
                 <li *ngIf="authService.isLoggedIn" class="nav-item"><a class="nav-link" (click)="authService.SignOut()">Log Out</a></li>
             </ul>
           </div>
