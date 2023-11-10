@@ -57,20 +57,19 @@ export class RegisterComponent implements OnInit {
       Password: ['', [Validators.required, Validators.minLength(6)]],
       ConfirmPassword: ['', [Validators.required, Validators.minLength(6)]],
       Authority: ['', [Validators.required]],
-      CompanyName: ['', [this.companyNameValidator()]],
+      CompanyName: [''],
     });
-  }
 
-  companyNameValidator() {
-    return (control: FormControl) => {
-      if (this.registerForm != undefined) {
-        const authority = this.registerForm.value.Authority;
-        if (authority === 'Company' && !control.value) {
-          return { required: true };
-        }
+    // Subscribe to Authority field changes
+    this.registerForm.get('Authority')!.valueChanges.subscribe((value) => {
+      // Trigger validation for CompanyName
+      this.registerForm.get('CompanyName')!.updateValueAndValidity();
+
+      // If the selected authority is not 'Company', clear the validation error for CompanyName
+      if (value !== 'Company') {
+        this.registerForm.get('CompanyName')!.setErrors(null);
       }
-      return null;
-    };
+    });
   }
 
   passwordConfirmationValidator(form: FormGroup) {
