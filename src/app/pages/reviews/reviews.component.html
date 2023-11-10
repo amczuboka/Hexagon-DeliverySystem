@@ -4,10 +4,8 @@
     </div>
     
     <div class="reviews-container">
-        <app-review></app-review>
-        <app-review></app-review>
-        <app-review></app-review>
-        <app-review></app-review>
-        <app-review></app-review>
+        <div *ngFor="let card of cards;">
+            <app-review [review]="card"></app-review>
+        </div>
     </div>
 </div>

@@ -2,29 +2,28 @@
     <div class="box-top">
         <div class="user-tile">
             <div class="title">
-                <strong>[Title]</strong>
+                <strong>{{review.title}}</strong>
             </div>
             <div class="user">
                 <p>[User's Name]</p>
             </div>
         </div>
         <div class="stars">
-            <fa-icon [icon]="reviewStarSolid"></fa-icon>
-            <fa-icon [icon]="reviewStarSolid"></fa-icon>
-            <fa-icon [icon]="reviewStarSolid"></fa-icon>
-            <fa-icon [icon]="reviewStarEmpty"></fa-icon>
-            <fa-icon [icon]="reviewStarEmpty"></fa-icon>
+            <ng-container *ngFor="let star of getStarArr()">
+                <fa-icon *ngIf="star" [icon]="reviewStarSolid"></fa-icon>
+                <fa-icon *ngIf="!star" [icon]="reviewStarEmpty"></fa-icon>
+            </ng-container >
         </div>
     </div>
     <div class="details">
         <p>
-            Item: [The item] <br>
-            Ordered on: [from date]<br>
-            Delivered on: [to date]
+            Item(s): [The item(s)] <br>
+            Departed from: [from location]<br>
+            Arrived on: [to location]
         </p>
     </div>
     <div class="comment">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>{{review.description}}</p>
     </div>
-    <p class="date">Posted on: 2023-11-09</p>
+    <p class="date">Posted on: {{review.date.toLocaleDateString()}}</p>
 </div>
