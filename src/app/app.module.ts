@@ -50,6 +50,8 @@ import { AuthguardGuard } from './services/auth.guard';
 import { StorageService } from './services/storage.service';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
+import { ReviewComponent } from './components/review/review.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,6 +62,8 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     LoginComponent,
     NavComponent,
     VerifyEmailComponent,
+    ReviewsComponent,
+    ReviewComponent,
   ],
   imports: [
     BrowserModule,
