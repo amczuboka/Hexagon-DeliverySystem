@@ -1,0 +1,32 @@
+<div class="row ml-2 status-bar-container">
+  <div>
+    <div class="center_title">
+      Delivery Status <br />
+      <hr />
+    </div>
+    <div class="status">
+      <ng-container [ngSwitch]="delivery.Status">
+        <div class="status-bar-item" *ngSwitchCase="'Quotation'">
+          <mat-icon class="blue-icon">inbox</mat-icon>
+          <span class="status-text">Quotation</span>
+        </div>
+        <div class="status-bar-item" *ngSwitchCase="'Pending'">
+          <mat-icon class="orange-icon">hourglass_empty</mat-icon>
+          <span class="status-text">Pending</span>
+        </div>
+        <div class="status-bar-item" *ngSwitchCase="'En Route'">
+          <mat-icon class="yellow-icon">local_shipping</mat-icon>
+          <span class="status-text">EnRoute</span>
+        </div>
+        <div class="status-bar-item" *ngSwitchCase="'Delivered'">
+          <mat-icon class="green-icon">check_circle</mat-icon>
+          <span class="status-text">Delivered</span>
+        </div>
+      </ng-container>
+    </div>
+    <mat-progress-bar
+      mode="determinate"
+      [value]="getProgressBarValue()"
+    ></mat-progress-bar>
+  </div>
+</div>

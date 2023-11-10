@@ -101,20 +101,4 @@ export class DeliverySummaryComponent {
     //   console.log('Applied : ' + this.Applied);
     // }
   }
-
-  getProgressBarValue() {
-    return 66;
-    switch (this.delivery.Status) {
-      case DeliveryStatus.Quotation:
-        return 0;
-      case DeliveryStatus.Pending:
-        return 33;
-      case DeliveryStatus.EnRoute:
-        return 66;
-      case DeliveryStatus.Delivered:
-        return 100;
-      default:
-        return 0;
-    }
-  }
 }

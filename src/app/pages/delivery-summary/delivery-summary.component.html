@@ -11,7 +11,7 @@
             <hr />
           </div>
           <br />
-          <div class="center underline"><b>Delivery Items</b></div>
+          <div class="center_title">Delivery Items</div>
           <div class="item-list">
             <div *ngFor="let item of delivery.items">
               <div class="row">
@@ -28,9 +28,9 @@
           </div>
           <!-- Check if there is a deliveryID, if there is, that means the Review object isn't empty -->
           <ng-container *ngIf="delivery.Review.deliveryID">
-            <div class="center underline">
+            <div class="center_title">
               <br />
-              <b>Review</b>
+              Review
             </div>
             <!-- This will actually be the Review component. To be changed later -->
             <div>
@@ -61,38 +61,7 @@
             <b>Total: </b>${{ delivery.Total }} <br />
           </div>
         </div>
-        <div class="row ml-2 status-bar-container">
-          <div>
-            <div class="center_title">
-              Delivery Status <br />
-              <hr />
-            </div>
-            <div class="status">
-              <ng-container [ngSwitch]="delivery.Status">
-                <div class="status-bar-item" *ngSwitchCase="'Quotation'">
-                  <mat-icon class="blue-icon">inbox</mat-icon>
-                  <span class="status-text">Quotation</span>
-                </div>
-                <div class="status-bar-item" *ngSwitchCase="'Pending'">
-                  <mat-icon class="orange-icon">hourglass_empty</mat-icon>
-                  <span class="status-text">Pending</span>
-                </div>
-                <div class="status-bar-item" *ngSwitchCase="'En Route'">
-                  <mat-icon class="yellow-icon">local_shipping</mat-icon>
-                  <span class="status-text">EnRoute</span>
-                </div>
-                <div class="status-bar-item" *ngSwitchCase="'Delivered'">
-                  <mat-icon class="green-icon">check_circle</mat-icon>
-                  <span class="status-text">Delivered</span>
-                </div>
-              </ng-container>
-            </div>
-            <mat-progress-bar
-              mode="determinate"
-              [value]="getProgressBarValue()"
-            ></mat-progress-bar>
-          </div>
-        </div>
+        <app-tracking [delivery]="delivery"></app-tracking>
       </div>
     </div>
   </div>

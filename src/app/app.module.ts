@@ -52,6 +52,7 @@ import { StorageService } from './services/storage.service';
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summary.component';
+import { TrackingComponent } from './components/tracking/tracking.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,7 @@ import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summ
     NavComponent,
     VerifyEmailComponent,
     DeliverySummaryComponent,
+    TrackingComponent,
   ],
   imports: [
     BrowserModule,

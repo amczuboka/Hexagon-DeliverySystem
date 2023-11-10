@@ -64,61 +64,6 @@ color: #007BFF;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
 }
 
-.status-bar-container {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
-}
-
-.status {
-    padding-bottom: 20px;
-}
-
-.status-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.status-bar-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.blue-icon {
-    color: #007BFF;
-  }
-  
-.orange-icon {
-    color: #fd7e14;
-}
-  
-.yellow-icon {
-    color: #ffc107;
-}
-  
-.green-icon {
-    color: #28a745;
-}
-  
-.status-text {
-    margin-left: 10px;
-}
-
-.loading-indicator {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-::ng-deep .my-progress-bar .mat-progress-bar-fill {
-background-color: blue;
-}
-
 
 @media screen and (max-width: 356px) {
     .delivery {
