@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
-  { path: 'reviews', component: ReviewsComponent},
+  { path: 'reviews', component: ReviewsComponent, canActivate: [AuthguardGuard] },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
