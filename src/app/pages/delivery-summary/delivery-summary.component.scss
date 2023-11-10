@@ -1,0 +1,133 @@
+.col-md-8 
+{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    // make the section take up the full width of the screen
+    width: 100%;
+    // make the section take up the full height of the screen minus the size of the navbar and the footer
+    height: calc(100vh - 50px - 50px);
+}
+.center
+{
+    text-align: center;
+}
+
+.center_title
+{
+    text-align: center;
+    font-size: 20px;
+    color: #007BFF;
+}
+*{
+    word-wrap: normal;     
+}
+
+.item-list {
+    margin-top: 20px; // adjust this value as needed
+    padding: 10px 10px 10px 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.delivery-id {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.delivery {
+font-size: 24px;
+color: #007BFF;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.delivery-details {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.delivery-info-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.status-bar-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.status {
+    padding-bottom: 20px;
+}
+
+.status-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.status-bar-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blue-icon {
+    color: #007BFF;
+  }
+  
+.orange-icon {
+    color: #fd7e14;
+}
+  
+.yellow-icon {
+    color: #ffc107;
+}
+  
+.green-icon {
+    color: #28a745;
+}
+  
+.status-text {
+    margin-left: 10px;
+}
+
+.loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+::ng-deep .my-progress-bar .mat-progress-bar-fill {
+background-color: blue;
+}
+
+
+@media screen and (max-width: 356px) {
+    .delivery {
+      padding-left: 0px;
+    }
+  }
+  
+@media screen and (min-width: 357px) {
+    .delivery {
+        padding-left: 5px;
+    }
+  }

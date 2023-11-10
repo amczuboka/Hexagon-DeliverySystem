@@ -1,0 +1,99 @@
+<section class="vh-200">
+  <div class="container py-2 h-100 px-xs-0">
+    <div class="row m-2 section">
+      <div class="col-md-8 delivery-details">
+        <div class="content-padding">
+          <div class="center_title">
+            <p class="delivery">Delivery Summary</p>
+            <p class="delivery-id">
+              Delivery ID: <b>{{ delivery.Id }}</b>
+            </p>
+            <hr />
+          </div>
+          <br />
+          <div class="center underline"><b>Delivery Items</b></div>
+          <div class="item-list">
+            <div *ngFor="let item of delivery.items">
+              <div class="row">
+                <div class="col-md-6">
+                  <p><b>Item Name:</b> {{ item.Name }}</p>
+                  <p><b>Quantity:</b> {{ item.Quantity }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><b>Price:</b> ${{ item.itemPrice }}</p>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+          <!-- Check if there is a deliveryID, if there is, that means the Review object isn't empty -->
+          <ng-container *ngIf="delivery.Review.deliveryID">
+            <div class="center underline">
+              <br />
+              <b>Review</b>
+            </div>
+            <!-- This will actually be the Review component. To be changed later -->
+            <div>
+              {{ delivery.Review }}
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row mb-2 delivery-info-container">
+          <div>
+            <div class="center_title">
+              Delivery Information<br />
+              <hr />
+            </div>
+            <b>Depart Location: </b> {{ delivery.DepartLocation }}<br />
+            <b>Arrival Location: </b> {{ delivery.ArriveLocation }}
+            <br />
+            <b>Distance: </b>{{ delivery.Distance }} km <br />
+            <b>Estimated Time of Delivery: </b
+            >{{ delivery.EstimatedTime.getFullYear() }}-{{
+              delivery.EstimatedTime.getMonth()
+            }}-{{ delivery.EstimatedTime.getDate() }}
+            <br />
+            <ng-container *ngIf="myUser.Authority === 'Company'"
+              ><b>Recurring: </b>{{ delivery.Recurring }} <br
+            /></ng-container>
+            <b>Total: </b>${{ delivery.Total }} <br />
+          </div>
+        </div>
+        <div class="row ml-2 status-bar-container">
+          <div>
+            <div class="center_title">
+              Delivery Status <br />
+              <hr />
+            </div>
+            <div class="status">
+              <ng-container [ngSwitch]="delivery.Status">
+                <div class="status-bar-item" *ngSwitchCase="'Quotation'">
+                  <mat-icon class="blue-icon">inbox</mat-icon>
+                  <span class="status-text">Quotation</span>
+                </div>
+                <div class="status-bar-item" *ngSwitchCase="'Pending'">
+                  <mat-icon class="orange-icon">hourglass_empty</mat-icon>
+                  <span class="status-text">Pending</span>
+                </div>
+                <div class="status-bar-item" *ngSwitchCase="'En Route'">
+                  <mat-icon class="yellow-icon">local_shipping</mat-icon>
+                  <span class="status-text">EnRoute</span>
+                </div>
+                <div class="status-bar-item" *ngSwitchCase="'Delivered'">
+                  <mat-icon class="green-icon">check_circle</mat-icon>
+                  <span class="status-text">Delivered</span>
+                </div>
+              </ng-container>
+            </div>
+            <mat-progress-bar
+              mode="determinate"
+              [value]="getProgressBarValue()"
+            ></mat-progress-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
