@@ -5,6 +5,7 @@ export interface DeliveryInterface {
   DepartLocation: string;
   ArriveLocation: string;
   Status: DeliveryStatus;
+  orderDate: Date;
   EstimatedTime: Date;
   Id: string;
   Recurring: boolean;
@@ -43,6 +44,7 @@ export class Delivery implements DeliveryInterface {
   DepartLocation: string = '';
   ArriveLocation: string = '';
   Status: DeliveryStatus = DeliveryStatus.Quotation;
+  orderDate: Date = new Date();
   EstimatedTime: Date = new Date();
   Id: string = '';
   Recurring: boolean = false;
