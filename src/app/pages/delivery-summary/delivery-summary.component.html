@@ -28,11 +28,41 @@
               <hr />
             </div>
           </div>
+          <ng-container *ngIf="!delivery.Review.title">
+            <div>
+              <button
+                mat-raised-button
+                class="my-button"
+                style="background-color:#007BFF; color:white;"
+                (click)="addReview()"
+              >
+                <mat-icon>add</mat-icon>Add Review
+              </button>
+            </div>
+          </ng-container>
           <!-- Check if there is a title, if there is, that means the Review object isn't empty -->
           <ng-container *ngIf="delivery.Review.title">
             <div class="center_title">
               <br />
               Review
+            </div>
+            <div class="buttons">
+              <button
+                mat-fab
+                class="my-button"
+                color="accent"
+                (click)="editReview()"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-fab
+                class="my-button"
+                color="warn"
+                (click)="deleteReview()"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
             </div>
             <div class="review">
               <app-review [review]="delivery.Review"></app-review>

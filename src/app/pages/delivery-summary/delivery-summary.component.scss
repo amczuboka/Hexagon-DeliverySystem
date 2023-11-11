@@ -74,6 +74,15 @@ color: #007BFF;
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
 }
 
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.my-button {
+    margin: 10px;
+}
+
 
 @media screen and (max-width: 356px) {
     .delivery {

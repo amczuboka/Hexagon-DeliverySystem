@@ -108,4 +108,18 @@ export class DeliverySummaryComponent {
     //   console.log('Applied : ' + this.Applied);
     // }
   }
+
+  editReview() {
+    console.log('edit');
+  }
+
+  deleteReview() {
+    // Add a confirm dialog
+    console.log('delete');
+  }
+
+  addReview() {
+    // Create a dialog to add a review
+    console.log('add');
+  }
 }
