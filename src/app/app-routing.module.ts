@@ -6,7 +6,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AuthguardGuard } from './services/auth.guard';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
-import { MyDeliveriesComponent } from './my-deliveries/my-deliveries.component'; 
+import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component'; 
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthguardGuard] },

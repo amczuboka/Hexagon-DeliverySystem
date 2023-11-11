@@ -23,7 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LandingComponent } from './pages/landing/landing.component';
-import { MyDeliveriesComponent } from './my-deliveries/my-deliveries.component';
+import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component';
 import { NavComponent } from './components/nav/nav.component';
 
 import { HttpClientModule } from '@angular/common/http';
