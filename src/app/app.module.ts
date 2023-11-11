@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +21,7 @@ import { MyDeliveriesComponent } from './my-deliveries/my-deliveries.component';
   ],
   imports: [
     BrowserModule,
+    MatIconModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule
