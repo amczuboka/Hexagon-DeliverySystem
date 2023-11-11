@@ -51,6 +51,8 @@ import { RequestDeliveryQuotationComponent } from './pages/request-delivery-quot
 import { RegisterComponent } from './pages/register/register.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { environment } from 'src/environments/environment';
+import { DeliveryItemComponent } from './components/delivery-item/delivery-item.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,6 +64,8 @@ import { environment } from 'src/environments/environment';
     NavComponent,
     VerifyEmailComponent,
     RequestDeliveryQuotationComponent,
+    DeliveryItemComponent,
+    
   ],
   imports: [
     BrowserModule,
