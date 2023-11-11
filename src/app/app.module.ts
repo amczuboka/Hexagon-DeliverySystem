@@ -15,6 +15,12 @@ import {MatCardModule} from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DatePipe } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSortModule } from '@angular/material/sort';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,7 +45,6 @@ import {provideAuth} from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import {provideDatabase,getDatabase} from '@angular/fire/database';
-import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
 import { RegisterComponent } from './pages/register/register.component';
@@ -49,6 +54,10 @@ import { AuthguardGuard } from './services/auth.guard';
 import { StorageService } from './services/storage.service';
 import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { RoomlistComponent } from './components/roomlist/roomlist.component';
+import { AddroomComponent } from './components/addroom/addroom.component';
+import { ChatroomComponent } from './components/chatroom/chatroom.component';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +67,9 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     LoginComponent,
     NavComponent,
     VerifyEmailComponent,
+    RoomlistComponent,
+    AddroomComponent,
+    ChatroomComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,22 +92,31 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
     MatDatepickerModule,
     MatNativeDateModule,
     AngularFireModule.initializeApp(environment.firebase),
-    provideFirebaseApp(()=> initializeApp(environment.firebase)),
-    provideDatabase(()=>getDatabase()),
-    provideFirestore(()=>getFirestore()),
-    provideStorage(()=>getStorage()),
-    provideAuth(()=>getAuth()),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    provideAuth(() => getAuth()),
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     MatProgressSpinnerModule,
     provideMessaging(() => getMessaging()),
+    MatTableModule,
+    MatSidenavModule,
+    MatSortModule,
   ],
-  providers: [CookieService, StorageService, AuthService, AuthguardGuard],
-  bootstrap: [AppComponent]
+  providers: [
+    CookieService,
+    StorageService,
+    AuthService,
+    AuthguardGuard,
+    DatePipe,
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { 
+export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIconPacks(fas);
     library.addIcons(faCoffee);
