@@ -1,7 +1,9 @@
-<section class="vh-200">
-  <div class="container py-2 h-100 px-xs-0">
-    <div class="row m-2 section">
-      <div class="col-md-8 delivery-details">
+<section class="py-2">
+  <div
+    class="container py-2 h-100 px-xs-0 d-flex justify-content-center align-items-center"
+  >
+    <div class="row h-100 m-2 section">
+      <div class="col-md-8 height-fit-content delivery-details">
         <div class="content-padding">
           <div class="center_title">
             <p class="delivery">Delivery Summary</p>
@@ -26,16 +28,14 @@
               <hr />
             </div>
           </div>
-          <!-- Check if there is a deliveryID, if there is, that means the Review object isn't empty -->
-          <ng-container *ngIf="delivery.Review">
+          <!-- Check if there is a title, if there is, that means the Review object isn't empty -->
+          <ng-container *ngIf="delivery.Review.title">
             <div class="center_title">
               <br />
               Review
             </div>
-            <div>
-              <!-- TODO: This will actually be the Review component. To be changed later -->
-              <!-- <app-review [review]="delivery.Review"></app-review> -->
-              {{ delivery.Review }}
+            <div class="review">
+              <app-review [review]="delivery.Review"></app-review>
             </div>
           </ng-container>
         </div>
@@ -62,7 +62,9 @@
             <b>Total: </b>${{ delivery.Total }} <br />
           </div>
         </div>
-        <app-tracking [delivery]="delivery"></app-tracking>
+        <div class="pb-2">
+          <app-tracking [delivery]="delivery"></app-tracking>
+        </div>
       </div>
       <!-- TODO: Add buttons to add review, edit review, and delete review -->
     </div>

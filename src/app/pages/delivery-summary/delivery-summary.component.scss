@@ -3,16 +3,25 @@
     margin-right: 10px;
     margin-bottom: 10px;
 }
+section{
+    // make the section take up the whole viewport height if the content is less than the viewport height
+    height: 85vh;
+}
+
 .section{
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    // make the section take up the full width of the screen
     width: 100%;
-    // make the section take up the full height of the screen minus the size of the navbar and the footer
-    height: calc(100vh - 50px - 50px);
 }
+
+.review{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .center
 {
     text-align: center;
@@ -24,6 +33,7 @@
     font-size: 20px;
     color: #007BFF;
 }
+
 *{
     word-wrap: normal;     
 }
