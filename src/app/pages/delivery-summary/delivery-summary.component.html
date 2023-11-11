@@ -27,13 +27,14 @@
             </div>
           </div>
           <!-- Check if there is a deliveryID, if there is, that means the Review object isn't empty -->
-          <ng-container *ngIf="delivery.Review.deliveryID">
+          <ng-container *ngIf="delivery.Review">
             <div class="center_title">
               <br />
               Review
             </div>
-            <!-- This will actually be the Review component. To be changed later -->
             <div>
+              <!-- TODO: This will actually be the Review component. To be changed later -->
+              <!-- <app-review [review]="delivery.Review"></app-review> -->
               {{ delivery.Review }}
             </div>
           </ng-container>
@@ -63,6 +64,7 @@
         </div>
         <app-tracking [delivery]="delivery"></app-tracking>
       </div>
+      <!-- TODO: Add buttons to add review, edit review, and delete review -->
     </div>
   </div>
 </section>

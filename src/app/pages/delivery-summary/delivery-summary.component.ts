@@ -58,6 +58,7 @@ export class DeliverySummaryComponent {
     items.push(item2);
     this.delivery.items = items;
     this.delivery.EstimatedTime = new Date();
+    this.delivery.Review = {  stars: 0, description: '', deliveryID: '' };
 
     // if (this.myUser && this.delivery) {
     //   if (this.myUser.photoURL == 'Student') {
