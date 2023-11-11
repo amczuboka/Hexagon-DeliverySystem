@@ -53,6 +53,8 @@ import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summary.component';
 import { TrackingComponent } from './components/tracking/tracking.component';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
+import { ReviewComponent } from './components/review/review.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +67,8 @@ import { TrackingComponent } from './components/tracking/tracking.component';
     VerifyEmailComponent,
     DeliverySummaryComponent,
     TrackingComponent,
+    ReviewsComponent,
+    ReviewComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ export interface DeliveryInterface {
   DepartLocation: string;
   ArriveLocation: string;
   Status: DeliveryStatus;
+  orderDate: Date;
   EstimatedTime: Date;
   Id: string;
   Recurring: boolean;
@@ -13,8 +14,9 @@ export interface DeliveryInterface {
 }
 export interface Review {
   stars: number;
+  title: string;
   description: string;
-  deliveryID: string;
+  date: Date;
 }
 export interface ItemInterface {
   Name: string;
@@ -37,12 +39,14 @@ export class Delivery implements DeliveryInterface {
   Review: Review = {
     stars: 0,
     description: '',
-    deliveryID: '',
+    title: '',
+    date: new Date(),
   };
   Distance: number = 0;
   DepartLocation: string = '';
   ArriveLocation: string = '';
   Status: DeliveryStatus = DeliveryStatus.Quotation;
+  orderDate: Date = new Date();
   EstimatedTime: Date = new Date();
   Id: string = '';
   Recurring: boolean = false;

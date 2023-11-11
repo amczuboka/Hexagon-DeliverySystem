@@ -6,6 +6,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AuthguardGuard } from './services/auth.guard';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summary.component';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthguardGuard] },
@@ -17,6 +18,7 @@ const routes: Routes = [
     component: DeliverySummaryComponent,
     canActivate: [AuthguardGuard],
   },
+  { path: 'reviews', component: ReviewsComponent, canActivate: [AuthguardGuard] },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
