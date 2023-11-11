@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'reviews', component: ReviewsComponent, canActivate: [AuthguardGuard] },
-  { path: 'my-deliveries', component: MyDeliveriesComponent },
+  { path: 'my-deliveries', component: MyDeliveriesComponent, canActivate: [AuthguardGuard] },
 ];
 
 @NgModule({

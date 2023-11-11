@@ -53,6 +53,8 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { ReviewComponent } from './components/review/review.component';
+import { SearchComponent } from './components/search/search.component';
+import { DeliveryCardComponent } from './components/delivery-card/delivery-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,6 +68,8 @@ import { ReviewComponent } from './components/review/review.component';
     VerifyEmailComponent,
     ReviewsComponent,
     ReviewComponent,
+    SearchComponent,
+    DeliveryCardComponent,
   ],
   imports: [
     BrowserModule,

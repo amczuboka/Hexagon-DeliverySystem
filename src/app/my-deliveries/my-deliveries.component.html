@@ -1,37 +1,9 @@
-<div class="cardz">
-  <div
-    *ngFor="let item of deliveryItems; let i = index"
-    data-aos="fade-up"
-    data-aos-duration="900"
-    data-aos-easing="ease-in-out-back"
-    data-aos-mirror="true"
-  >
-    <div class="card">
-        <div class="card-header">
-            <div class="header-item">
-              <div>ORDER PLACED ON</div>
-              <div class="order-date">January 5, 2023</div>
-            </div>
-            <div class="header-item">
-              <div>TOTAL</div>
-              <div class="total">{{ item }}</div>
-            </div>
-            <div class="header-item">
-              <div>SHIP TO</div>
-              <div class="destinationLocation">{{ item }}</div>
-            </div>
-            <div class="header-item">
-              <div>ORDER #</div>
-              <div class="order-details">{{ item }}</div>
-            </div>
-          </div>
-      <div class="card-content">
-        <div class="product-title">Delivery Name</div>
-        <div class="icon-container">
-            <mat-icon class="brown-icon">shopping_cart</mat-icon>
-            <div class="badge">1</div>
-        </div>      
-      </div>
+<!-- Page Content-->
+<div class="deliveries-container">
+    <!-- Call to Action -->
+    <div class="title-container">
+        <div style="font-size: 20px"><p class="text-black">Your Delivery Orders</p></div>
     </div>
-  </div>
+
+    <app-delivery-card></app-delivery-card>
 </div>

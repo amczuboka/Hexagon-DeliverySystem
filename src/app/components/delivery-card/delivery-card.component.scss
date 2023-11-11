@@ -1,0 +1,136 @@
+.cardz {
+  width: 70%;
+  height: 100%;
+  margin: auto;
+}
+
+.card {
+  width: 100%;
+  margin-bottom: 16px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(160, 160, 160);
+  color: #fff;
+  padding: 16px;
+  justify-content: space-between;
+}
+
+.header-item {
+  margin-right: 16px;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.product-title {
+  flex-grow: 1;
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 8px;
+}
+
+.icon-container,
+.details-container {
+  width: 100px;
+  height: 100px;
+}
+
+.icon-container {
+  position: relative;
+}
+
+.details-container {
+  width: 210px;
+  position: relative;
+  padding: 0px 10px 10px 10px;
+}
+
+.title-icon {
+  padding-right: 20px;
+}
+
+.order-date {
+  font-size: 12px;
+  color: #fff;
+}
+
+.order-details {
+  padding-bottom: 30px;
+}
+
+.brown-icon {
+  color: rgb(191, 116, 10);
+  font-size: 100px;
+  width: 100px;
+  height: 100px;
+  padding-top: 10px;
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: rgb(160, 160, 160);
+  color: rgb(0, 0, 0);
+  padding: 4px 8px;
+  border-radius: 50%;
+  font-size: 14px;
+  margin: 10px;
+}
+
+.button {
+  border-radius: 10px;
+  background-color: #5798d1;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #2361ae;
+}
+
+@media (max-width: 800px) {
+  .card-header {
+    flex-direction: column;
+    align-items: left;
+  }
+
+  .header-item {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+  .card-content {
+    flex-direction: column;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .title-icon,
+  .details-container {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}

@@ -1,0 +1,58 @@
+<app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+
+<div class="cardz">
+  <div
+    *ngFor="let item of deliveries; let i = index"
+    data-aos="fade-up"
+    data-aos-duration="900"
+    data-aos-easing="ease-in-out-back"
+    data-aos-mirror="true"
+  >
+    <a
+      *ngIf="searchText === '' || isItemMatchingSearch(item, searchText)"
+    >
+      <div class="card">
+        <div class="card-header">
+          <div class="header-item">
+            <div>ORDER PLACED ON</div>
+            <div class="order-date">
+              {{ item.orderDate | date : "MMMM d, y" }}
+            </div>
+          </div>
+          <div class="header-item">
+            <div>TOTAL</div>
+            <div class="total">${{ item.Total }}</div>
+          </div>
+          <div class="header-item">
+            <div>SHIP TO</div>
+            <div class="destinationLocation">{{ item.ArriveLocation }}</div>
+          </div>
+          <div class="header-item">
+            <div>ORDER #</div>
+            <div class="order-details">{{ item.Id }}</div>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="title-icon">
+            <div class="product-title">
+              {{ getFormattedItemsList(item.items) }}
+            </div>
+            <div class="icon-container">
+              <mat-icon class="brown-icon">shopping_cart</mat-icon>
+              <div class="badge">{{ item.items.length }}</div>
+            </div>
+          </div>
+          <div class="details-container">
+            <div class="header-item">
+              <div style="color: rgb(32, 100, 188)">ESTIMATED DELIVERY ON</div>
+              <div class="order-details">
+                {{ item.EstimatedTime | date : "MMMM d, y" }}
+              </div>
+              <button class="button" (click)="navigateToDeliverySummary(item)">View Delivery Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

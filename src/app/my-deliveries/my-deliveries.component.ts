@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./my-deliveries.component.scss']
 })
 export class MyDeliveriesComponent {
-  deliveryItems = [{}];
 }

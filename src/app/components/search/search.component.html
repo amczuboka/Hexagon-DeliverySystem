@@ -1,0 +1,18 @@
+<div class="example-full-width">
+  <mat-form-field class="search" appearance="outline">
+    <mat-label *ngIf="screenWidth >= 650"
+      >Search by Order ID, Destination Location, Price, Item Names</mat-label
+    >
+    <mat-label *ngIf="screenWidth < 650">Search by Order ID, etc...</mat-label>
+    <div>
+      <input
+        matInput
+        placeholder="Ex. Nov 11, 2023"
+        name=""
+        [(ngModel)]="enteredSearchValue"
+        (input)="onSearchTextChanged()"
+      />
+    </div>
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field>
+</div>
