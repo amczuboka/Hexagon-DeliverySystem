@@ -1,1 +1,54 @@
-<p>landing works!</p>
+<!-- Page Content-->
+<div class="page-content">
+    <!-- Nav Bar for functions -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%; padding-left: 125px">
+        <button (click)="isCollapsed = !isCollapsed" class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
+          <ul class="navbar-nav mr-auto">
+            <!-- Track Delivery function -->
+            <li ngbDropdown class="nav-item dropdown">
+              <a ngbDropdownToggle class="nav-link">Track</a>
+              <div ngbDropdownMenu aria-labelledby="trackDropdown">
+                <a class="dropdown-item" href="#">Track Delivery Information and link or pop up</a>
+              </div>
+            </li>
+            <li ngbDropdown class="nav-item dropdown">
+            <!-- Delivery functions -->
+              <a ngbDropdownToggle class="nav-link">Delivery</a>
+              <div ngbDropdownMenu aria-labelledby="deliveryDropdown">
+                <!-- Request Delivery function -->
+                <a class="dropdown-item" href="#">Request Delivery</a>
+                <!-- Request Quotation function -->
+                <a class="dropdown-item" href="#">Request Quotation</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#" role="button">Customer Service</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+    <!-- Call to Action -->
+    <div class="action-container">
+        <p class="title">Hexagon - Your Ultimate Delivery Solution</p>
+        <p class="slogan">Where deliveries are convenient and efficient. We are here to make your life easier by delivering what you need when you need it.</p>
+    </div>
+
+    <!-- Image background -->
+    <div class="image-container">
+        <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZGVsaXZlcnklMjBzZXJ2aWNlfGVufDB8fDB8fHwy" alt="Background Image">
+    </div>
+    
+    <!-- Buttons for "Request Delivery" and "Request Quotation" -->
+    <div class="button-container">
+        <!-- Request Delivery function -->
+        <a href="" class="action-button">
+            <img src="https://images.unsplash.com/photo-1601467995997-ac1ae9a8fff4?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fHRydWNrfGVufDB8fDB8fHwy" alt="Ship Now">
+            <p className="button-text" style="font-weight: bold;">Request Delivery</p>
+        </a>
+        
+    </div>
+</div>

@@ -1,0 +1,63 @@
+.review-card{
+    width: 500px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 15px;
+}
+
+.title{
+    color: #3d3d3d;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+
+}
+
+.user{
+    color: #3d3d3d;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.user p {
+    margin: 0;
+    padding: 0;
+}
+
+.stars{
+    color: #f9d71c;
+}
+
+.box-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.comment p{
+font-size: 0.9rem;
+color: #4b4b4b;
+}
+
+.review-card:hover{
+    transform: translateY(-10px);
+    transition: all ease 0.3s;
+}
+
+.details{
+    color: rgb(128, 128, 128);
+}
+
+.date{
+    margin: 0;
+    padding: 0;
+}
+
+@media(max-width: 991px){
+    .review-card{
+        width: auto;
+        padding: 10px;
+    }
+}

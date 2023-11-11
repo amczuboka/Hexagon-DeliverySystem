@@ -1,0 +1,29 @@
+<div class="review-card">
+    <div class="box-top">
+        <div class="user-tile">
+            <div class="title">
+                <strong>{{review.title}}</strong>
+            </div>
+            <div class="user">
+                <p>[User's Name]</p>
+            </div>
+        </div>
+        <div class="stars">
+            <ng-container *ngFor="let star of getStarArr()">
+                <fa-icon *ngIf="star" [icon]="reviewStarSolid"></fa-icon>
+                <fa-icon *ngIf="!star" [icon]="reviewStarEmpty"></fa-icon>
+            </ng-container >
+        </div>
+    </div>
+    <div class="details">
+        <p>
+            Item(s): [The item(s)] <br>
+            Departed from: [from location]<br>
+            Arrived on: [to location]
+        </p>
+    </div>
+    <div class="comment">
+        <p>{{review.description}}</p>
+    </div>
+    <p class="date">Posted on: {{review.date.toLocaleDateString()}}</p>
+</div>
