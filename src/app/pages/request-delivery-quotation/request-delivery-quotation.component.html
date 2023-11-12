@@ -2,11 +2,8 @@
     <div class="container h-100 py-5">
     <h1 class="text-center">Request Delivery!</h1>
     <br><br>
-      <!--<div class="row d-flex justify-content-center align-items-center h-100">-->
-        <!--<div class="col-10">-->
-  
+     <!-------------------------------------------------------Delivery Details Card------------------------------------------------>
         <form [formGroup]="deliveryDetailsForm">
-            <!--Delivery Details Card-->
             <div class="card rounded-3 mb-4">
                 <div class="card-body p-4">
                 <div class="row d-flex justify-content-between align-items-center">
@@ -39,17 +36,67 @@
                               Please enter destination
                           </div>
                       </div>
-
-
+                      
                   </div>
                 </div>
               </div>
             </div>
+
         </form>
-        <!--Must put this in an ngFor loop-->
-          <!--Delivery Item Card-->
+
+        <!--Button to add Item-->
+        <div class="col-md-12"><button type="button" class="btn btn-primary" (click)="open(content)">Add Item</button></div>
+        <br>
+          <!-------------------------------------------------------Delivery Item Card------------------------------------------------>
+          <!--Must put this in an ngFor loop-->
           <app-delivery-item></app-delivery-item>
-        <!--</div>-->
-      <!--</div>-->
+       
     </div>
   </section>
+
+
+
+  <!-------------------------------------------------------Pop-up Form------------------------------------------------>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">New Item</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <!--Item Name-->
+        <div class="form-group">
+          <label for="itemName">Item Name</label>
+          <div class="input-group">
+            <input id="itemName" class="form-control" >
+          </div>
+        </div>
+        <!--Size-->
+        <div class="form-group">
+          <label for="size">Size</label>
+          <div class="input-group">
+            <input id="size" class="form-control" >
+          </div>
+        </div>
+        <!--Weight-->
+        <div class="form-group">
+          <label for="weight">Weight</label>
+          <div class="input-group">
+            <input id="weight" class="form-control" >
+          </div>
+        </div>
+        <!--Quantity-->
+        <!--<div class="form-group">
+          <label for="quantity">Quantity</label>
+          <div class="input-group">
+            <input id="quantity" class="form-control" >
+          </div>
+        </div>-->
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+  </ng-template>

@@ -1,14 +1,18 @@
-//import { Component } from '@angular/core';
-//import { FormGroup } from '@angular/forms';
-
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { 
+  FormBuilder, 
+  FormControl, 
+  FormGroup, 
+  FormGroupDirective, 
+  NgForm, 
+  Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -16,12 +20,14 @@ import {
   templateUrl: './request-delivery-quotation.component.html',
   styleUrls: ['./request-delivery-quotation.component.scss']
 })
-export class RequestDeliveryQuotationComponent {
+export class RequestDeliveryQuotationComponent{
   deliveryDetailsForm!: FormGroup<any>;
-  //matcher: ErrorStateMatcher | undefined;
+  //matcher!: ErrorStateMatcher;
+  closeResult!: string;
 
   constructor(
-    private form_builder: FormBuilder
+    private form_builder: FormBuilder,
+    private nodalService: NgbModal
   ){}
 
   ngOnInit(): void{
@@ -29,6 +35,24 @@ export class RequestDeliveryQuotationComponent {
       departLocation: ['', [Validators.required]],
       destination: ['', [Validators.required]]
     })
+  }
+
+  open(content: any) {
+    this.nodalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+  
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
 }
