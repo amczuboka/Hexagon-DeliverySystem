@@ -43,28 +43,13 @@ export class DeliverySummaryComponent {
   ) {}
 
   ngOnInit() {
-    const paramMap = this.Acrouter.snapshot.queryParamMap;
-    const deliveryProps = paramMap.keys.reduce((props, key) => {
-      props[key] = paramMap.getAll(key);
-      return props;
-    }, {} as any);
-    this.delivery = new Delivery(deliveryProps);
-    this.myUser = this.authService.getUser();
+    this.Acrouter.queryParams.subscribe((params) => {
+      const deliveryProps = JSON.parse(params['delivery']);
+      this.delivery = new Delivery(deliveryProps);
+    });
 
-    let items: Item[] = [];
-    let item1 = new Item('Item 1', 1, 50, 30, 20, 5);
-    let item2 = new Item('Item 2', 2, 50, 30, 20, 5);
-    items.push(item1);
-    items.push(item2);
-    this.delivery.items = items;
-    this.delivery.EstimatedTime = new Date();
-    this.delivery.Review = {
-      stars: 4,
-      title: 'My Title',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-      date: new Date(),
-    };
+    this.myUser = this.authService.getUser();
+    console.log(this.delivery);
 
     // if (this.myUser && this.delivery) {
     //   if (this.myUser.photoURL == 'Student') {

@@ -133,6 +133,7 @@ export class DeliveryCardComponent {
   }
 
   navigateToDeliverySummary(item: Delivery): void {
-    this.router.navigate(['../delivery-summary'], { queryParams: item });
+    let navigationExtras = { queryParams: { delivery: JSON.stringify(item) } };
+    this.router.navigate(['../delivery-summary'], navigationExtras);
   }
 }
