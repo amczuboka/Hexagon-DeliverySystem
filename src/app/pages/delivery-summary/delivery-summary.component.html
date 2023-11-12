@@ -33,7 +33,7 @@
               <button
                 mat-raised-button
                 class="my-button"
-                style="background-color:#007BFF; color:white;"
+                style="background-color: #007bff; color: white"
                 (click)="addReview()"
               >
                 <mat-icon>add</mat-icon>Add Review
@@ -82,7 +82,7 @@
             <br />
             <b>Distance: </b>{{ delivery.Distance }} km <br />
             <b>Estimated Time of Delivery: </b
-            >{{delivery.EstimatedTime | date : "MMMM d, y"}}
+            >{{ delivery.EstimatedTime | date : "MMMM d, y" }}
             <br />
             <ng-container *ngIf="myUser.Authority === 'Company'"
               ><b>Recurring: </b>{{ delivery.Recurring }} <br
@@ -94,7 +94,6 @@
           <app-tracking [delivery]="delivery"></app-tracking>
         </div>
       </div>
-      <!-- TODO: Add buttons to add review, edit review, and delete review -->
     </div>
   </div>
 </section>
