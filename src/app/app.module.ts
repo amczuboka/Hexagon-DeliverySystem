@@ -7,11 +7,12 @@ import {
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -29,18 +30,18 @@ import { NavComponent } from './components/nav/nav.component';
 import { HttpClientModule } from '@angular/common/http';
 import { faCoffee, fas } from '@fortawesome/free-solid-svg-icons';
 import { CookieService } from 'ngx-cookie-service';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {AngularFireModule} from '@angular/fire/compat';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import {provideFirestore,getFirestore} from '@angular/fire/firestore';
-import {provideStorage,getStorage} from '@angular/fire/storage';
-import {provideAuth} from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { provideAuth } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
-import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
-import {provideDatabase,getDatabase} from '@angular/fire/database';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -49,8 +50,10 @@ import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthguardGuard } from './services/auth.guard';
 import { StorageService } from './services/storage.service';
-import { provideMessaging,getMessaging } from '@angular/fire/messaging';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summary.component';
+import { TrackingComponent } from './components/tracking/tracking.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { ReviewComponent } from './components/review/review.component';
 import { SearchComponent } from './components/search/search.component';
@@ -66,6 +69,8 @@ import { DeliveryCardComponent } from './components/delivery-card/delivery-card.
     LoginComponent,
     NavComponent,
     VerifyEmailComponent,
+    DeliverySummaryComponent,
+    TrackingComponent,
     ReviewsComponent,
     ReviewComponent,
     SearchComponent,
@@ -84,6 +89,7 @@ import { DeliveryCardComponent } from './components/delivery-card/delivery-card.
     FormsModule,
     MatCardModule,
     MatIconModule,
+    MatProgressBarModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
@@ -93,11 +99,11 @@ import { DeliveryCardComponent } from './components/delivery-card/delivery-card.
     MatDatepickerModule,
     MatNativeDateModule,
     AngularFireModule.initializeApp(environment.firebase),
-    provideFirebaseApp(()=> initializeApp(environment.firebase)),
-    provideDatabase(()=>getDatabase()),
-    provideFirestore(()=>getFirestore()),
-    provideStorage(()=>getStorage()),
-    provideAuth(()=>getAuth()),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
+    provideAuth(() => getAuth()),
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
@@ -106,9 +112,9 @@ import { DeliveryCardComponent } from './components/delivery-card/delivery-card.
     provideMessaging(() => getMessaging()),
   ],
   providers: [CookieService, StorageService, AuthService, AuthguardGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { 
+export class AppModule {
   constructor(library: FaIconLibrary) {
     library.addIconPacks(fas);
     library.addIcons(faCoffee);

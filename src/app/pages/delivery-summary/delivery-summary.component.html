@@ -1,0 +1,99 @@
+<section class="py-2">
+  <div
+    class="container py-2 h-100 px-xs-0 d-flex justify-content-center align-items-center"
+  >
+    <div class="row h-100 m-2 section">
+      <div class="col-md-8 height-fit-content delivery-details">
+        <div class="content-padding">
+          <div class="center_title">
+            <p class="delivery">Delivery Summary</p>
+            <p class="delivery-id">
+              Delivery ID: <b>{{ delivery.Id }}</b>
+            </p>
+            <hr />
+          </div>
+          <br />
+          <div class="center_title">Delivery Items</div>
+          <div class="item-list">
+            <div *ngFor="let item of delivery.items">
+              <div class="row">
+                <div class="col-md-6">
+                  <p><b>Item Name:</b> {{ item.Name }}</p>
+                  <p><b>Quantity:</b> {{ item.Quantity }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><b>Price:</b> ${{ item.itemPrice }}</p>
+                </div>
+              </div>
+              <hr />
+            </div>
+          </div>
+          <ng-container *ngIf="!delivery.Review.title">
+            <div>
+              <button
+                mat-raised-button
+                class="my-button"
+                style="background-color: #007bff; color: white"
+                (click)="addReview()"
+              >
+                <mat-icon>add</mat-icon>Add Review
+              </button>
+            </div>
+          </ng-container>
+          <!-- Check if there is a title, if there is, that means the Review object isn't empty -->
+          <ng-container *ngIf="delivery.Review.title">
+            <div class="center_title">
+              <br />
+              Review
+            </div>
+            <div class="buttons">
+              <button
+                mat-fab
+                class="my-button"
+                color="accent"
+                (click)="editReview()"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-fab
+                class="my-button"
+                color="warn"
+                (click)="deleteReview()"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <div class="review">
+              <app-review [review]="delivery.Review"></app-review>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row mb-2 delivery-info-container">
+          <div>
+            <div class="center_title">
+              Delivery Information<br />
+              <hr />
+            </div>
+            <b>Depart Location: </b> {{ delivery.DepartLocation }}<br />
+            <b>Arrival Location: </b> {{ delivery.ArriveLocation }}
+            <br />
+            <b>Distance: </b>{{ delivery.Distance }} km <br />
+            <b>Estimated Time of Delivery: </b
+            >{{ delivery.EstimatedTime | date : "MMMM d, y" }}
+            <br />
+            <ng-container *ngIf="myUser.Authority === 'Company'"
+              ><b>Recurring: </b>{{ delivery.Recurring }} <br
+            /></ng-container>
+            <b>Total: </b>${{ delivery.Total }} <br />
+          </div>
+        </div>
+        <div class="pb-2">
+          <app-tracking [delivery]="delivery"></app-tracking>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
