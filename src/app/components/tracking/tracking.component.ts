@@ -10,7 +10,7 @@ export class TrackingComponent {
   @Input() delivery!: Delivery;
 
   getProgressBarValue() {
-    switch (this.delivery.Status) {
+    switch (this.delivery.Status.toString()) {
       case DeliveryStatus.Quotation:
         return 0;
       case DeliveryStatus.Pending:
