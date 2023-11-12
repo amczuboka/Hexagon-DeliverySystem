@@ -52,7 +52,7 @@
           </div>
           <ng-container
             *ngIf="
-              !delivery.Review.title && delivery.Status !== 'Quotation';
+              !delivery.Review.title && delivery.Status === 'Delivered';
               else PlaceOrder
             "
           >
@@ -79,9 +79,8 @@
               </button>
             </div>
           </ng-template>
-          <!-- Check if there is a title, if there is, that means the Review object isn't empty -->
           <ng-container
-            *ngIf="delivery.Review.title && delivery.Status !== 'Quotation'"
+            *ngIf="delivery.Review.title && delivery.Status === 'Delivered'"
           >
             <div class="center_title">
               <br />
