@@ -29,6 +29,7 @@ a {
 
 .header-item {
   margin-right: 16px;
+  user-select: none;
 }
 
 .card-content {
@@ -42,6 +43,7 @@ a {
   font-size: 18px;
   font-weight: bold;
   padding-bottom: 8px;
+  user-select: none;
 }
 
 .icon-container,
