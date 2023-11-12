@@ -35,19 +35,18 @@ export class RequestDeliveryQuotationComponent{
 
   ngOnInit(): void{
     this.deliveryDetailsForm = this.form_builder.group({
-      //departLocation: ['', [Validators.required]],
-      //destination: ['', [Validators.required]],
-
-
+      //Depart Location Info
       departAddress: ['', [Validators.required]],
       departCity: ['', [Validators.required]],
       departProvince: ['', [Validators.required]],
       departPostalCode: ['', [Validators.required]],
-
+      //Destination Location Info
       destinationAddress: ['', [Validators.required]],
       destinationCity: ['', [Validators.required]],
       destinationProvince: ['', [Validators.required]],
-      destinationPostalCode: ['', [Validators.required]]
+      destinationPostalCode: ['', [Validators.required]],
+      //Add Item Info
+      newItemDescription: ['', [Validators.required]]
 
     })
 

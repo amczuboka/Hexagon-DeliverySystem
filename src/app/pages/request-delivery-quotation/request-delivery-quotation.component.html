@@ -1,4 +1,5 @@
-<section class="h-100" style="background-color: #eee;">
+<div style="background-color: #eee;">
+<section class="h-100" >
     <div class="container h-100 py-5">
     <h1 class="text-center">Request Delivery or Quotation!</h1>
     <h3 class="text-center">Please fill out the information below to get a quotation or request a delivery</h3>
@@ -9,12 +10,13 @@
                 <div class="card-body p-4">
                 <div class="row d-flex justify-content-between align-items-center">
                       <p class="lead fw-normal mb-2">Delivery Details</p>
+                      <!--<p><i>Please fill out the information below to get a quotation or request a delivery.</i></p>-->
                       <br><br>
                       <!---------------------------------Departure Information--------------------------->
-                      <p>Enter departure location information: </p>
+                      <h4>Enter departure location information: </h4>
                       <!--Depart Address-->
                       <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-label>Departure Address</mat-label>
+                        <mat-label>Depart Address</mat-label>
                         <input 
                           matInput
                           required
@@ -31,10 +33,9 @@
                           *ngIf="deliveryDetailsForm.controls['departAddress'].hasError('required')"
                             >Enter depart address</mat-error>
                         </mat-form-field>
-
                       <!--Depart City-->
-                      <mat-form-field appearance="outline">
-                        <mat-label>City</mat-label>
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Depart City</mat-label>
                         <input 
                           matInput
                           required
@@ -49,12 +50,12 @@
                             >error_outline</mat-icon>
                         <mat-error
                           *ngIf="deliveryDetailsForm.controls['departCity'].hasError('required')"
-                            >Enter city</mat-error>
+                            >Enter depart city</mat-error>
                         </mat-form-field>
 
                       <!--Depart Province-->
-                      <mat-form-field appearance="outline">
-                        <mat-label>Province</mat-label>
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Depart Province</mat-label>
                         <input 
                           matInput
                           required
@@ -69,12 +70,12 @@
                             >error_outline</mat-icon>
                         <mat-error
                           *ngIf="deliveryDetailsForm.controls['departProvince'].hasError('required')"
-                            >Enter province</mat-error>
+                            >Enter depart province</mat-error>
                         </mat-form-field>
-
+                      
                       <!--Depart Postal Code-->
                       <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-label>Postal Code</mat-label>
+                        <mat-label>Depart Postal Code</mat-label>
                         <input 
                           matInput
                           required
@@ -89,11 +90,11 @@
                             >error_outline</mat-icon>
                         <mat-error
                           *ngIf="deliveryDetailsForm.controls['departPostalCode'].hasError('required')"
-                            >Enter postal code</mat-error>
+                            >Enter depart postal code</mat-error>
                         </mat-form-field>
                       
                       <!---------------------------------Destination Information--------------------------->
-                      <p>Enter destination information: </p>
+                      <h4>Enter destination information: </h4>
                       <!--Destination Address-->
                       <mat-form-field appearance="outline" style="width: 100%;">
                         <mat-label>Destination Address</mat-label>
@@ -116,7 +117,7 @@
                       
                     <!--Destination City-->
                     <mat-form-field appearance="outline">
-                      <mat-label>City</mat-label>
+                      <mat-label>Destination City</mat-label>
                       <input 
                         matInput
                         required
@@ -131,12 +132,12 @@
                           >error_outline</mat-icon>
                       <mat-error
                         *ngIf="deliveryDetailsForm.controls['destinationCity'].hasError('required')"
-                          >Enter city</mat-error>
+                          >Enter destination city</mat-error>
                       </mat-form-field>
                     
                     <!--Destination Province-->
                     <mat-form-field appearance="outline">
-                      <mat-label>Province</mat-label>
+                      <mat-label>Destination Province</mat-label>
                       <input 
                         matInput
                         required
@@ -151,12 +152,12 @@
                           >error_outline</mat-icon>
                       <mat-error
                         *ngIf="deliveryDetailsForm.controls['destinationProvince'].hasError('required')"
-                          >Enter province</mat-error>
+                          >Enter destination province</mat-error>
                       </mat-form-field>
                       
                       <!--Destination Postal Code-->
                       <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-label>Postal Code</mat-label>
+                        <mat-label>Destination Postal Code</mat-label>
                         <input 
                           matInput
                           required
@@ -171,7 +172,7 @@
                             >error_outline</mat-icon>
                         <mat-error
                           *ngIf="deliveryDetailsForm.controls['destinationPostalCode'].hasError('required')"
-                            >Enter postal code</mat-error>
+                            >Enter destination postal code</mat-error>
                         </mat-form-field>
                 </div>
               </div>
@@ -193,7 +194,7 @@
 
 
     </div>
-  </section>
+  <!--</section>-->
 
 
   <!--------------------------------------------------------------------------------Pop-up Forn to Add Item----------------------------------------------------------------------->
@@ -208,24 +209,25 @@
       <form [formGroup]="newDeliveryItem">
         <!--Item Description-->
         <p>Item description: </p>
-        <!--<mat-form-field appearance="outline" style="width: 100%;">
-          <mat-label>Description</mat-label>
+        <mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Item description</mat-label>
           <input 
-              matInput
-              required
-              ngModel name="itemDescription"
-              formControlName="itemDescription"
+            matInput
+            required
+            ngModel name="newItemDescription"
+            formControlName="newItemDescription"
           >
           <mat-icon
-              matSuffix
-              *ngIf="
-                newDeliveryItem.controls['itemDescription'].hasError('required') &&
-                deliveryDetailsForm.controls['itemDescription'].touched"
-          >error_outline</mat-icon>
+            matSuffix
+            *ngIf="
+              deliveryDetailsForm.controls['newItemDescription'].hasError('required') &&
+              deliveryDetailsForm.controls['newItemDescription'].touched"
+              >error_outline</mat-icon>
           <mat-error
-              *ngIf="deliveryDetailsForm.controls['itemDescription'].hasError('required')"
-          >Enter description</mat-error>
-        </mat-form-field>-->
+            *ngIf="deliveryDetailsForm.controls['newItemDescription'].hasError('required')"
+              >Enter item description</mat-error>
+          </mat-form-field>
+        
         <!--Size-->
         <div class="form-group">
           <label for="size">Size</label>
@@ -320,4 +322,7 @@
   </ng-template>
 
 
-  
+  </section>
+
+
+</div>
