@@ -6,6 +6,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AuthguardGuard } from './services/auth.guard';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
+import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component'; 
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthguardGuard] },
@@ -13,7 +14,9 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
   { path: 'reviews', component: ReviewsComponent, canActivate: [AuthguardGuard] },
+  { path: 'my-deliveries', component: MyDeliveriesComponent, canActivate: [AuthguardGuard] },
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

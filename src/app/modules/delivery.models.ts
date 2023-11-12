@@ -10,7 +10,11 @@ export interface DeliveryInterface {
   Id: string;
   Recurring: boolean;
   Total: number;
+
   calculateTotal(): number;
+
+  [key: string]: string | number | boolean | Date | Review | Item[]| (() => number);
+
 }
 export interface Review {
   stars: number;
@@ -56,6 +60,7 @@ export class Delivery implements DeliveryInterface {
   constructor(init?: Partial<Delivery>) {
     Object.assign(this, init);
   }
+  [key: string]: string | number | boolean | Date | Review | Item[] | (() => number);
 
   calculateTotal(): number {
     return 0;

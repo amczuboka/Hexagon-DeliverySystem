@@ -23,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LandingComponent } from './pages/landing/landing.component';
+import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component';
 import { NavComponent } from './components/nav/nav.component';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -52,21 +53,27 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { ReviewComponent } from './components/review/review.component';
+import { SearchComponent } from './components/search/search.component';
+import { DeliveryCardComponent } from './components/delivery-card/delivery-card.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
     LandingComponent,
+    MyDeliveriesComponent,
     RegisterComponent,
     LoginComponent,
     NavComponent,
     VerifyEmailComponent,
     ReviewsComponent,
     ReviewComponent,
+    SearchComponent,
+    DeliveryCardComponent,
   ],
   imports: [
     BrowserModule,
+    MatIconModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
