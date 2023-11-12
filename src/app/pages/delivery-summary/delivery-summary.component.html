@@ -82,9 +82,7 @@
             <br />
             <b>Distance: </b>{{ delivery.Distance }} km <br />
             <b>Estimated Time of Delivery: </b
-            >{{ delivery.EstimatedTime.getFullYear() }}-{{
-              delivery.EstimatedTime.getMonth()
-            }}-{{ delivery.EstimatedTime.getDate() }}
+            >{{delivery.EstimatedTime | date : "MMMM d, y"}}
             <br />
             <ng-container *ngIf="myUser.Authority === 'Company'"
               ><b>Recurring: </b>{{ delivery.Recurring }} <br
