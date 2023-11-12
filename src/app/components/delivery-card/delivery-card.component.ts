@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Delivery, Item } from 'src/app/modules/delivery.models';
 import { AuthService } from 'src/app/services/auth.service';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-delivery-card',
@@ -36,6 +37,7 @@ export class DeliveryCardComponent {
    * Lifecycle hook called after component initialization
    */
   ngOnInit() {
+    AOS.init();
     // Get user information
     this.myUser = this.authService.getUser();
 

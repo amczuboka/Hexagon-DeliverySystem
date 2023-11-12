@@ -8,9 +8,7 @@
     data-aos-easing="ease-in-out-back"
     data-aos-mirror="true"
   >
-    <a
-      *ngIf="searchText === '' || isItemMatchingSearch(item, searchText)"
-    >
+    <a *ngIf="searchText === '' || isItemMatchingSearch(item, searchText)">
       <div class="card">
         <div class="card-header">
           <div class="header-item">
@@ -48,7 +46,9 @@
               <div class="order-details">
                 {{ item.EstimatedTime | date : "MMMM d, y" }}
               </div>
-              <button class="button" (click)="navigateToDeliverySummary(item)">View Delivery Details</button>
+              <button class="button" (click)="navigateToDeliverySummary(item)">
+                View Delivery Details
+              </button>
             </div>
           </div>
         </div>
