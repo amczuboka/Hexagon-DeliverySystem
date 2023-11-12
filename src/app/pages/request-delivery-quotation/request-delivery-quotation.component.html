@@ -3,71 +3,189 @@
     <h1 class="text-center">Request Delivery or Quotation!</h1>
     <h3 class="text-center">Please fill out the information below to get a quotation or request a delivery</h3>
     <br><br>
-     <!-------------------------------------------------------Delivery Details Card------------------------------------------------>
+     <!--------------------------------------------------------------------------------Delivery Details Card----------------------------------------------------------------------->
         <form [formGroup]="deliveryDetailsForm">
             <div class="card rounded-3 mb-4">
                 <div class="card-body p-4">
                 <div class="row d-flex justify-content-between align-items-center">
-                    
-                    <!--<div class="col-md-3 col-lg-3 col-xl-3">-->
                       <p class="lead fw-normal mb-2">Delivery Details</p>
                       <br><br>
-                      <!--Depart Location-->
-                      <p>Enter depart location: </p>
+                      <!---------------------------------Departure Information--------------------------->
+                      <p>Enter departure location information: </p>
+                      <!--Depart Address-->
                       <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-label>Depart Location</mat-label>
+                        <mat-label>Departure Address</mat-label>
                         <input 
                           matInput
                           required
-                          ngModel name="departLocation"
-                          formControlName="departLocation"
+                          ngModel name="departAddress"
+                          formControlName="departAddress"
                         >
                         <mat-icon
                           matSuffix
                           *ngIf="
-                            deliveryDetailsForm.controls['departLocation'].hasError('required') &&
-                            deliveryDetailsForm.controls['departLocation'].touched"
+                            deliveryDetailsForm.controls['departAddress'].hasError('required') &&
+                            deliveryDetailsForm.controls['departAddress'].touched"
                             >error_outline</mat-icon>
                         <mat-error
-                          *ngIf="deliveryDetailsForm.controls['departLocation'].hasError('required')"
-                            >Enter depart location</mat-error>
+                          *ngIf="deliveryDetailsForm.controls['departAddress'].hasError('required')"
+                            >Enter depart address</mat-error>
                         </mat-form-field>
-                      
-                      <!--Destination-->
-                      <p>Enter destination: </p>
-                      <mat-form-field appearance="outline" style="width: 100%;">
-                        <mat-label>Destination</mat-label>
+
+                      <!--Depart City-->
+                      <mat-form-field appearance="outline">
+                        <mat-label>City</mat-label>
                         <input 
                           matInput
                           required
-                          ngModel name="destination"
-                          formControlName="destination"
+                          ngModel name="departCity"
+                          formControlName="departCity"
                         >
                         <mat-icon
                           matSuffix
                           *ngIf="
-                            deliveryDetailsForm.controls['destination'].hasError('required') &&
-                            deliveryDetailsForm.controls['destination'].touched"
+                            deliveryDetailsForm.controls['departCity'].hasError('required') &&
+                            deliveryDetailsForm.controls['departCity'].touched"
                             >error_outline</mat-icon>
                         <mat-error
-                          *ngIf="deliveryDetailsForm.controls['destination'].hasError('required')"
-                            >Enter destination</mat-error>
+                          *ngIf="deliveryDetailsForm.controls['departCity'].hasError('required')"
+                            >Enter city</mat-error>
+                        </mat-form-field>
+
+                      <!--Depart Province-->
+                      <mat-form-field appearance="outline">
+                        <mat-label>Province</mat-label>
+                        <input 
+                          matInput
+                          required
+                          ngModel name="departProvince"
+                          formControlName="departProvince"
+                        >
+                        <mat-icon
+                          matSuffix
+                          *ngIf="
+                            deliveryDetailsForm.controls['departProvince'].hasError('required') &&
+                            deliveryDetailsForm.controls['departProvince'].touched"
+                            >error_outline</mat-icon>
+                        <mat-error
+                          *ngIf="deliveryDetailsForm.controls['departProvince'].hasError('required')"
+                            >Enter province</mat-error>
+                        </mat-form-field>
+
+                      <!--Depart Postal Code-->
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Postal Code</mat-label>
+                        <input 
+                          matInput
+                          required
+                          ngModel name="departPostalCode"
+                          formControlName="departPostalCode"
+                        >
+                        <mat-icon
+                          matSuffix
+                          *ngIf="
+                            deliveryDetailsForm.controls['departPostalCode'].hasError('required') &&
+                            deliveryDetailsForm.controls['departPostalCode'].touched"
+                            >error_outline</mat-icon>
+                        <mat-error
+                          *ngIf="deliveryDetailsForm.controls['departPostalCode'].hasError('required')"
+                            >Enter postal code</mat-error>
                         </mat-form-field>
                       
-                  <!--</div>-->
+                      <!---------------------------------Destination Information--------------------------->
+                      <p>Enter destination information: </p>
+                      <!--Destination Address-->
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Destination Address</mat-label>
+                        <input 
+                          matInput
+                          required
+                          ngModel name="destinationAddress"
+                          formControlName="destinationAddress"
+                        >
+                        <mat-icon
+                          matSuffix
+                          *ngIf="
+                            deliveryDetailsForm.controls['destinationAddress'].hasError('required') &&
+                            deliveryDetailsForm.controls['destinationAddress'].touched"
+                            >error_outline</mat-icon>
+                        <mat-error
+                          *ngIf="deliveryDetailsForm.controls['destinationAddress'].hasError('required')"
+                            >Enter destination address</mat-error>
+                        </mat-form-field>
+                      
+                    <!--Destination City-->
+                    <mat-form-field appearance="outline">
+                      <mat-label>City</mat-label>
+                      <input 
+                        matInput
+                        required
+                        ngModel name="destinationCity"
+                        formControlName="destinationCity"
+                      >
+                      <mat-icon
+                        matSuffix
+                        *ngIf="
+                          deliveryDetailsForm.controls['destinationCity'].hasError('required') &&
+                          deliveryDetailsForm.controls['destinationCity'].touched"
+                          >error_outline</mat-icon>
+                      <mat-error
+                        *ngIf="deliveryDetailsForm.controls['destinationCity'].hasError('required')"
+                          >Enter city</mat-error>
+                      </mat-form-field>
+                    
+                    <!--Destination Province-->
+                    <mat-form-field appearance="outline">
+                      <mat-label>Province</mat-label>
+                      <input 
+                        matInput
+                        required
+                        ngModel name="destinationProvince"
+                        formControlName="destinationProvince"
+                      >
+                      <mat-icon
+                        matSuffix
+                        *ngIf="
+                          deliveryDetailsForm.controls['destinationProvince'].hasError('required') &&
+                          deliveryDetailsForm.controls['destinationProvince'].touched"
+                          >error_outline</mat-icon>
+                      <mat-error
+                        *ngIf="deliveryDetailsForm.controls['destinationProvince'].hasError('required')"
+                          >Enter province</mat-error>
+                      </mat-form-field>
+                      
+                      <!--Destination Postal Code-->
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Postal Code</mat-label>
+                        <input 
+                          matInput
+                          required
+                          ngModel name="destinationPostalCode"
+                          formControlName="destinationPostalCode"
+                        >
+                        <mat-icon
+                          matSuffix
+                          *ngIf="
+                            deliveryDetailsForm.controls['destinationPostalCode'].hasError('required') &&
+                            deliveryDetailsForm.controls['destinationPostalCode'].touched"
+                            >error_outline</mat-icon>
+                        <mat-error
+                          *ngIf="deliveryDetailsForm.controls['destinationPostalCode'].hasError('required')"
+                            >Enter postal code</mat-error>
+                        </mat-form-field>
                 </div>
               </div>
             </div>
 
         </form>
 
-        <!-------------------------------------------------------Delivery Item Card------------------------------------------------>
+        <!--------------------------------------------------------------------------------Delivery Item Card----------------------------------------------------------------------->
         <!--Must put this in an ngFor loop-->
         <app-delivery-item></app-delivery-item>
 
-       <!-------------------------------------------------------Buttons------------------------------------------------>
+       <!--------------------------------------------------------------------------------Buttons----------------------------------------------------------------------->
        <!--Button to add Item-->
-       <div><button type="button" class="btn btn-primary" (click)="open(content)">Add Item</button></div>
+       <div><button type="button" class="btn btn-primary" (click)="open(content)">Add Item to Delivery</button></div>
        <br>
        <!--Button to get-->
        <div><button type="button" class="btn btn-primary" (click)="orderSummary(orderSummaryContent)">Finish</button></div>
@@ -78,8 +196,7 @@
   </section>
 
 
-
-  <!-------------------------------------------------------Pop-up Form to Add Item------------------------------------------------>
+  <!--------------------------------------------------------------------------------Pop-up Forn to Add Item----------------------------------------------------------------------->
   <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">New Item</h4>
@@ -88,14 +205,27 @@
       </button>
     </div>
     <div class="modal-body">
-      <form>
+      <form [formGroup]="newDeliveryItem">
         <!--Item Description-->
-        <div class="form-group">
-          <label for="itemDescription">Item Description</label>
-          <div class="input-group">
-            <input id="itemDescription" class="form-control" >
-          </div>
-        </div>
+        <p>Item description: </p>
+        <!--<mat-form-field appearance="outline" style="width: 100%;">
+          <mat-label>Description</mat-label>
+          <input 
+              matInput
+              required
+              ngModel name="itemDescription"
+              formControlName="itemDescription"
+          >
+          <mat-icon
+              matSuffix
+              *ngIf="
+                newDeliveryItem.controls['itemDescription'].hasError('required') &&
+                deliveryDetailsForm.controls['itemDescription'].touched"
+          >error_outline</mat-icon>
+          <mat-error
+              *ngIf="deliveryDetailsForm.controls['itemDescription'].hasError('required')"
+          >Enter description</mat-error>
+        </mat-form-field>-->
         <!--Size-->
         <div class="form-group">
           <label for="size">Size</label>
@@ -117,8 +247,7 @@
     </div>
   </ng-template>
 
-
-<!--Pop up of Order Summary-->
+<!--------------------------------------------------------------------------------Pop-up of Order Summary----------------------------------------------------------------------->
 <ng-template #orderSummaryContent let-modal>
    
     <div class="card">

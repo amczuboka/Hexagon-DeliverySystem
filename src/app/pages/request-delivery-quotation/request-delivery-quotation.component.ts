@@ -22,9 +22,11 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class RequestDeliveryQuotationComponent{
   deliveryDetailsForm!: FormGroup<any>;
+  newDeliveryItem!: FormGroup<any>;
   //matcher!: ErrorStateMatcher;
   closeResult!: string;
   content: any;
+
 
   constructor(
     private form_builder: FormBuilder,
@@ -33,12 +35,29 @@ export class RequestDeliveryQuotationComponent{
 
   ngOnInit(): void{
     this.deliveryDetailsForm = this.form_builder.group({
-      departLocation: ['', [Validators.required]],
-      destination: ['', [Validators.required]]
+      //departLocation: ['', [Validators.required]],
+      //destination: ['', [Validators.required]],
+
+
+      departAddress: ['', [Validators.required]],
+      departCity: ['', [Validators.required]],
+      departProvince: ['', [Validators.required]],
+      departPostalCode: ['', [Validators.required]],
+
+      destinationAddress: ['', [Validators.required]],
+      destinationCity: ['', [Validators.required]],
+      destinationProvince: ['', [Validators.required]],
+      destinationPostalCode: ['', [Validators.required]]
+
+    })
+
+    this.newDeliveryItem = this.form_builder.group({
+      itemDescription: ['', [Validators.required]],
+    
     })
   }
 
-  //Functions for pop-up form
+  //Function for "add new item" pop-up form
   open(content: any) {
     this.nodalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -57,16 +76,7 @@ export class RequestDeliveryQuotationComponent{
     }
   }
 
-  //Function for getPrice()
-  /*public showMyMessage = false
-
-  getPrice() {
-    setTimeout(() => {
-      this.showMyMessage = true
-    }, 1000)
-  }*/
-
-   //Functions for pop-up form
+   //Functions for "finish" pop-up form
    orderSummary(orderSummaryContent: any) {
     this.nodalService.open(orderSummaryContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
