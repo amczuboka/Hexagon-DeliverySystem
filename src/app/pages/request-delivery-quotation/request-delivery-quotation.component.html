@@ -5,25 +5,45 @@
       <!--<div class="row d-flex justify-content-center align-items-center h-100">-->
         <!--<div class="col-10">-->
   
-        <form [formGroup]="deliverydetailsForm">
+        <form [formGroup]="deliveryDetailsForm">
             <!--Delivery Details Card-->
             <div class="card rounded-3 mb-4">
                 <div class="card-body p-4">
                 <div class="row d-flex justify-content-between align-items-center">
                     
                     <div class="col-md-3 col-lg-3 col-xl-3">
-                    <p class="lead fw-normal mb-2">Delivery Details</p>
-                    <br>
-                    <!--Testing-->
-                         
+                      <p class="lead fw-normal mb-2">Delivery Details</p>
+                      <br>
+                      <!--Depart Location-->
+                          
+                      <div class="form-group">
+                        <label class="center-block"> Depart Location:
+                            <input class="form-control" formControlName="departLocation">
+                        </label>
+                      </div>
+                      <div *ngIf="deliveryDetailsForm.controls['departLocation'].invalid && (deliveryDetailsForm.controls['departLocation'].dirty || deliveryDetailsForm.controls['departLocation'].touched)" class="alert">
+                          <div *ngIf="deliveryDetailsForm.controls['departLocation'].errors">
+                              Please enter depart location
+                          </div>
+                      </div>
+
+                      <!--Destination-->
+                      
+                      <div class="form-group">
+                        <label class="center-block"> Destination:
+                            <input class="form-control" formControlName="destination">
+                        </label>
+                      </div>
+                      <div *ngIf="deliveryDetailsForm.controls['destination'].invalid && (deliveryDetailsForm.controls['destination'].dirty || deliveryDetailsForm.controls['destination'].touched)" class="alert">
+                          <div *ngIf="deliveryDetailsForm.controls['destination'].errors">
+                              Please enter destination
+                          </div>
+                      </div>
 
 
-                    <!--End of Testing-->
-                    <p><span class="text-muted">Depart Location: </span></p>
-                    <p><span class="text-muted">Destination: </span></p>
-                    </div>
+                  </div>
                 </div>
-                </div>
+              </div>
             </div>
         </form>
         <!--Must put this in an ngFor loop-->
