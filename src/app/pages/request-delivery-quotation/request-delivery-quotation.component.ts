@@ -26,6 +26,10 @@ export class RequestDeliveryQuotationComponent{
   //matcher!: ErrorStateMatcher;
   closeResult!: string;
   content: any;
+  itemDescription: any;
+  test: boolean = false;
+
+  
 
 
   constructor(
@@ -55,6 +59,8 @@ export class RequestDeliveryQuotationComponent{
     
     })
   }
+
+  
 
   //Function for "add new item" pop-up form
   open(content: any) {

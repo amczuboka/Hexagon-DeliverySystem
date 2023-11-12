@@ -183,6 +183,7 @@
         <!--------------------------------------------------------------------------------Delivery Item Card----------------------------------------------------------------------->
         <!--Must put this in an ngFor loop-->
         <app-delivery-item></app-delivery-item>
+        <app-delivery-item></app-delivery-item>
 
        <!--------------------------------------------------------------------------------Buttons----------------------------------------------------------------------->
        <!--Button to add Item-->
@@ -198,6 +199,8 @@
 
 
   <!--------------------------------------------------------------------------------Pop-up Forn to Add Item----------------------------------------------------------------------->
+  <!--<form [formGroup]="newDeliveryItem">-->
+  <form #addItem="ngForm"></form>
   <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">New Item</h4>
@@ -206,48 +209,65 @@
       </button>
     </div>
     <div class="modal-body">
-      <form [formGroup]="newDeliveryItem">
         <!--Item Description-->
-        <p>Item description: </p>
-        <mat-form-field appearance="outline" style="width: 100%;">
-          <mat-label>Item description</mat-label>
-          <input 
-            matInput
-            required
-            ngModel name="newItemDescription"
-            formControlName="newItemDescription"
-          >
-          <mat-icon
-            matSuffix
-            *ngIf="
-              deliveryDetailsForm.controls['newItemDescription'].hasError('required') &&
-              deliveryDetailsForm.controls['newItemDescription'].touched"
-              >error_outline</mat-icon>
-          <mat-error
-            *ngIf="deliveryDetailsForm.controls['newItemDescription'].hasError('required')"
-              >Enter item description</mat-error>
-          </mat-form-field>
-        
-        <!--Size-->
         <div class="form-group">
-          <label for="size">Size</label>
+          <label for="size">Item Description</label>
           <div class="input-group">
             <input id="size" class="form-control" >
           </div>
         </div>
+        <br>
+        <!--Size-->
+        <label for="size">Size</label><br>
+        <select>
+            <option value="" label="Select an option"></option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+            <option>Option 4</option>
+        </select>
+        <br><br>
         <!--Weight-->
-        <div class="form-group">
+        <!--<div class="form-group">
           <label for="weight">Weight</label>
           <div class="input-group">
             <input id="weight" class="form-control" >
           </div>
+        </div>-->
+        
+        <label for="weight">Weight</label><br>
+        <select >
+            <option value="" label="Select an option"></option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+            <option>Option 3</option>
+            <option>Option 4</option>
+        </select>
+       
+        <br><br>
+        <!--Quantity-->
+        <div>
+          <label for="qty">Quantity</label>
+          <button class="btn btn-link px-2"
+            onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+            <i class="fas fa-minus"></i>
+          </button>
+
+          <input id="form1" min="1" name="quantity" value="1" type="number"
+            class="form-control form-control-sm" />
+
+          <button class="btn btn-link px-2"
+            onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+            <i class="fas fa-plus"></i>
+          </button>
         </div>
-      </form>
+
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
     </div>
   </ng-template>
+<!--</form>-->
 
 <!--------------------------------------------------------------------------------Pop-up of Order Summary----------------------------------------------------------------------->
 <ng-template #orderSummaryContent let-modal>
