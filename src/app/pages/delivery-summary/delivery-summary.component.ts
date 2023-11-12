@@ -49,7 +49,6 @@ export class DeliverySummaryComponent {
     });
 
     this.myUser = this.authService.getUser();
-    console.log(this.delivery);
 
     // if (this.myUser && this.delivery) {
     //   if (this.myUser.photoURL == 'Student') {
