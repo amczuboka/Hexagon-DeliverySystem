@@ -37,6 +37,7 @@ export class RequestDeliveryQuotationComponent{
     })
   }
 
+  //Functions for pop-up form
   open(content: any) {
     this.nodalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -53,6 +54,15 @@ export class RequestDeliveryQuotationComponent{
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  //Function for getPrice()
+  public showMyMessage = false
+
+  getPrice() {
+    setTimeout(() => {
+      this.showMyMessage = true
+    }, 1000)
   }
 
 }

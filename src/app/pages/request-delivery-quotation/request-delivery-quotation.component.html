@@ -44,13 +44,18 @@
 
         </form>
 
-        <!--Button to add Item-->
-        <div class="col-md-12"><button type="button" class="btn btn-primary" (click)="open(content)">Add Item</button></div>
-        <br>
-          <!-------------------------------------------------------Delivery Item Card------------------------------------------------>
-          <!--Must put this in an ngFor loop-->
-          <app-delivery-item></app-delivery-item>
-       
+        <!-------------------------------------------------------Delivery Item Card------------------------------------------------>
+        <!--Must put this in an ngFor loop-->
+        <app-delivery-item></app-delivery-item>
+
+        <!-------------------------------------------------------Buttons------------------------------------------------>
+       <!--Button to add Item-->
+       <div><button type="button" class="btn btn-primary" (click)="open(content)">Add Item</button></div>
+       <br>
+       <!--Button to indicate the user has finished adding item and calculate price-->
+       <div><button type="button" class="btn btn-primary" (click)="getPrice()">Finish</button></div>
+       <p *ngIf="showMyMessage">Display price!</p>
+       <br>
     </div>
   </section>
 
