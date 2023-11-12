@@ -24,7 +24,7 @@ export class RequestDeliveryQuotationComponent{
   deliveryDetailsForm!: FormGroup<any>;
   //matcher!: ErrorStateMatcher;
   closeResult!: string;
-content: any;
+  content: any;
 
   constructor(
     private form_builder: FormBuilder,

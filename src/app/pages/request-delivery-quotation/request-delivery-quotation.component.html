@@ -1,7 +1,7 @@
 <section class="h-100" style="background-color: #eee;">
     <div class="container h-100 py-5">
     <h1 class="text-center">Request Delivery or Quotation!</h1>
-    <h3 class="text-center">Please fill out the information below to get a quotation for a delivery or request a delivery</h3>
+    <h3 class="text-center">Please fill out the information below to get a quotation or request a delivery</h3>
     <br><br>
      <!-------------------------------------------------------Delivery Details Card------------------------------------------------>
         <form [formGroup]="deliveryDetailsForm">
@@ -9,36 +9,52 @@
                 <div class="card-body p-4">
                 <div class="row d-flex justify-content-between align-items-center">
                     
-                    <div class="col-md-3 col-lg-3 col-xl-3">
+                    <!--<div class="col-md-3 col-lg-3 col-xl-3">-->
                       <p class="lead fw-normal mb-2">Delivery Details</p>
-                      <br>
+                      <br><br>
                       <!--Depart Location-->
-                          
-                      <div class="form-group">
-                        <label class="center-block"> Depart Location:
-                            <input class="form-control" formControlName="departLocation">
-                        </label>
-                      </div>
-                      <div *ngIf="deliveryDetailsForm.controls['departLocation'].invalid && (deliveryDetailsForm.controls['departLocation'].dirty || deliveryDetailsForm.controls['departLocation'].touched)" class="alert">
-                          <div *ngIf="deliveryDetailsForm.controls['departLocation'].errors">
-                              Please enter depart location
-                          </div>
-                      </div>
-
+                      <p>Enter depart location: </p>
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Depart Location</mat-label>
+                        <input 
+                          matInput
+                          required
+                          ngModel name="departLocation"
+                          formControlName="departLocation"
+                        >
+                        <mat-icon
+                          matSuffix
+                          *ngIf="
+                            deliveryDetailsForm.controls['departLocation'].hasError('required') &&
+                            deliveryDetailsForm.controls['departLocation'].touched"
+                            >error_outline</mat-icon>
+                        <mat-error
+                          *ngIf="deliveryDetailsForm.controls['departLocation'].hasError('required')"
+                            >Enter depart location</mat-error>
+                        </mat-form-field>
+                      
                       <!--Destination-->
+                      <p>Enter destination: </p>
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Destination</mat-label>
+                        <input 
+                          matInput
+                          required
+                          ngModel name="destination"
+                          formControlName="destination"
+                        >
+                        <mat-icon
+                          matSuffix
+                          *ngIf="
+                            deliveryDetailsForm.controls['destination'].hasError('required') &&
+                            deliveryDetailsForm.controls['destination'].touched"
+                            >error_outline</mat-icon>
+                        <mat-error
+                          *ngIf="deliveryDetailsForm.controls['destination'].hasError('required')"
+                            >Enter destination</mat-error>
+                        </mat-form-field>
                       
-                      <div class="form-group">
-                        <label class="center-block"> Destination:
-                            <input class="form-control" formControlName="destination">
-                        </label>
-                      </div>
-                      <div *ngIf="deliveryDetailsForm.controls['destination'].invalid && (deliveryDetailsForm.controls['destination'].dirty || deliveryDetailsForm.controls['destination'].touched)" class="alert">
-                          <div *ngIf="deliveryDetailsForm.controls['destination'].errors">
-                              Please enter destination
-                          </div>
-                      </div>
-                      
-                  </div>
+                  <!--</div>-->
                 </div>
               </div>
             </div>
@@ -73,11 +89,11 @@
     </div>
     <div class="modal-body">
       <form>
-        <!--Item Name-->
+        <!--Item Description-->
         <div class="form-group">
-          <label for="itemName">Item Name</label>
+          <label for="itemDescription">Item Description</label>
           <div class="input-group">
-            <input id="itemName" class="form-control" >
+            <input id="itemDescription" class="form-control" >
           </div>
         </div>
         <!--Size-->
