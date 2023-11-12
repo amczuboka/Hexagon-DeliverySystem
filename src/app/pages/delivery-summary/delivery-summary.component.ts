@@ -47,6 +47,13 @@ export class DeliverySummaryComponent {
       const deliveryProps = JSON.parse(params['delivery']);
       this.delivery = new Delivery(deliveryProps);
     });
+    // this.delivery.Status = DeliveryStatus.EnRoute;
+    // this.delivery.Review = {
+    //   stars: 4,
+    //   description: 'Good',
+    //   title: 'Good',
+    //   date: new Date(),
+    // };
 
     this.myUser = this.authService.getUser();
 
@@ -91,6 +98,10 @@ export class DeliverySummaryComponent {
     //   });
     //   console.log('Applied : ' + this.Applied);
     // }
+  }
+
+  placeOrder(){
+    console.log('place order');
   }
 
   editReview() {
