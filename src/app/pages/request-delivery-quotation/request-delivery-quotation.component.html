@@ -1,6 +1,7 @@
 <section class="h-100" style="background-color: #eee;">
     <div class="container h-100 py-5">
-    <h1 class="text-center">Request Delivery!</h1>
+    <h1 class="text-center">Request Delivery or Quotation!</h1>
+    <h3 class="text-center">Please fill out the information below to get a quotation for a delivery or request a delivery</h3>
     <br><br>
      <!-------------------------------------------------------Delivery Details Card------------------------------------------------>
         <form [formGroup]="deliveryDetailsForm">
@@ -48,20 +49,21 @@
         <!--Must put this in an ngFor loop-->
         <app-delivery-item></app-delivery-item>
 
-        <!-------------------------------------------------------Buttons------------------------------------------------>
+       <!-------------------------------------------------------Buttons------------------------------------------------>
        <!--Button to add Item-->
        <div><button type="button" class="btn btn-primary" (click)="open(content)">Add Item</button></div>
        <br>
-       <!--Button to indicate the user has finished adding item and calculate price-->
-       <div><button type="button" class="btn btn-primary" (click)="getPrice()">Finish</button></div>
-       <p *ngIf="showMyMessage">Display price!</p>
+       <!--Button to get-->
+       <div><button type="button" class="btn btn-primary" (click)="orderSummary(orderSummaryContent)">Finish</button></div>
        <br>
+
+
     </div>
   </section>
 
 
 
-  <!-------------------------------------------------------Pop-up Form------------------------------------------------>
+  <!-------------------------------------------------------Pop-up Form to Add Item------------------------------------------------>
   <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">New Item</h4>
@@ -92,16 +94,85 @@
             <input id="weight" class="form-control" >
           </div>
         </div>
-        <!--Quantity-->
-        <!--<div class="form-group">
-          <label for="quantity">Quantity</label>
-          <div class="input-group">
-            <input id="quantity" class="form-control" >
-          </div>
-        </div>-->
       </form>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
     </div>
   </ng-template>
+
+
+<!--Pop up of Order Summary-->
+<ng-template #orderSummaryContent let-modal>
+   
+    <div class="card">
+      <div class="card-body mx-4">
+        <div class="container">
+          
+          <div class="modal-header">
+            <h2 class="modal-title" id="modal-basic-title">Order Summary</h2>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          
+          <br><br>
+          <div class="row">
+            <ul class="list-unstyled">
+              <li class="text-black">John Doe</li>
+              <li class="text-muted mt-1"><span class="text-black">Delivery ID</span> #12345</li>
+              <li class="text-black mt-1">April 17 2021</li>
+              <li class="text-black mt-1">Depart Location:</li>
+              <li class="text-black mt-1">Destination: </li>
+            </ul>
+            <hr>
+            <div class="col-xl-10">
+              <p>Pro Package (Qt:1)</p>
+            </div>
+            <div class="col-xl-2">
+              <p class="float-end">$199.00
+              </p>
+            </div>
+            <hr>
+          </div>
+          <div class="row">
+            <div class="col-xl-10">
+              <p>Consulting (Qt:1)</p>
+            </div>
+            <div class="col-xl-2">
+              <p class="float-end">$100.00
+              </p>
+            </div>
+            <hr>
+          </div>
+          <div class="row">
+            <div class="col-xl-10">
+              <p>Support (Qt:1)</p>
+            </div>
+            <div class="col-xl-2">
+              <p class="float-end">$10.00
+              </p>
+            </div>
+            <hr style="border: 2px solid black;">
+          </div>
+          <div class="row text-black">
+    
+            <div class="col-xl-12">
+              <p class="float-end fw-bold">Total: $10.00
+              </p>
+            </div>
+            <hr style="border: 2px solid black;">
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Proceed to Payment</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save Quotation</button>
+    </div>
+  </ng-template>
+
+
+  

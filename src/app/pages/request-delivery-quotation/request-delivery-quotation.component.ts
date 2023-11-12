@@ -24,6 +24,7 @@ export class RequestDeliveryQuotationComponent{
   deliveryDetailsForm!: FormGroup<any>;
   //matcher!: ErrorStateMatcher;
   closeResult!: string;
+content: any;
 
   constructor(
     private form_builder: FormBuilder,
@@ -57,12 +58,23 @@ export class RequestDeliveryQuotationComponent{
   }
 
   //Function for getPrice()
-  public showMyMessage = false
+  /*public showMyMessage = false
 
   getPrice() {
     setTimeout(() => {
       this.showMyMessage = true
     }, 1000)
+  }*/
+
+   //Functions for pop-up form
+   orderSummary(orderSummaryContent: any) {
+    this.nodalService.open(orderSummaryContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
+  
+ 
 
 }
