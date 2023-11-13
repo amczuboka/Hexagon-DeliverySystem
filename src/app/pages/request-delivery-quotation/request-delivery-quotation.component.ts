@@ -15,6 +15,7 @@ import {
 } from '@angular/material/snack-bar';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddItemDialogComponent } from 'src/app/components/add-item-dialog/add-item-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @Component({
@@ -81,6 +82,7 @@ export class RequestDeliveryQuotationComponent{
   openAddItemDialog(): void {
     let dialogRef = this.dialog.open(AddItemDialogComponent, {
       //width: '250px',
+      //height: '500px'
       //data: {name: this.name, animal: this.animal}
     });
 
