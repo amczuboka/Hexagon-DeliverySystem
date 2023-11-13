@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, Validators, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RequestDeliveryQuotationComponent } from 'src/app/pages/request-delivery-quotation/request-delivery-quotation.component';
@@ -12,10 +12,11 @@ import { RequestDeliveryQuotationComponent } from 'src/app/pages/request-deliver
 })
 export class AddItemDialogComponent implements OnInit {
   newDeliveryItem!: FormGroup<any>;
-  form_builder: any;
 
   constructor(public dialogRef: MatDialogRef<RequestDeliveryQuotationComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any){}
+  @Inject(MAT_DIALOG_DATA) public data: any,
+  private form_builder: FormBuilder
+  ){}
 
   itemSizes = [
     { id: 1, value: 'Option 1'},
@@ -36,8 +37,7 @@ export class AddItemDialogComponent implements OnInit {
       itemDescription: ['', [Validators.required]],
       itemWeight: ['', [Validators.required]],
       itemSize: ['', [Validators.required]]
-
-    })
+    });
     
 
   }
