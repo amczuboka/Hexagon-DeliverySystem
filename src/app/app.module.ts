@@ -5,6 +5,7 @@ import {
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 
+import { MatDialogModule } from '@angular/material/dialog'; //for dialog in requst delivery/quotation
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -52,6 +53,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { environment } from 'src/environments/environment';
 import { DeliveryItemComponent } from './components/delivery-item/delivery-item.component';
+import { AddItemDialogComponent } from './components/add-item-dialog/add-item-dialog.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { DeliveryItemComponent } from './components/delivery-item/delivery-item.
     VerifyEmailComponent,
     RequestDeliveryQuotationComponent,
     DeliveryItemComponent,
+    AddItemDialogComponent,
     
   ],
   imports: [
@@ -78,6 +81,7 @@ import { DeliveryItemComponent } from './components/delivery-item/delivery-item.
     FontAwesomeModule,
     FormsModule,
     MatCardModule,
+    MatDialogModule,  //for dialog 
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,

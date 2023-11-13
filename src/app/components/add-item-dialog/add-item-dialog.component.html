@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Add New Item</h2>
+<mat-dialog-content>
+    <!--<form [formGroup]="newDeliveryItem">
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input 
+            matInput
+            required
+            ngModel name="itemDescription"
+            formControlName="itemDescription"
+            >
+            <mat-icon
+            matSuffix
+            *ngIf="
+                newDeliveryItem.controls['itemDescription'].hasError('required') &&
+                newDeliveryItem.controls['itemDescription'].touched"
+                >error_outline</mat-icon>
+            <mat-error
+            *ngIf="newDeliveryItem.controls['itemDescription'].hasError('required')"
+                >Enter item description</mat-error>
+        </mat-form-field>
+    </form>  -->
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button>Cancel</button>
+    <button mat-raised-button (click)="saveItem()">Save</button>
+</mat-dialog-actions>

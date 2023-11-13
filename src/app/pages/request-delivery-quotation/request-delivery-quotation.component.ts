@@ -7,12 +7,14 @@ import {
   NgForm, 
   Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddItemDialogComponent } from 'src/app/components/add-item-dialog/add-item-dialog.component';
 
 
 @Component({
@@ -34,7 +36,8 @@ export class RequestDeliveryQuotationComponent{
 
   constructor(
     private form_builder: FormBuilder,
-    private nodalService: NgbModal
+    private nodalService: NgbModal,
+    public dialog: MatDialog
   ){}
 
   ngOnInit(): void{
@@ -49,36 +52,9 @@ export class RequestDeliveryQuotationComponent{
       destinationCity: ['', [Validators.required]],
       destinationProvince: ['', [Validators.required]],
       destinationPostalCode: ['', [Validators.required]],
-      //Add Item Info
-      newItemDescription: ['', [Validators.required]]
 
     })
 
-    this.newDeliveryItem = this.form_builder.group({
-      itemDescription: ['', [Validators.required]],
-    
-    })
-  }
-
-  
-
-  //Function for "add new item" pop-up form
-  open(content: any) {
-    this.nodalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
-  
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
   }
 
    //Functions for "finish" pop-up form
@@ -89,7 +65,31 @@ export class RequestDeliveryQuotationComponent{
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
   }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
   
+
+  //Function for add new item dialog
+  openAddItemDialog(): void {
+    let dialogRef = this.dialog.open(AddItemDialogComponent, {
+      //width: '250px',
+      //data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
  
 
 }
