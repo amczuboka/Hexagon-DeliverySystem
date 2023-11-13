@@ -1,0 +1,10 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+article, .router-outlet-class {
+    flex: 1;
+    overflow: auto;
+}

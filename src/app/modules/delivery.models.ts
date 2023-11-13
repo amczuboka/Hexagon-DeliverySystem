@@ -5,16 +5,22 @@ export interface DeliveryInterface {
   DepartLocation: string;
   ArriveLocation: string;
   Status: DeliveryStatus;
+  orderDate: Date;
   EstimatedTime: Date;
   Id: string;
   Recurring: boolean;
   Total: number;
+
   calculateTotal(): number;
+
+  [key: string]: string | number | boolean | Date | Review | Item[]| (() => number);
+
 }
 export interface Review {
   stars: number;
+  title: string;
   description: string;
-  deliveryID: string;
+  date: Date;
 }
 export interface ItemInterface {
   Name: string;
@@ -37,12 +43,14 @@ export class Delivery implements DeliveryInterface {
   Review: Review = {
     stars: 0,
     description: '',
-    deliveryID: '',
+    title: '',
+    date: new Date(),
   };
   Distance: number = 0;
   DepartLocation: string = '';
   ArriveLocation: string = '';
   Status: DeliveryStatus = DeliveryStatus.Quotation;
+  orderDate: Date = new Date();
   EstimatedTime: Date = new Date();
   Id: string = '';
   Recurring: boolean = false;
@@ -52,6 +60,7 @@ export class Delivery implements DeliveryInterface {
   constructor(init?: Partial<Delivery>) {
     Object.assign(this, init);
   }
+  [key: string]: string | number | boolean | Date | Review | Item[] | (() => number);
 
   calculateTotal(): number {
     return 0;
