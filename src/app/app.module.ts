@@ -5,6 +5,7 @@ import {
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 
+import { MatDialogModule } from '@angular/material/dialog'; //for dialog in requst delivery/quotation
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -45,13 +46,16 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
-import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthService } from './services/auth.service';
 import { AuthguardGuard } from './services/auth.guard';
 import { StorageService } from './services/storage.service';
-import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { DeliveryItemComponent } from './components/delivery-item/delivery-item.component';
+import { AddItemDialogComponent } from './components/add-item-dialog/add-item-dialog.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
+import { RequestDeliveryQuotationComponent } from './pages/request-delivery-quotation/request-delivery-quotation.component';
 import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summary.component';
 import { TrackingComponent } from './components/tracking/tracking.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
@@ -69,6 +73,9 @@ import { DeliveryCardComponent } from './components/delivery-card/delivery-card.
     LoginComponent,
     NavComponent,
     VerifyEmailComponent,
+    RequestDeliveryQuotationComponent,
+    DeliveryItemComponent,
+    AddItemDialogComponent,
     DeliverySummaryComponent,
     TrackingComponent,
     ReviewsComponent,
@@ -88,6 +95,7 @@ import { DeliveryCardComponent } from './components/delivery-card/delivery-card.
     FontAwesomeModule,
     FormsModule,
     MatCardModule,
+    MatDialogModule,  //for dialog 
     MatIconModule,
     MatProgressBarModule,
     MatFormFieldModule,

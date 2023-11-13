@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { AuthguardGuard } from './services/auth.guard';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
+import { RequestDeliveryQuotationComponent } from './pages/request-delivery-quotation/request-delivery-quotation.component';
 import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summary.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component'; 
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
+  { path: 'request-delivery-quotation', component: RequestDeliveryQuotationComponent, canActivate: [AuthguardGuard] },
   {
     path: 'delivery-summary',
     component: DeliverySummaryComponent,
