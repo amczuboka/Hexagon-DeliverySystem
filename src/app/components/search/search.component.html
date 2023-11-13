@@ -1,9 +1,10 @@
 <div class="example-full-width">
   <mat-form-field class="search" appearance="outline">
-    <mat-label *ngIf="screenWidth >= 650"
-      >Search by Order ID, Destination Location, Price, Item Names</mat-label
+    <mat-label *ngIf="screenWidth >= 685"
+      >Search by Order ID, Destination Location, Price, Item Names, etc...</mat-label
     >
-    <mat-label *ngIf="screenWidth < 650">Search by Order ID, etc...</mat-label>
+    <mat-label *ngIf="screenWidth < 685 && screenWidth > 320">Search by Order ID, etc...</mat-label>
+    <mat-label *ngIf="screenWidth < 320">Search by ID, etc...</mat-label>
     <div>
       <input
         matInput
