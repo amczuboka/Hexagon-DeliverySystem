@@ -52,6 +52,7 @@ import { provideMessaging,getMessaging } from '@angular/fire/messaging';
 import { VerifyEmailComponent } from './pages/verify-email/verify-email.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { ReviewComponent } from './components/review/review.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -64,6 +65,7 @@ import { ReviewComponent } from './components/review/review.component';
     VerifyEmailComponent,
     ReviewsComponent,
     ReviewComponent,
+    PaymentComponent,
   ],
   imports: [
     BrowserModule,
