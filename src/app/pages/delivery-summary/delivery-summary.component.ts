@@ -47,6 +47,7 @@ export class DeliverySummaryComponent {
       const deliveryProps = JSON.parse(params['delivery']);
       this.delivery = new Delivery(deliveryProps);
     });
+    this.delivery.Status = DeliveryStatus.Delivered;
 
     this.myUser = this.authService.getUser();
 
