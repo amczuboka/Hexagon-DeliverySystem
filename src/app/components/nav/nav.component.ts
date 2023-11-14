@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements AfterViewChecked {
+  isCollapsed = true; // Initialize as collapsed
   authority!: string;
   myUser!: any;
   constructor(
@@ -28,6 +29,7 @@ export class NavComponent implements AfterViewChecked {
 
   myFunction() {
     let x = document.getElementById("myDIV");
+    this.isCollapsed = !this.isCollapsed;
     
     if (x != null) {
         if (x.classList.contains("show")) {
