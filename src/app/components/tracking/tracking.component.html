@@ -1,9 +1,18 @@
 <div class="row ml-2 status-bar-container">
   <div>
-    <div class="center_title">
+    <div
+      *ngIf="delivery.Status !== 'Quotation'; else Quotation"
+      class="center_title"
+    >
       Delivery Status <br />
       <hr />
     </div>
+    <ng-template #Quotation>
+      <div class="center_title">
+        Status <br />
+        <hr />
+      </div>
+    </ng-template>
     <div class="status">
       <ng-container [ngSwitch]="delivery.Status">
         <div class="status-bar-item" *ngSwitchCase="'Quotation'">

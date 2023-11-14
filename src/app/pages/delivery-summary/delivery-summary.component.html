@@ -6,14 +6,36 @@
       <div class="col-md-8 height-fit-content delivery-details">
         <div class="content-padding">
           <div class="center_title">
-            <p class="delivery">Delivery Summary</p>
-            <p class="delivery-id">
+            <p
+              *ngIf="delivery.Status !== 'Quotation'; else Quotation"
+              class="delivery"
+            >
+              Delivery Summary
+            </p>
+            <ng-template #Quotation>
+              <p class="delivery">Quotation Summary</p>
+            </ng-template>
+            <p
+              *ngIf="delivery.Status !== 'Quotation'; else QuotationId"
+              class="delivery-id"
+            >
               Delivery ID: <b>{{ delivery.Id }}</b>
             </p>
+            <ng-template #QuotationId>
+              Quotation ID: <b>{{ delivery.Id }}</b>
+            </ng-template>
             <hr />
           </div>
           <br />
-          <div class="center_title">Delivery Items</div>
+          <div
+            *ngIf="delivery.Status !== 'Quotation'; else QuotationItems"
+            class="center_title"
+          >
+            Delivery Items
+          </div>
+          <ng-template #QuotationItems class="center_title">
+            <div class="center_title">Quotation Items</div>
+          </ng-template>
           <div class="item-list">
             <div *ngFor="let item of delivery.items">
               <div class="row">
@@ -28,7 +50,12 @@
               <hr />
             </div>
           </div>
-          <ng-container *ngIf="!delivery.Review.title">
+          <ng-container
+            *ngIf="
+              !delivery.Review.title && delivery.Status === 'Delivered';
+              else PlaceOrder
+            "
+          >
             <div>
               <button
                 mat-raised-button
@@ -40,8 +67,21 @@
               </button>
             </div>
           </ng-container>
-          <!-- Check if there is a title, if there is, that means the Review object isn't empty -->
-          <ng-container *ngIf="delivery.Review.title">
+          <ng-template #PlaceOrder>
+            <div *ngIf="delivery.Status === 'Quotation'">
+              <button
+                mat-raised-button
+                class="my-button"
+                style="background-color: #007bff; color: white"
+                (click)="placeOrder()"
+              >
+                <mat-icon>add</mat-icon>Place Order
+              </button>
+            </div>
+          </ng-template>
+          <ng-container
+            *ngIf="delivery.Review.title && delivery.Status === 'Delivered'"
+          >
             <div class="center_title">
               <br />
               Review
@@ -73,17 +113,32 @@
       <div class="col">
         <div class="row mb-2 delivery-info-container">
           <div>
-            <div class="center_title">
+            <div
+              *ngIf="delivery.Status !== 'Quotation'; else QuotationInfo"
+              class="center_title"
+            >
               Delivery Information<br />
               <hr />
             </div>
+            <ng-template #QuotationInfo>
+              <div class="center_title">
+                Quotation Information<br />
+                <hr />
+              </div>
+            </ng-template>
             <b>Depart Location: </b> {{ delivery.DepartLocation }}<br />
             <b>Arrival Location: </b> {{ delivery.ArriveLocation }}
             <br />
             <b>Distance: </b>{{ delivery.Distance }} km <br />
-            <b>Estimated Time of Delivery: </b
-            >{{ delivery.EstimatedTime | date : "MMMM d, y" }}
-            <br />
+            <div *ngIf="delivery.Status !== 'Quotation'">
+              <ng-container *ngIf="delivery.Status !== 'Delivered';else Delivered">
+                <b>Estimated Time of Delivery: </b>
+              </ng-container>
+              <ng-template #Delivered>
+                <b>Delivered on: </b>
+              </ng-template>
+              {{ delivery.EstimatedTime | date : "MMMM d, y" }} <br />
+            </div>
             <ng-container *ngIf="myUser.Authority === 'Company'"
               ><b>Recurring: </b>{{ delivery.Recurring }} <br
             /></ng-container>

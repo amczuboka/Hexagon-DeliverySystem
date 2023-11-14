@@ -28,55 +28,36 @@
         <li *ngIf="authService.isLoggedIn" class="nav-item">
           <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
             <ul class="navbar-nav mr-auto">
-              <!-- Track Delivery function -->
-              <li ngbDropdown class="nav-item dropdown">
-                <a ngbDropdownToggle class="nav-link">Track</a>
-                <div
-                  ngbDropdownMenu
-                  class="bg-dark drop-menu"
-                  aria-labelledby="trackDropdown"
-                >
-                  <a class="dropdown-item nav-link" href="#"
-                    >Track Delivery Information and link or pop up</a
-                  >
-                </div>
-              </li>
               <li
                 *ngIf="authService.isLoggedIn"
                 ngbDropdown
                 class="nav-item dropdown"
               >
                 <!-- Delivery functions -->
-                <a ngbDropdownToggle class="nav-link">Delivery</a>
+                <a ngbDropdownToggle class="nav-link">Deliveries & Quotations</a>
                 <div
                   ngbDropdownMenu
                   class="bg-dark drop-menu"
                   aria-labelledby="deliveryDropdown"
                 >
-                  <!-- Request Delivery function -->
-                  <a class="dropdown-item nav-link" aria-current="page" href="#"
-                    >Request Delivery</a
+                  <!-- View Deliveries function -->
+                  <a class="dropdown-item nav-link" aria-current="page" href="my-deliveries"
+                    >My Deliveries & Quotations</a
                   >
-                  <!-- Request Quotation function -->
-                  <a class="dropdown-item nav-link" aria-current="page" href="#"
-                    >Request Quotation</a
-                  >
-                  <a
-                    class="dropdown-item nav-link"
-                    aria-current="page"
-                    href="my-deliveries"
-                    >My Deliveries</a
+                  <!-- Request Delivery/Quotation function -->
+                  <a class="dropdown-item nav-link" aria-current="page" href="request-delivery-quotation"
+                    >Request Delivery or Quotation</a
                   >
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" role="button">Customer Service</a>
+                <a class="nav-link" href="reviews" role="button">Reviews</a>
               </li>
             </ul>
           </div>
         </li>
         <li *ngIf="authService.isLoggedIn" class="nav-item">
-          <a class="nav-link" aria-current="page" href="reviews">Reviews</a>
+          <a class="nav-link" aria-current="page" href="#">Customer Service</a>
         </li>
         <li *ngIf="authService.isLoggedIn" class="nav-item">
           <a class="nav-link" (click)="authService.SignOut()">Log Out</a>
