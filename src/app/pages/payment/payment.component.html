@@ -1,659 +1,655 @@
 <section class="py-2">
-   
-    <div
-      class="container py-2 h-100 px-xs-0 d-flex justify-content-center align-items-center"
-    >
-      <div class="row h-100 m-2 section">
-        <div class="col-md-8 height-fit-content">
-            <form [formGroup]="paymentForm">
-        <div class="content-padding">
-          <div class="payment-methods">
-            <div class="center_title">
-              <p class="delivery">Accepted Payment Methods </p>
-              <hr />
-            </div>
-            <div class="item-list">
-              Visa
-            </div>
-            <div class="item-list">
-              Mastercard
-            </div>
-            <div class="item-list">
-              American Express
-            </div>
-          </div>
-        </div>
-
-        <div class="content-padding">
-          <div class="card-details">
-            <div class="center_title">
-              <p class="delivery">Card Details</p>
-              <hr />
-            </div>
-
-            <!-- Input for card number -->
-                <div class="form-outline mb-4">
-                   <mat-form-field appearance="outline">
-                     <mat-label class="form-label" for="form2Example17"
-                       >Card Number</mat-label
-                     >
-                     <input
-                       matInput
-                       required
-                       ngModel
-                       name="CardNumber"
-                       formControlName="CardNumber"
-                       [errorStateMatcher]="matcher"
-                       id="form2Example17"
-                       class="form-control form-control-lg"
-                     />
-                     <mat-icon
-                       matSuffix
-                       *ngIf="
-                         (paymentForm.controls['CardNumber'].hasError('minlength') ||
-                         paymentForm.controls['CardNumber'].hasError('required')) &&
-                         paymentForm.controls['CardNumber'].touched
-                       "
-                       >error_outline</mat-icon
-                     >
-                     <mat-error
-                       *ngIf="
-                         paymentForm.controls['CardNumber'].hasError('minlength') &&
-                         !paymentForm.controls['CardNumber'].hasError('required') && paymentForm.controls['CardNumber'].hasError('pattern')
-                       "
-                     >
-                       Please enter a valid card number
-                     </mat-error>
-                     <mat-error
-                       *ngIf="paymentForm.controls['CardNumber'].hasError('required')"
-                     >
-                     CardNumber is <strong>required</strong>
-                     </mat-error>
-                   </mat-form-field>
-                 </div>
-
-                 <!-- Input for expiry date -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >MM/YY</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="ExpiryDate"
-                        formControlName="ExpiryDate"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['ExpiryDate'].hasError('minlength') ||
-                          paymentForm.controls['ExpiryDate'].hasError('required')) &&
-                          paymentForm.controls['ExpiryDate'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['ExpiryDate'].hasError('minlength') &&
-                          !paymentForm.controls['ExpiryDate'].hasError('required') && paymentForm.controls['ExpiryDate'].hasError('pattern')
-                        "
-                      >
-                        Please enter a valid expiry date
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['ExpiryDate'].hasError('required')"
-                      >
-                      Expiry date is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Input for cvv -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >CVV</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="CVV"
-                        formControlName="CVV"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['CVV'].hasError('minlength') ||
-                          paymentForm.controls['CVV'].hasError('required')) &&
-                          paymentForm.controls['CVV'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['CVV'].hasError('minlength') &&
-                          !paymentForm.controls['CVV'].hasError('required') && paymentForm.controls['CVV'].hasError('pattern')
-                        "
-                      >
-                        Please enter a valid CVV
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['CVV'].hasError('required')"
-                      >
-                      CVV is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                   <!-- Input for Name -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >Name on Card</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="Name"
-                        formControlName="Name"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['Name'].hasError('minlength') ||
-                          paymentForm.controls['Name'].hasError('required')) &&
-                          paymentForm.controls['Name'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['Name'].hasError('minlength') &&
-                          !paymentForm.controls['Name'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid name
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['Name'].hasError('required')"
-                      >
-                      Name is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <b>Billing Address </b>
-
-                <!-- Input for First Name -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >First Name</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="First"
-                        formControlName="First"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['First'].hasError('minlength') ||
-                          paymentForm.controls['First'].hasError('required')) &&
-                          paymentForm.controls['First'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['First'].hasError('minlength') &&
-                          !paymentForm.controls['First'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid first name
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['First'].hasError('required')"
-                      >
-                      First name is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Input for Last Name -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >Last Name</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="Last"
-                        formControlName="Last"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['Last'].hasError('minlength') ||
-                          paymentForm.controls['Last'].hasError('required')) &&
-                          paymentForm.controls['Last'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['Last'].hasError('minlength') &&
-                          !paymentForm.controls['Last'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid last name
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['Last'].hasError('required')"
-                      >
-                      Last name is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Input for Street -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >Street Address</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="Street"
-                        formControlName="Street"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['Street'].hasError('minlength') ||
-                          paymentForm.controls['Street'].hasError('required')) &&
-                          paymentForm.controls['Street'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['Street'].hasError('minlength') &&
-                          !paymentForm.controls['Street'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid street address
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['Street'].hasError('required')"
-                      >
-                      Street address is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Input for Apt -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >Apt/Suite/Etc</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="Apt"
-                        formControlName="Apt"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['Apt'].hasError('minlength') ||
-                          paymentForm.controls['Apt'].hasError('required')) &&
-                          paymentForm.controls['Apt'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['Apt'].hasError('minlength') &&
-                          !paymentForm.controls['Apt'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid number
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['Apt'].hasError('required')"
-                      >
-                      Number is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Input for City -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >City</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="City"
-                        formControlName="City"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['City'].hasError('minlength') ||
-                          paymentForm.controls['City'].hasError('required')) &&
-                          paymentForm.controls['City'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['City'].hasError('minlength') &&
-                          !paymentForm.controls['City'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid city
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['City'].hasError('required')"
-                      >
-                      City is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Input for Province -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >Province </mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="Province"
-                        formControlName="Province"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['Province'].hasError('minlength') ||
-                          paymentForm.controls['Province'].hasError('required')) &&
-                          paymentForm.controls['Province'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['Province'].hasError('minlength') &&
-                          !paymentForm.controls['Province'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid province
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['Province'].hasError('required')"
-                      >
-                      Province is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Input for Postal -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >Postal Code</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="Postal"
-                        formControlName="Postal"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['Postal'].hasError('minlength') ||
-                          paymentForm.controls['Postal'].hasError('required')) &&
-                          paymentForm.controls['Postal'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['Postal'].hasError('minlength') &&
-                          !paymentForm.controls['Postal'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid postal code
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['Postal'].hasError('required')"
-                      >
-                      Postal Code is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Input for Country -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >Country</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="Country"
-                        formControlName="Country"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['Country'].hasError('minlength') ||
-                          paymentForm.controls['Country'].hasError('required')) &&
-                          paymentForm.controls['Country'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['Country'].hasError('minlength') &&
-                          !paymentForm.controls['Country'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid country
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['Country'].hasError('required')"
-                      >
-                      Country is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Input for Phone -->
-                <div class="form-outline mb-4">
-                    <mat-form-field appearance="outline">
-                      <mat-label class="form-label" for="form2Example17"
-                        >Phone Number</mat-label
-                      >
-                      <input
-                        matInput
-                        required
-                        ngModel
-                        name="Phone"
-                        formControlName="Phone"
-                        [errorStateMatcher]="matcher"
-                        id="form2Example17"
-                        class="form-control form-control-lg"
-                      />
-                      <mat-icon
-                        matSuffix
-                        *ngIf="
-                          (paymentForm.controls['Phone'].hasError('minlength') ||
-                          paymentForm.controls['Phone'].hasError('required')) &&
-                          paymentForm.controls['Phone'].touched
-                        "
-                        >error_outline</mat-icon
-                      >
-                      <mat-error
-                        *ngIf="
-                          paymentForm.controls['Phone'].hasError('minlength') &&
-                          !paymentForm.controls['Phone'].hasError('required') 
-                        "
-                      >
-                        Please enter a valid phone number
-                      </mat-error>
-                      <mat-error
-                        *ngIf="paymentForm.controls['Phone'].hasError('required')"
-                      >
-                      Phone number is <strong>required</strong>
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-
-
-
-            
-          </div>
-        </div>
-
-        <div class="content-padding">
-          <div class="email-confirmation">
-            <div class="center_title">
-              <p class="delivery">Email Confirmation</p>
-              <hr />
-            </div>
-
-<!-- Input for email -->          
- <div class="form-outline mb-4">
-    <mat-form-field appearance="outline">
-      <mat-label class="form-label" for="form2Example17"
-        >Email</mat-label
-      >
-      <input
-        matInput
-        required
-        ngModel
-        name="Email"
-        formControlName="Email"
-        [errorStateMatcher]="matcher"
-        id="form2Example17"
-        class="form-control form-control-lg"
-      />
-      <mat-icon
-        matSuffix
-        *ngIf="
-          (paymentForm.controls['Email'].hasError('email') ||
-          paymentForm.controls['Email'].hasError('required')) &&
-          paymentForm.controls['Email'].touched
-        "
-        >error_outline</mat-icon
-      >
-      <mat-error
-        *ngIf="
-          paymentForm.controls['Email'].hasError('email') &&
-          !paymentForm.controls['Email'].hasError('required')
-        "
-      >
-        Please enter a valid email address
-      </mat-error>
-      <mat-error
-        *ngIf="paymentForm.controls['Email'].hasError('required')"
-      >
-        Email is <strong>required</strong>
-      </mat-error>
-    </mat-form-field>
-  </div>
-
-
-          </div>
-        </div>
-    </form>
-        </div>
-   
-
-        <div class="col">
-
-          <div class="row mb-2 delivery-info-container">
-            <div class="order-summary">
+  <div
+    class="container py-2 h-100 px-xs-0 d-flex justify-content-center align-items-center"
+  >
+    <div class="row h-100 m-2 section">
+      <div class="col-md-8 height-fit-content">
+        <form [formGroup]="paymentForm">
+          <div class="content-padding">
+            <div class="payment-methods">
               <div class="center_title">
-                Order Summary<br />
+                <p class="delivery">Accepted Payment Methods</p>
                 <hr />
               </div>
-              <b>Subtotal: </b> <br />
-              <b>Taxes: </b> <br />
-              <b>Order Total: </b> km <br />
+              <div class="item-list">Visa</div>
+              <div class="item-list">Mastercard</div>
+              <div class="item-list">American Express</div>
             </div>
           </div>
-          
-          <div>
-            <button
-              mat-raised-button
-              class="my-button"
-              style="background-color:#007BFF; color:white;"
-            >
-            Place Order
-            </button>
+
+          <div class="content-padding">
+            <div class="card-details">
+              <div class="center_title">
+                <p class="delivery">Card Details</p>
+                <hr />
+              </div>
+
+              <!-- Input for card number -->
+              <div class="form-outline mb-4">
+                <mat-form-field appearance="outline">
+                  <mat-label class="form-label" for="form2Example17"
+                    >Card Number</mat-label
+                  >
+                  <input
+                    matInput
+                    required
+                    ngModel
+                    name="CardNumber"
+                    formControlName="CardNumber"
+                    [errorStateMatcher]="matcher"
+                    id="form2Example17"
+                    class="form-control form-control-lg"
+                  />
+                  <mat-icon
+                    matSuffix
+                    *ngIf="
+                      (paymentForm.controls['CardNumber'].hasError(
+                        'minlength'
+                      ) ||
+                        paymentForm.controls['CardNumber'].hasError(
+                          'required'
+                        )) &&
+                      paymentForm.controls['CardNumber'].touched
+                    "
+                    >error_outline</mat-icon
+                  >
+                  <mat-error
+                    *ngIf="
+                      paymentForm.controls['CardNumber'].hasError(
+                        'minlength'
+                      ) &&
+                      !paymentForm.controls['CardNumber'].hasError(
+                        'required'
+                      ) &&
+                      paymentForm.controls['CardNumber'].hasError('pattern')
+                    "
+                  >
+                    Please enter a valid card number
+                  </mat-error>
+                  <mat-error
+                    *ngIf="
+                      paymentForm.controls['CardNumber'].hasError('required')
+                    "
+                  >
+                    CardNumber is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Input for expiry date -->
+              <div class="EXP-CVV">
+                <div class="form-outline mb-4">
+                  <mat-form-field class="right" appearance="outline">
+                    <mat-label class="form-label" for="form2Example17"
+                      >MM/YY</mat-label
+                    >
+                    <input
+                      matInput
+                      required
+                      ngModel
+                      name="ExpiryDate"
+                      formControlName="ExpiryDate"
+                      [errorStateMatcher]="matcher"
+                      id="form2Example17"
+                      class="form-control form-control-lg"
+                    />
+                    <mat-icon
+                      matSuffix
+                      *ngIf="
+                        (paymentForm.controls['ExpiryDate'].hasError(
+                          'minlength'
+                        ) ||
+                          paymentForm.controls['ExpiryDate'].hasError(
+                            'required'
+                          )) &&
+                        paymentForm.controls['ExpiryDate'].touched
+                      "
+                      >error_outline</mat-icon
+                    >
+                    <mat-error
+                      *ngIf="
+                        paymentForm.controls['ExpiryDate'].hasError(
+                          'minlength'
+                        ) &&
+                        !paymentForm.controls['ExpiryDate'].hasError(
+                          'required'
+                        ) &&
+                        paymentForm.controls['ExpiryDate'].hasError('pattern')
+                      "
+                    >
+                      Please enter a valid expiry date
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        paymentForm.controls['ExpiryDate'].hasError('required')
+                      "
+                    >
+                      Expiry date is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Input for cvv -->
+                <div class="form-outline mb-4">
+                  <mat-form-field class="left" appearance="outline">
+                    <mat-label class="form-label" for="form2Example17"
+                      >CVV</mat-label
+                    >
+                    <input
+                      matInput
+                      required
+                      ngModel
+                      name="CVV"
+                      formControlName="CVV"
+                      [errorStateMatcher]="matcher"
+                      id="form2Example17"
+                      class="form-control form-control-lg"
+                    />
+                    <mat-icon
+                      matSuffix
+                      *ngIf="
+                        (paymentForm.controls['CVV'].hasError('minlength') ||
+                          paymentForm.controls['CVV'].hasError('required')) &&
+                        paymentForm.controls['CVV'].touched
+                      "
+                      >error_outline</mat-icon
+                    >
+                    <mat-error
+                      *ngIf="
+                        paymentForm.controls['CVV'].hasError('minlength') &&
+                        !paymentForm.controls['CVV'].hasError('required') &&
+                        paymentForm.controls['CVV'].hasError('pattern')
+                      "
+                    >
+                      Please enter a valid CVV
+                    </mat-error>
+                    <mat-error
+                      *ngIf="paymentForm.controls['CVV'].hasError('required')"
+                    >
+                      CVV is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- Input for Name -->
+              <div class="form-outline mb-4">
+                <mat-form-field appearance="outline">
+                  <mat-label class="form-label" for="form2Example17"
+                    >Name on Card</mat-label
+                  >
+                  <input
+                    matInput
+                    required
+                    ngModel
+                    name="Name"
+                    formControlName="Name"
+                    [errorStateMatcher]="matcher"
+                    id="form2Example17"
+                    class="form-control form-control-lg"
+                  />
+                  <mat-icon
+                    matSuffix
+                    *ngIf="
+                      (paymentForm.controls['Name'].hasError('minlength') ||
+                        paymentForm.controls['Name'].hasError('required')) &&
+                      paymentForm.controls['Name'].touched
+                    "
+                    >error_outline</mat-icon
+                  >
+                  <mat-error
+                    *ngIf="
+                      paymentForm.controls['Name'].hasError('minlength') &&
+                      !paymentForm.controls['Name'].hasError('required')
+                    "
+                  >
+                    Please enter a valid name
+                  </mat-error>
+                  <mat-error
+                    *ngIf="paymentForm.controls['Name'].hasError('required')"
+                  >
+                    Name is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="billing">
+               <b>Billing Address </b>
+              </div>
+              <!-- Input for First Name -->
+              <div class="EXP-CVV">
+                <div class="form-outline mb-4">
+                  <mat-form-field class="right" appearance="outline">
+                    <mat-label class="form-label" for="form2Example17"
+                      >First Name</mat-label
+                    >
+                    <input
+                      matInput
+                      required
+                      ngModel
+                      name="First"
+                      formControlName="First"
+                      [errorStateMatcher]="matcher"
+                      id="form2Example17"
+                      class="form-control form-control-lg"
+                    />
+                    <mat-icon
+                      matSuffix
+                      *ngIf="
+                        (paymentForm.controls['First'].hasError('minlength') ||
+                          paymentForm.controls['First'].hasError('required')) &&
+                        paymentForm.controls['First'].touched
+                      "
+                      >error_outline</mat-icon
+                    >
+                    <mat-error
+                      *ngIf="
+                        paymentForm.controls['First'].hasError('minlength') &&
+                        !paymentForm.controls['First'].hasError('required')
+                      "
+                    >
+                      Please enter a valid first name
+                    </mat-error>
+                    <mat-error
+                      *ngIf="paymentForm.controls['First'].hasError('required')"
+                    >
+                      First name is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Input for Last Name -->
+                <div class="form-outline mb-4">
+                  <mat-form-field class="left" appearance="outline">
+                    <mat-label class="form-label" for="form2Example17"
+                      >Last Name</mat-label
+                    >
+                    <input
+                      matInput
+                      required
+                      ngModel
+                      name="Last"
+                      formControlName="Last"
+                      [errorStateMatcher]="matcher"
+                      id="form2Example17"
+                      class="form-control form-control-lg"
+                    />
+                    <mat-icon
+                      matSuffix
+                      *ngIf="
+                        (paymentForm.controls['Last'].hasError('minlength') ||
+                          paymentForm.controls['Last'].hasError('required')) &&
+                        paymentForm.controls['Last'].touched
+                      "
+                      >error_outline</mat-icon
+                    >
+                    <mat-error
+                      *ngIf="
+                        paymentForm.controls['Last'].hasError('minlength') &&
+                        !paymentForm.controls['Last'].hasError('required')
+                      "
+                    >
+                      Please enter a valid last name
+                    </mat-error>
+                    <mat-error
+                      *ngIf="paymentForm.controls['Last'].hasError('required')"
+                    >
+                      Last name is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- Input for Street -->
+              <div class="form-outline mb-4">
+                <mat-form-field appearance="outline">
+                  <mat-label class="form-label" for="form2Example17"
+                    >Street Address</mat-label
+                  >
+                  <input
+                    matInput
+                    required
+                    ngModel
+                    name="Street"
+                    formControlName="Street"
+                    [errorStateMatcher]="matcher"
+                    id="form2Example17"
+                    class="form-control form-control-lg"
+                  />
+                  <mat-icon
+                    matSuffix
+                    *ngIf="
+                      (paymentForm.controls['Street'].hasError('minlength') ||
+                        paymentForm.controls['Street'].hasError('required')) &&
+                      paymentForm.controls['Street'].touched
+                    "
+                    >error_outline</mat-icon
+                  >
+                  <mat-error
+                    *ngIf="
+                      paymentForm.controls['Street'].hasError('minlength') &&
+                      !paymentForm.controls['Street'].hasError('required')
+                    "
+                  >
+                    Please enter a valid street address
+                  </mat-error>
+                  <mat-error
+                    *ngIf="paymentForm.controls['Street'].hasError('required')"
+                  >
+                    Street address is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Input for Apt -->
+              <div class="form-outline mb-4">
+                <mat-form-field appearance="outline">
+                  <mat-label class="form-label" for="form2Example17"
+                    >Apt/Suite/Etc</mat-label
+                  >
+                  <input
+                    matInput
+                    required
+                    ngModel
+                    name="Apt"
+                    formControlName="Apt"
+                    [errorStateMatcher]="matcher"
+                    id="form2Example17"
+                    class="form-control form-control-lg"
+                  />
+                  <mat-icon
+                    matSuffix
+                    *ngIf="
+                      (paymentForm.controls['Apt'].hasError('minlength') ||
+                        paymentForm.controls['Apt'].hasError('required')) &&
+                      paymentForm.controls['Apt'].touched
+                    "
+                    >error_outline</mat-icon
+                  >
+                  <mat-error
+                    *ngIf="
+                      paymentForm.controls['Apt'].hasError('minlength') &&
+                      !paymentForm.controls['Apt'].hasError('required')
+                    "
+                  >
+                    Please enter a valid number
+                  </mat-error>
+                  <mat-error
+                    *ngIf="paymentForm.controls['Apt'].hasError('required')"
+                  >
+                    Number is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <!-- Input for City -->
+              <div class="EXP-CVV">
+                <div class="form-outline mb-4">
+                  <mat-form-field class="right" appearance="outline">
+                    <mat-label class="form-label" for="form2Example17"
+                      >City</mat-label
+                    >
+                    <input
+                      matInput
+                      required
+                      ngModel
+                      name="City"
+                      formControlName="City"
+                      [errorStateMatcher]="matcher"
+                      id="form2Example17"
+                      class="form-control form-control-lg"
+                    />
+                    <mat-icon
+                      matSuffix
+                      *ngIf="
+                        (paymentForm.controls['City'].hasError('minlength') ||
+                          paymentForm.controls['City'].hasError('required')) &&
+                        paymentForm.controls['City'].touched
+                      "
+                      >error_outline</mat-icon
+                    >
+                    <mat-error
+                      *ngIf="
+                        paymentForm.controls['City'].hasError('minlength') &&
+                        !paymentForm.controls['City'].hasError('required') &&
+                        paymentForm.controls['City'].hasError(
+                          'alphabeticValidator'
+                        )
+                      "
+                    >
+                      Please enter a valid city
+                    </mat-error>
+                    <mat-error
+                      *ngIf="paymentForm.controls['City'].hasError('required')"
+                    >
+                      City is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Input for Province -->
+                <div class="form-outline mb-4">
+                  <mat-form-field class="left" appearance="outline">
+                    <mat-label class="form-label" for="form2Example17"
+                      >Province</mat-label
+                    >
+                    <select matNativeControl formControlName="province">
+                      <option
+                        *ngFor="let province of provinces"
+                        [value]="province.code"
+                      >
+                        {{ province.name }}
+                      </option>
+                    </select>
+                    <mat-error
+                      *ngIf="paymentForm.get('province')?.hasError('required')"
+                    >
+                      Please select a province.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- Input for Postal -->
+              <div class="EXP-CVV">
+                <div class="form-outline mb-4">
+                  <mat-form-field class="right" appearance="outline">
+                    <mat-label class="form-label" for="form2Example17"
+                      >Postal Code</mat-label
+                    >
+                    <input
+                      matInput
+                      required
+                      ngModel
+                      name="Postal"
+                      formControlName="Postal"
+                      [errorStateMatcher]="matcher"
+                      id="form2Example17"
+                      class="form-control form-control-lg"
+                    />
+                    <mat-icon
+                      matSuffix
+                      *ngIf="
+                        (paymentForm.controls['Postal'].hasError(
+                          'canadianPostalCodeValidator'
+                        ) ||
+                          paymentForm.controls['Postal'].hasError(
+                            'required'
+                          )) &&
+                        paymentForm.controls['Postal'].touched
+                      "
+                      >error_outline</mat-icon
+                    >
+                    <mat-error
+                      *ngIf="
+                        paymentForm.controls['Postal'].hasError(
+                          'canadianPostalCodeValidator'
+                        ) &&
+                        !paymentForm.controls['Postal'].hasError('required')
+                      "
+                    >
+                      Please enter a valid postal code
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        paymentForm.controls['Postal'].hasError('required')
+                      "
+                    >
+                      Postal Code is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Input for Country -->
+                <div class="form-outline mb-4">
+                  <mat-form-field class="left" appearance="outline">
+                    <mat-label class="form-label" for="form2Example17"
+                      >Country</mat-label
+                    >
+                    <select matNativeControl formControlName="country">
+                      <option
+                        *ngFor="let country of countries"
+                        [value]="country.code"
+                      >
+                        {{ country.name }}
+                      </option>
+                    </select>
+                    <mat-error
+                      *ngIf="paymentForm.get('country')?.hasError('required')"
+                    >
+                      Please select a country.
+                    </mat-error>
+
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+              <!-- Input for Phone -->
+              <div class="form-outline mb-4">
+                <mat-form-field appearance="outline">
+                  <mat-label class="form-label" for="form2Example17"
+                    >Phone Number</mat-label
+                  >
+                  <input
+                    matInput
+                    required
+                    ngModel
+                    name="Phone"
+                    formControlName="Phone"
+                    [errorStateMatcher]="matcher"
+                    id="form2Example17"
+                    class="form-control form-control-lg"
+                  />
+                  <mat-icon
+                    matSuffix
+                    *ngIf="
+                      (paymentForm.controls['Phone'].hasError(
+                        'phoneNumberValidator'
+                      ) ||
+                        paymentForm.controls['Phone'].hasError('required')) &&
+                      paymentForm.controls['Phone'].touched
+                    "
+                    >error_outline</mat-icon
+                  >
+                  <mat-error
+                    *ngIf="
+                      paymentForm.controls['Phone'].hasError(
+                        'phoneNumberValidator'
+                      ) && !paymentForm.controls['Phone'].hasError('required')
+                    "
+                  >
+                    Please enter a valid phone number
+                  </mat-error>
+                  <mat-error
+                    *ngIf="paymentForm.controls['Phone'].hasError('required')"
+                  >
+                    Phone number is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
           </div>
 
-        </div>
-      </div>
-   
-    </div>
+          <div class="content-padding">
+            <div class="email-confirmation">
+              <div class="center_title">
+                <p class="delivery">Email Confirmation</p>
+                <hr />
+              </div>
 
-  </section>
+              <!-- Input for email -->
+              <div class="form-outline mb-4">
+                <mat-form-field appearance="outline">
+                  <mat-label class="form-label" for="form2Example17"
+                    >Email</mat-label
+                  >
+                  <input
+                    matInput
+                    required
+                    ngModel
+                    name="Email"
+                    formControlName="Email"
+                    [errorStateMatcher]="matcher"
+                    id="form2Example17"
+                    class="form-control form-control-lg"
+                  />
+                  <mat-icon
+                    matSuffix
+                    *ngIf="
+                      (paymentForm.controls['Email'].hasError('email') ||
+                        paymentForm.controls['Email'].hasError('required')) &&
+                      paymentForm.controls['Email'].touched
+                    "
+                    >error_outline</mat-icon
+                  >
+                  <mat-error
+                    *ngIf="
+                      paymentForm.controls['Email'].hasError('email') &&
+                      !paymentForm.controls['Email'].hasError('required')
+                    "
+                  >
+                    Please enter a valid email address
+                  </mat-error>
+                  <mat-error
+                    *ngIf="paymentForm.controls['Email'].hasError('required')"
+                  >
+                    Email is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </form>
+        
+      </div>
+
+      <div class="col">
+        <div class="content-padding-order">
+        <div class="row mb-2">
+          <div class="order-summary">
+            <div class="center_title">
+              Order Summary<br />
+              <hr />
+            </div>
+            <b>Subtotal: </b> <br />
+            <b>Taxes: </b> <br />
+            <br />
+            <b>Order Total: </b> <br />
+          </div>
+        </div>
+
+        <div>
+          <button
+            mat-raised-button
+            class="my-button"
+            style="background-color: #007bff; color: white"
+          >
+            Place Order
+          </button>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </div>
+</section>

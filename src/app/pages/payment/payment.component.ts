@@ -10,6 +10,55 @@ import {
 import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { AbstractControl, ValidatorFn } from '@angular/forms';
+
+
+
+export function canadianPostalCodeValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const value = control.value;
+
+    if (!value) {
+      return null; // No validation error if the input is empty
+    }
+
+    // Use a regular expression to match the Canadian postal code pattern
+    const pattern = /^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/;
+    const isPostalCodeValid = pattern.test(value);
+
+    return isPostalCodeValid ? null : { invalidCanadianPostalCode: true };
+  };
+}
+
+export function phoneNumberValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const value = control.value;
+
+    if (!value) {
+      return null; // No validation error if the input is empty
+    }
+
+    // Use a regular expression to match the phone number pattern
+    const pattern = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+    const isPhoneNumberValid = pattern.test(value);
+
+    return isPhoneNumberValid ? null : { invalidPhoneNumber: true };
+  };
+}
+
+export function alphabeticValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const value = control.value;
+
+    if (!value) {
+      return null; // No validation error if the input is empty
+    }
+
+    const isAlphabetic = /^[a-zA-Z]+$/.test(value);
+
+    return isAlphabetic ? null : { nonAlphabetic: true };
+  };
+}
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -33,6 +82,30 @@ export class PaymentComponent {
   paymentForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
   hide = true;
+  preselectedValue = "Canada"
+
+   // Define the countries array as a property of your component
+   countries = [
+    { code: 'CA', name: 'Canada' },
+    // Add more countries as needed
+  ];
+
+   // Define the countries array as a property of your component
+   provinces = [
+    { code: 'Qc', name: 'Quebec' },
+    { code: 'On', name: 'Ontario' },
+    { code: 'Al', name: 'Alberta' },
+    { code: 'BC', name: 'British Columbia' },
+    { code: 'Ma', name: 'Manitoba' },
+    { code: 'NB', name: 'New Brunswick' },
+    { code: 'NL', name: 'Newfoundland and Labrador' },
+    { code: 'NS', name: 'Nova Scotia' },
+    { code: 'PEI', name: 'Prince Edward Island' },
+    { code: 'Sk', name: 'Saskatchewan' },
+  ];
+ 
+
+  
 
   constructor(
     public authService: AuthService,
@@ -52,11 +125,12 @@ export class PaymentComponent {
       Street: ['', [Validators.required, Validators.minLength(1)]],
       Apt: ['', [Validators.required, Validators.minLength(1)]],
       City: ['', [Validators.required, Validators.minLength(1)]],
-      Province: ['', [Validators.required, Validators.minLength(1)]],
-      Country: ['', [Validators.required, Validators.minLength(1)]],
-      Phone: ['', [Validators.required, Validators.minLength(1)]],
-      Postal: ['', [Validators.required, Validators.minLength(1)]],
+      Province: ['', [Validators.required]],
+      Country: ['', [Validators.required]],
+      Phone: ['', [Validators.required, phoneNumberValidator()]],
+      Postal: ['', [Validators.required, canadianPostalCodeValidator()]],
     });
+  
   }
   
   async onSubmit() {
@@ -71,5 +145,7 @@ export class PaymentComponent {
 
     window.open('', '_self');
   }
+
+
 
 }
