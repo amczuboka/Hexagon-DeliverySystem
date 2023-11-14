@@ -54,6 +54,7 @@ export class RequestDeliveryQuotationComponent{
   //Function to open "add new item dialog"
   openAddItemDialog(): void {
     let dialogRef = this.dialog.open(AddItemDialogComponent, {
+      width: '30%'
     });
 
     dialogRef.afterClosed().subscribe(result => {
