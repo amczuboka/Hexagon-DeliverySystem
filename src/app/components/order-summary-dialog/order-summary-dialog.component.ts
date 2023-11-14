@@ -7,4 +7,13 @@ import { Component } from '@angular/core';
 })
 export class OrderSummaryDialogComponent {
 
+  saveQuotation(){
+    //save quotation
+  }
+
+
+  proceedToPayment(){
+    //proceed to payment
+  }
+
 }
