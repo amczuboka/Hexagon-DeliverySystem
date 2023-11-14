@@ -93,6 +93,10 @@ export class DeliverySummaryComponent {
     // }
   }
 
+  placeOrder(){
+    console.log('place order');
+  }
+
   editReview() {
     console.log('edit');
   }
