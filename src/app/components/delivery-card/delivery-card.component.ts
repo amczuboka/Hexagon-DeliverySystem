@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   Delivery,
+  DeliveryFrequency,
   DeliveryStatus,
   Item,
 } from 'src/app/modules/delivery.models';
@@ -85,6 +86,7 @@ export class DeliveryCardComponent {
     delivery1.Id = '102972814683';
     delivery1.Total = 37.94;
     delivery1.Status = DeliveryStatus.Quotation;
+    delivery1.Frequency = DeliveryFrequency.BiWeekly;
     this.deliveries.push(delivery1);
 
     //Second Delivery
@@ -97,6 +99,7 @@ export class DeliveryCardComponent {
     delivery2.Id = '12344568932';
     delivery2.Total = 40.94;
     delivery2.Status = DeliveryStatus.EnRoute;
+    delivery2.Frequency = DeliveryFrequency.Monthly;
     this.deliveries.push(delivery2);
 
     //Third Delivery
@@ -121,6 +124,7 @@ export class DeliveryCardComponent {
     delivery4.Id = '5475325786';
     delivery4.Total = 101.14;
     delivery4.Status = DeliveryStatus.Delivered;
+    delivery4.Frequency = DeliveryFrequency.Once;
     this.deliveries.push(delivery4);
   }
 
