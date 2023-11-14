@@ -62,6 +62,7 @@ import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { ReviewComponent } from './components/review/review.component';
 import { SearchComponent } from './components/search/search.component';
 import { DeliveryCardComponent } from './components/delivery-card/delivery-card.component';
+import { OrderSummaryDialogComponent } from './components/order-summary-dialog/order-summary-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +83,7 @@ import { DeliveryCardComponent } from './components/delivery-card/delivery-card.
     ReviewComponent,
     SearchComponent,
     DeliveryCardComponent,
+    OrderSummaryDialogComponent,
   ],
   imports: [
     BrowserModule,

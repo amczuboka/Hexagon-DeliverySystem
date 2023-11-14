@@ -16,6 +16,7 @@ import {
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddItemDialogComponent } from 'src/app/components/add-item-dialog/add-item-dialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderSummaryDialogComponent } from 'src/app/components/order-summary-dialog/order-summary-dialog.component';
 
 
 @Component({
@@ -59,7 +60,7 @@ export class RequestDeliveryQuotationComponent{
   }
 
    //Functions for "finish" pop-up form
-   orderSummary(orderSummaryContent: any) {
+   /*orderSummary(orderSummaryContent: any) {
     this.nodalService.open(orderSummaryContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
@@ -75,15 +76,22 @@ export class RequestDeliveryQuotationComponent{
     } else {
       return `with: ${reason}`;
     }
-  }
+  }*/
   
 
-  //Function for add new item dialog
+  //Function to open "add new item dialog"
   openAddItemDialog(): void {
     let dialogRef = this.dialog.open(AddItemDialogComponent, {
-      //width: '250px',
-      //height: '500px'
-      //data: {name: this.name, animal: this.animal}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  //Function to open "order summary dialog" 
+  openOrderDialog(): void {
+    let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {
     });
 
     dialogRef.afterClosed().subscribe(result => {
