@@ -11,6 +11,17 @@ import {
 import { ErrorStateMatcher } from '@angular/material/core';
 import firebase from 'firebase/compat/app';
 import { DatePipe } from '@angular/common';
+import {
+  getDatabase,
+  ref,
+  onValue,
+  query,
+  orderByChild,
+  equalTo,
+  push,
+  set,
+} from 'firebase/database';
+
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
     control: FormControl | null,
@@ -63,26 +74,26 @@ export class ChatroomComponent implements OnInit {
     const user = JSON.parse(localStorage.getItem('user')!);
     this.email = user.email;
     this.roomname = this.route.snapshot.params['roomname'];
-    firebase
-      .database()
-      .ref('chats/')
-      .on('value', (resp) => {
-        this.chats = [];
-        this.chats = snapshotToArray(resp);
-        setTimeout(
-          () => (this.scrolltop = this.chatcontent.nativeElement.scrollHeight),
-          500
-        );
-      });
-    firebase
-      .database()
-      .ref('roomusers/')
-      .orderByChild('roomname')
-      .equalTo(this.roomname)
-      .on('value', (resp2: any) => {
+    const db = getDatabase();
+    onValue(ref(db, 'chats/'), (resp) => {
+      this.chats = [];
+      this.chats = snapshotToArray(resp);
+      setTimeout(
+        () => (this.scrolltop = this.chatcontent.nativeElement.scrollHeight),
+        500
+      );
+    });
+    onValue(
+      query(
+        ref(db, 'roomusers/'),
+        orderByChild('roomname'),
+        equalTo(this.roomname)
+      ),
+      (resp2: any) => {
         const roomusers = snapshotToArray(resp2);
         this.users = roomusers.filter((x) => x.status === 'online');
-      });
+      }
+    );
   }
 
   ngOnInit(): void {
@@ -97,8 +108,9 @@ export class ChatroomComponent implements OnInit {
     chat.email = this.email;
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
     chat.type = 'message';
-    const newMessage = firebase.database().ref('chats/').push();
-    newMessage.set(chat);
+    const db = getDatabase();
+    const newMessageRef = push(ref(db, 'chats/'));
+    set(newMessageRef, chat);
     this.chatForm = this.formBuilder.group({
       message: [null, Validators.required],
     });
@@ -117,23 +129,30 @@ export class ChatroomComponent implements OnInit {
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss')!;
     chat.message = `${this.email} leave the room`;
     chat.type = 'exit';
-    const newMessage = firebase.database().ref('chats/').push();
-    newMessage.set(chat);
+    const db = getDatabase();
+    const newMessageRef = push(ref(db, 'chats/'));
+    set(newMessageRef, chat);
 
-    firebase
-      .database()
-      .ref('roomusers/')
-      .orderByChild('roomname')
-      .equalTo(this.roomname)
-      .on('value', (resp: any) => {
-        let roomuser = [];
-        roomuser = snapshotToArray(resp);
-        const user = roomuser.find((x) => x.email === this.email);
+    onValue(
+      query(
+        ref(db, 'roomusers/'),
+        orderByChild('roomname'),
+        equalTo(this.roomname)
+      ),
+      (snapshot) => {
+        let roomuser:any [] = [];
+        snapshot.forEach((childSnapshot) => {
+          let item = childSnapshot.val();
+          item.key = childSnapshot.key;
+          roomuser.push(item);
+        });
+        const user = roomuser.find((x: any) => x.email === this.email);
         if (user !== undefined) {
-          const userRef = firebase.database().ref('roomusers/' + user.key);
-          userRef.update({ status: 'offline' });
+          const userRef = ref(db, 'roomusers/' + user.key);
+          set(userRef, { status: 'offline' });
         }
-      });
+      }
+    );
 
     this.router.navigate(['/roomlist']);
   }

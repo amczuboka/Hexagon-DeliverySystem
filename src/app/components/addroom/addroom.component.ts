@@ -1,6 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
+  getDatabase,
+  ref,
+  query,
+  orderByChild,
+  equalTo,
+  get,
+  push,
+  set,
+} from 'firebase/database';
+
+import {
   FormControl,
   FormGroupDirective,
   FormBuilder,
@@ -34,7 +45,8 @@ export class AddroomComponent implements OnInit {
   roomForm!: FormGroup;
   email = '';
   roomname = '';
-  ref = firebase.database().ref('rooms/');
+  db = getDatabase();
+  dbRef = ref(this.db, 'rooms/');
   matcher = new MyErrorStateMatcher();
 
   constructor(
@@ -52,17 +64,19 @@ export class AddroomComponent implements OnInit {
 
   onFormSubmit(form: any) {
     const room = form;
-    this.ref
-      .orderByChild('roomname')
-      .equalTo(room.roomname)
-      .once('value', (snapshot: any) => {
-        if (snapshot.exists()) {
-          this.snackBar.open('Room name already exist!');
-        } else {
-          const newRoom = firebase.database().ref('rooms/').push();
-          newRoom.set(room);
-          this.router.navigate(['/roomlist']);
-        }
-      });
+  const roomRef = query(
+    this.dbRef,
+    orderByChild('roomname'),
+    equalTo(room.roomname)
+  );
+  get(roomRef).then((snapshot) => {
+    if (snapshot.exists()) {
+      this.snackBar.open('Room name already exist!');
+    } else {
+      const newRoomRef = push(this.dbRef);
+      set(newRoomRef, room);
+      this.router.navigate(['/roomlist']);
+    }
+  });
   }
 }

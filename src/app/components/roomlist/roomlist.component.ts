@@ -2,6 +2,16 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import firebase from 'firebase/compat/app';
+import {
+  getDatabase,
+  ref,
+  push,
+  set,
+  query,
+  orderByChild,
+  equalTo,
+  onValue,
+} from 'firebase/database';
 
 export const snapshotToArray = (snapshot: any) => {
   const returnArr: any[] = [];
@@ -33,14 +43,12 @@ export class RoomlistComponent {
     const user = JSON.parse(localStorage.getItem('user')!);
     this.email = user.email;
 
-    firebase
-      .database()
-      .ref('rooms/')
-      .on('value', (resp) => {
-        this.rooms = [];
-        this.rooms = snapshotToArray(resp);
-        this.isLoadingResults = false;
-      });
+    const db = getDatabase();
+    onValue(ref(db, 'rooms/'), (snapshot) => {
+      this.rooms = [];
+      this.rooms = snapshotToArray(snapshot);
+      this.isLoadingResults = false;
+    });
   }
 
   enterChatRoom(roomname: string) {
@@ -56,31 +64,34 @@ export class RoomlistComponent {
     chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss')!;
     chat.message = `${this.email} enter the room`;
     chat.type = 'join';
-    const newMessage = firebase.database().ref('chats/').push();
-    newMessage.set(chat);
+    const db = getDatabase();
+    const newMessageRef = push(ref(db, 'chats/'));
+    set(newMessageRef, chat);
 
-    firebase
-      .database()
-      .ref('roomusers/')
-      .orderByChild('roomname')
-      .equalTo(roomname)
-      .on('value', (resp: any) => {
-        let roomuser = [];
-        roomuser = snapshotToArray(resp);
-        const user = roomuser.find((x) => x.email === this.email);
-        if (user !== undefined) {
-          const userRef = firebase.database().ref('roomusers/' + user.key);
-          userRef.update({ status: 'online' });
-        } else {
-          const newroomuser = { roomname: '', email: '', status: '' };
-          newroomuser.roomname = roomname;
-          newroomuser.email = this.email;
-          newroomuser.status = 'online';
-          const newRoomUser = firebase.database().ref('roomusers/').push();
-          newRoomUser.set(newroomuser);
-        }
+  onValue(
+    query(ref(db, 'roomusers/'), orderByChild('roomname'), equalTo(roomname)),
+    (snapshot) => {
+      let roomuser: any[] = [];
+      snapshot.forEach((childSnapshot) => {
+        let item = childSnapshot.val();
+        item.key = childSnapshot.key;
+        roomuser.push(item);
       });
+      const user = roomuser.find((x: any) => x.email === this.email);
+      if (user !== undefined) {
+        const userRef = ref(db, 'roomusers/' + user.key);
+        set(userRef, { status: 'online' });
+      } else {
+        const newroomuser = { roomname: '', email: '', status: '' };
+        newroomuser.roomname = roomname;
+        newroomuser.email = this.email;
+        newroomuser.status = 'online';
+        const newRoomUserRef = push(ref(db, 'roomusers/'));
+        set(newRoomUserRef, newroomuser);
+      }
+    }
+  );
 
-    this.router.navigate(['/chatroom', roomname]);
+    this.router.navigate(['/chatroom',roomname]);
   }
 }

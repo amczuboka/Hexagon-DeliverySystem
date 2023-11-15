@@ -14,9 +14,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
-  { path: 'roomlist/:email', component: RoomlistComponent },
+  { path: 'roomlist', component: RoomlistComponent },
   { path: 'addroom', component: AddroomComponent },
-  { path: 'chatroom/:email/:roomid', component: ChatroomComponent },
+  { path: 'chatroom/:roomname', component: ChatroomComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
