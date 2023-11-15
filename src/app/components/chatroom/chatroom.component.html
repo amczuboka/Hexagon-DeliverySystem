@@ -3,7 +3,7 @@
     <mat-drawer mode="side" opened class="left-drawer">
       <div class="users-pane">
         <mat-card class="users-card">
-          <button type="button" mat-button matSuffix mat-icon-button aria-label="Exit" (click)="exitChat()">
+          <button type="button" mat-button matSuffix  aria-label="Exit" (click)="exitChat()">
             <mat-icon>logout</mat-icon>
           </button>
         </mat-card>
@@ -39,7 +39,7 @@
             <mat-error>
               <span *ngIf="!chatForm.controls['message'].hasError('required')  && chatForm.controls['message'].touched">Enter your message</span>
             </mat-error>
-            <button type="submit" [disabled]="!chatForm.valid" mat-button matSuffix mat-icon-button aria-label="Send">
+            <button type="submit" [disabled]="!chatForm.valid" mat-button matSuffix mat-button  aria-label="Send">
               <mat-icon>send</mat-icon>
             </button>
           </mat-form-field>
