@@ -87,9 +87,9 @@ export class ChatroomComponent implements OnInit {
         500
       );
     });
-    this.getEmail(db);
+    this.getCreater(db);
   }
-  async getEmail(db: Database) {
+  async getCreater(db: Database) {
     const dbRef = query(
       ref(db, 'rooms/'),
       orderByChild('roomname'),
