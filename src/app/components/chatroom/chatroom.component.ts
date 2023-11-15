@@ -156,6 +156,7 @@ export class ChatroomComponent implements OnInit {
           update(userRef, { status: 'offline' });
           return;
         }
+        return;
       }
     );
 

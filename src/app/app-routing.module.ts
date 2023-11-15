@@ -26,9 +26,9 @@ const routes: Routes = [
   },
   { path: 'reviews', component: ReviewsComponent, canActivate: [AuthguardGuard] },
   { path: 'my-deliveries', component: MyDeliveriesComponent, canActivate: [AuthguardGuard] },
-  { path: 'roomlist', component: RoomlistComponent },
-  { path: 'addroom', component: AddroomComponent },
-  { path: 'chatroom/:roomname', component: ChatroomComponent },
+  { path: 'roomlist', component: RoomlistComponent, canActivate: [AuthguardGuard] },
+  { path: 'addroom', component: AddroomComponent,canActivate: [AuthguardGuard]  },
+  { path: 'chatroom/:roomname', component: ChatroomComponent,canActivate: [AuthguardGuard]  },
 ];
 
 @NgModule({
