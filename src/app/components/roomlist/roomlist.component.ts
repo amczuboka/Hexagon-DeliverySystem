@@ -71,33 +71,6 @@ export class RoomlistComponent {
     const newMessageRef = push(ref(db, 'chats/'));
     set(newMessageRef, chat);
 
-  onValue(
-    query(ref(db, 'roomusers/'), orderByChild('roomname'), equalTo(roomname)),
-    (snapshot) => {
-      let roomuser: any[] = [];
-      snapshot.forEach((childSnapshot) => {
-        let item = childSnapshot.val();
-        item.key = childSnapshot.key;
-        roomuser.push(item);
-      });
-      const user = roomuser.find((x: any) => x.email === this.email);
-      if (user !== undefined) {
-        const userRef = ref(db, 'roomusers/' + user.key);
-        update(userRef, { status: 'online' });
-        return;
-      } else {
-        const newroomuser = { roomname: '', email: '', status: '' };
-        newroomuser.roomname = roomname;
-        newroomuser.email = this.email;
-        newroomuser.status = 'online';
-        const newRoomUserRef = push(ref(db, 'roomusers/'));
-        set(newRoomUserRef, newroomuser);
-        return;
-      }
-    }
-    
-  );
-
     this.router.navigate(['/chatroom',roomname]);
   }
 }

@@ -57,11 +57,13 @@ export class AddroomComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user')!);
     this.roomForm = this.formBuilder.group({
       roomname: [null, Validators.required],
+      creater: [user.uid]
     });
   }
-
+  //TODO only a client should be able to create a room
   onFormSubmit(form: any) {
     const room = form;
   const roomRef = query(

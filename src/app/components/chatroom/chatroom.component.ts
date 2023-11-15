@@ -21,7 +21,10 @@ import {
   push,
   set,
   update,
+  Database,
+  get,
 } from 'firebase/database';
+import { UserDTO } from 'src/app/modules/user.models';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -57,12 +60,12 @@ export const snapshotToArray = (snapshot: any) => {
 export class ChatroomComponent implements OnInit {
   @ViewChild('chatcontent') chatcontent!: ElementRef;
   scrolltop!: number;
-
+  creater!:UserDTO;
   chatForm!: FormGroup;
   email = '';
   roomname = '';
   message = '';
-  users: any[] = [];
+
   chats: any[] = [];
   matcher = new MyErrorStateMatcher();
 
@@ -84,17 +87,27 @@ export class ChatroomComponent implements OnInit {
         500
       );
     });
-    onValue(
-      query(
-        ref(db, 'roomusers/'),
-        orderByChild('roomname'),
-        equalTo(this.roomname)
-      ),
-      (resp2: any) => {
-        const roomusers = snapshotToArray(resp2);
-        this.users = roomusers.filter((x) => x.status === 'online');
-      }
+    this.getEmail(db);
+  }
+  async getEmail(db: Database) {
+    const dbRef = query(
+      ref(db, 'rooms/'),
+      orderByChild('roomname'),
+      equalTo(this.roomname)
     );
+    get(dbRef).then(async (snapshot) => {
+      if (snapshot.exists()) {
+        const room: { [key: string]: { creater: string } } = snapshot.val(); // cast to expected type
+        const createrValue = Object.values(room)[0].creater;
+        const userRef = query(ref(db, 'individual/' + createrValue));
+       await get(userRef).then((snapshot)=>{
+        if(snapshot.exists()){
+          this.creater = snapshot.val();
+     
+        }
+       }); 
+      } 
+    });
   }
 
   ngOnInit(): void {
@@ -131,34 +144,12 @@ export class ChatroomComponent implements OnInit {
     chat.email = this.email;
     chat.date = new Date().toISOString();
     chat.date = chat.date.replace(' ', 'T');
-    chat.date = this.datepipe.transform(chat.date, 'yyyy-MM-ddTHH:mm')!;    chat.message = `${this.email} leave the room`;
+    chat.date = this.datepipe.transform(chat.date, 'yyyy-MM-ddTHH:mm')!;
+    chat.message = `${this.email} leave the room`;
     chat.type = 'exit';
     const db = getDatabase();
     const newMessageRef = push(ref(db, 'chats/'));
     set(newMessageRef, chat);
-
-    onValue(
-      query(
-        ref(db, 'roomusers/'),
-        orderByChild('roomname'),
-        equalTo(this.roomname)
-      ),
-      (snapshot) => {
-        let roomuser:any [] = [];
-        snapshot.forEach((childSnapshot) => {
-          let item = childSnapshot.val();
-          item.key = childSnapshot.key;
-          roomuser.push(item);
-        });
-        const user = roomuser.find((x: any) => x.email === this.email);
-        if (user !== undefined) {
-          const userRef = ref(db, 'roomusers/' + user.key);
-          update(userRef, { status: 'offline' });
-          return;
-        }
-        return;
-      }
-    );
 
     this.router.navigate(['/roomlist']);
   }
