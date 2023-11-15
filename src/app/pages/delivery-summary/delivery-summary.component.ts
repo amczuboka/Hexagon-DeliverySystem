@@ -50,47 +50,6 @@ export class DeliverySummaryComponent {
 
     this.myUser = this.authService.getUser();
 
-    // if (this.myUser && this.delivery) {
-    //   if (this.myUser.photoURL == 'Student') {
-    //     this.authority = 'Student';
-    //   } else if (this.myUser.photoURL == 'Employer') {
-    //     this.authority = 'Employer';
-    //     if (this.myUser.uid == this.delivery.get('EmployerID')) {
-    //       this.isEmployerWhoPosted = true;
-    //     }
-    //   }
-    //   const dbRef = ref(this.database);
-    //   let id = this.myUser.uid;
-    //   const starCountRef = child(dbRef, `students/${id}/Favorites`);
-    //   onValue(starCountRef, (snapshot) => {
-    //     const data = snapshot.val();
-    //     const keys = Object.keys(data);
-    //     if (keys.includes(this.delivery.get('ID') as any)) {
-    //       this.favorited = true;
-    //     } else if (!keys.includes(this.delivery.get('ID') as any)) {
-    //       this.favorited = false;
-    //     }
-    //   });
-    //   const studentRef = child(dbRef, `students/${id}`);
-    //   onValue(studentRef, (snapshot) => {
-    //     const data = snapshot.val();
-    //     if (data.CV == '' || data.CV == null || data.CV == undefined) {
-    //       this.canApply = false;
-    //     }
-    //   });
-    //   const starCountRef1 = child(
-    //     dbRef,
-    //     `job-deliverys/${this.delivery.get('ID')}/Candidates`
-    //   );
-    //   onValue(starCountRef1, (snapshot) => {
-    //     const data = snapshot.val();
-    //     const keys = Object.keys(data);
-    //     if (keys.includes(this.myUser.uid)) {
-    //       this.Applied = true;
-    //     }
-    //   });
-    //   console.log('Applied : ' + this.Applied);
-    // }
   }
 
   placeOrder(){

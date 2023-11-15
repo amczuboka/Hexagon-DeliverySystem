@@ -11,6 +11,7 @@ import {
   orderByChild,
   equalTo,
   onValue,
+  update,
 } from 'firebase/database';
 
 export const snapshotToArray = (snapshot: any) => {
@@ -61,7 +62,9 @@ export class RoomlistComponent {
     };
     chat.roomname = roomname;
     chat.email = this.email;
-    chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss')!;
+        chat.date = new Date().toISOString();
+        chat.date = chat.date.replace(' ', 'T');
+        chat.date = this.datepipe.transform(chat.date.replace(' ', 'T'), 'yyyy-MM-ddTHH:mm')!;
     chat.message = `${this.email} enter the room`;
     chat.type = 'join';
     const db = getDatabase();
@@ -80,7 +83,8 @@ export class RoomlistComponent {
       const user = roomuser.find((x: any) => x.email === this.email);
       if (user !== undefined) {
         const userRef = ref(db, 'roomusers/' + user.key);
-        set(userRef, { status: 'online' });
+        update(userRef, { status: 'online' });
+        return;
       } else {
         const newroomuser = { roomname: '', email: '', status: '' };
         newroomuser.roomname = roomname;
@@ -88,8 +92,10 @@ export class RoomlistComponent {
         newroomuser.status = 'online';
         const newRoomUserRef = push(ref(db, 'roomusers/'));
         set(newRoomUserRef, newroomuser);
+        return;
       }
     }
+    
   );
 
     this.router.navigate(['/chatroom',roomname]);

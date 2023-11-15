@@ -20,6 +20,7 @@ import {
   equalTo,
   push,
   set,
+  update,
 } from 'firebase/database';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -106,7 +107,9 @@ export class ChatroomComponent implements OnInit {
     const chat = form;
     chat.roomname = this.roomname;
     chat.email = this.email;
-    chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss');
+    chat.date = new Date().toISOString();
+    chat.date = chat.date.replace(' ', 'T');
+    chat.date = this.datepipe.transform(chat.date, 'yyyy-MM-ddTHH:mm');
     chat.type = 'message';
     const db = getDatabase();
     const newMessageRef = push(ref(db, 'chats/'));
@@ -126,8 +129,9 @@ export class ChatroomComponent implements OnInit {
     };
     chat.roomname = this.roomname;
     chat.email = this.email;
-    chat.date = this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss')!;
-    chat.message = `${this.email} leave the room`;
+    chat.date = new Date().toISOString();
+    chat.date = chat.date.replace(' ', 'T');
+    chat.date = this.datepipe.transform(chat.date, 'yyyy-MM-ddTHH:mm')!;    chat.message = `${this.email} leave the room`;
     chat.type = 'exit';
     const db = getDatabase();
     const newMessageRef = push(ref(db, 'chats/'));
@@ -149,7 +153,8 @@ export class ChatroomComponent implements OnInit {
         const user = roomuser.find((x: any) => x.email === this.email);
         if (user !== undefined) {
           const userRef = ref(db, 'roomusers/' + user.key);
-          set(userRef, { status: 'offline' });
+          update(userRef, { status: 'offline' });
+          return;
         }
       }
     );
