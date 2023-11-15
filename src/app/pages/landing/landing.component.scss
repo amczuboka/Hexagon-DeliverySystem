@@ -1,164 +1,119 @@
 /* Style for the page content container */
 .page-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
 }
 
 /* Style for the call to action section */
 .action-container {
-    min-height: 125px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 20px;
-    padding-right: 20px;
+  min-height: fit-content;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  padding-right: 20px;
 }
 
 /* Style for the title */
 .title {
-    color: #000000;
-    font-size: 36px;
-    font-weight: bold;
-    margin-top: 10px;
+  color: #000000;
+  font-size: 36px;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 /* Style for the slogan */
 .slogan {
-    color: #000000;
-    font-size: 20px;
-    margin-top: 10px;
-}
-
-/* Style for the image background container */
-.image-container {
-    position: relative;
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
+  color: #000000;
+  font-size: 20px;
+  margin-top: 10px;
 }
 
 /* Style for the image */
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.image-container {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 30px;
+  background-size: cover;
+  background-image: url("https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8ZGVsaXZlcnklMjBzZXJ2aWNlfGVufDB8fDB8fHwy");
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+
 }
 
 /* Style for the button container */
 .button-container {
-    position: absolute;
-    top: 625px;
-    width: 50%;
-    display: flex;
-    justify-content: space-around;
-    background: #f3f2f2;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 10px #868282;
-    border-color: #d0c9c9;
-    border-width: 2px;
+    
+  display: flex;
+  justify-content: space-around;
+  background: #f3f2f2;
+  padding: 20px 10px 20px 10px;
+  border-radius: 10px;
+  box-shadow: 10px #868282;
+  border-color: #d0c9c9;
+  border-width: 2px;
 }
 
 /* Style for the buttons for "Request Delivery" and "Request Quotation" */
 .action-button {
-    text-align: center;
-    text-decoration: none;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s;
+ 
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s;
 }
 
 .action-button img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 10px;
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
 }
 
 .action-button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 /* Media query for responsiveness */
 @media (max-width: 768px) {
-    .slogan {
-        font-size: 16px; 
-    }
-    .title {
-        font-size: 20px; 
-    }
+  .slogan {
+    font-size: 16px;
+  }
+  .title {
+    font-size: 20px;
+  }
 }
 
 /* Media query for responsiveness */
 @media (max-width: 768px) {
-    .slogan {
-        font-size: 16px; 
-    }
-    .title {
-        font-size: 20px; 
-    }
+  .slogan {
+    font-size: 16px;
+  }
+  .title {
+    font-size: 20px;
+  }
 }
 
 /* Media query for responsiveness */
 @media (max-width: 810px) {
-    .image-container{
-        height: 300px; 
-    }
-    .button-container {
-        top: 525px;
-        width: 30%;
-    }
-    .action-button img {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 5px;
-    }
-    .button-text {
-        font-size: 10px;
-    }
+
 }
 
 /* Media query for responsiveness */
 @media (max-height: 670px) {
-    .image-container {
-        height: 150px; 
-    }
-    .button-container {
-        top: 425px;
-        width: 20%;
-    }
-    .action-button img {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 5px;
-    }
-    .button-text {
-        font-size: 10px;
-    }
-}
 
+}
 
 /* Media query for responsiveness */
 @media (max-height: 600px) {
-    .image-container {
-        height: 150px; 
-    }
-    .button-container {
-        top: 325px;
-        width: 20%;
-    }
-    .action-button img {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 5px;
-    }
-    .button-text {
-        font-size: 10px;
-    }
+
 }

@@ -1,0 +1,97 @@
+.col-md-8 
+{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+section{
+    // make the section take up the whole viewport height if the content is less than the viewport height
+    height: 85vh;
+}
+
+.section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.review{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.center_title
+{
+    text-align: center;
+    font-size: 20px;
+    color: #007BFF;
+}
+
+*{
+    word-wrap: normal;     
+}
+
+.item-list {
+    margin-top: 20px; // adjust this value as needed
+    padding: 10px 10px 10px 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.delivery-id {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.delivery {
+font-size: 24px;
+color: #007BFF;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.delivery-details {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.delivery-info-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.my-button {
+    margin: 10px;
+}
+
+
+@media screen and (max-width: 356px) {
+    .delivery {
+      padding-left: 0px;
+    }
+  }
+  
+@media screen and (min-width: 357px) {
+    .delivery {
+        padding-left: 5px;
+    }
+  }

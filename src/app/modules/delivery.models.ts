@@ -5,18 +5,26 @@ export interface DeliveryInterface {
   DepartLocation: string;
   ArriveLocation: string;
   Status: DeliveryStatus;
+  orderDate: Date;
   EstimatedTime: Date;
   Id: string;
   Recurring: boolean;
+  Frequency: DeliveryFrequency;
   Total: number;
+
   calculateTotal(): number;
+
+  [key: string]: string | number | boolean | Date | Review | Item[]| (() => number);
+
 }
 export interface Review {
   stars: number;
+  title: string;
   description: string;
-  deliveryID: string;
+  date: Date;
 }
 export interface ItemInterface {
+  Name: string;
   Quantity: number;
   Height: number;
   Length: number;
@@ -24,11 +32,18 @@ export interface ItemInterface {
   Weight: number;
   calculateItemPrice(): number;
 }
-enum DeliveryStatus {
+export enum DeliveryStatus {
   Quotation = 'Quotation',
   Pending = 'Pending',
   EnRoute = 'En Route',
   Delivered = 'Delivered',
+}
+
+export enum DeliveryFrequency {
+  Once = 'Once',
+  Weekly = 'Weekly',
+  BiWeekly = 'Bi-Weekly',
+  Monthly = 'Monthly',
 }
 
 export class Delivery implements DeliveryInterface {
@@ -36,17 +51,25 @@ export class Delivery implements DeliveryInterface {
   Review: Review = {
     stars: 0,
     description: '',
-    deliveryID: '',
+    title: '',
+    date: new Date(),
   };
   Distance: number = 0;
   DepartLocation: string = '';
   ArriveLocation: string = '';
   Status: DeliveryStatus = DeliveryStatus.Quotation;
+  orderDate: Date = new Date();
   EstimatedTime: Date = new Date();
   Id: string = '';
   Recurring: boolean = false;
+  Frequency: DeliveryFrequency = DeliveryFrequency.Once;
   items: Item[] = [];
   Total: number = this.calculateTotal();
+
+  constructor(init?: Partial<Delivery>) {
+    Object.assign(this, init);
+  }
+  [key: string]: string | number | boolean | Date | Review | Item[] | (() => number);
 
   calculateTotal(): number {
     return 0;
@@ -54,29 +77,31 @@ export class Delivery implements DeliveryInterface {
 }
 
 export class Item implements ItemInterface {
-    Quantity: number = 0;
-    Height: number = 0;
-    Length: number = 0;
-    Width: number = 0;
-    Weight: number = 0;
-    itemPrice = this.calculateItemPrice();
+  Name: string = '';
+  Quantity: number = 0;
+  Height: number = 0;
+  Length: number = 0;
+  Width: number = 0;
+  Weight: number = 0;
+  itemPrice = this.calculateItemPrice();
 
-    constructor(
-        quantity: number,
-        height: number,
-        length: number,
-        width: number,
-        weight: number
-    ) {
-        this.Quantity = quantity;
-        this.Height = height;
-        this.Length = length;
-        this.Width = width;
-        this.Weight = weight;
-    }
+  constructor(
+    name: string,
+    quantity: number,
+    height: number,
+    length: number,
+    width: number,
+    weight: number
+  ) {
+    this.Name = name;
+    this.Quantity = quantity;
+    this.Height = height;
+    this.Length = length;
+    this.Width = width;
+    this.Weight = weight;
+  }
 
-    calculateItemPrice(): number {
-        return 0;
-    }
+  calculateItemPrice(): number {
+    return 0;
+  }
 }
-

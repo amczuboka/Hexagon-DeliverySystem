@@ -1,0 +1,11 @@
+<div class="reviews">
+    <div class="review-header">
+        <h1>See what our clients have to say</h1>
+    </div>
+    
+    <div class="reviews-container">
+        <div *ngFor="let card of cards;">
+            <app-review [review]="card"></app-review>
+        </div>
+    </div>
+</div>
