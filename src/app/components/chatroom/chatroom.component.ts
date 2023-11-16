@@ -84,7 +84,7 @@ export class ChatroomComponent implements OnInit {
     const db = getDatabase();
     onValue(ref(db, 'chats/'), (resp) => {
       this.chats = [];
-      this.chats = snapshotToArray(resp);
+      this.chats = snapshotToArray(resp).filter((chat) => chat.roomname == this.roomname);
       setTimeout(
         () => (this.scrolltop = this.chatcontent.nativeElement.scrollHeight),
         500
