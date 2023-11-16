@@ -24,7 +24,7 @@ import {
   Database,
   get,
 } from 'firebase/database';
-import { UserDTO } from 'src/app/modules/user.models';
+import { User, UserDTO } from 'src/app/modules/user.models';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -60,7 +60,8 @@ export const snapshotToArray = (snapshot: any) => {
 export class ChatroomComponent implements OnInit {
   @ViewChild('chatcontent') chatcontent!: ElementRef;
   scrolltop!: number;
-  creater!:UserDTO;
+  creater!: UserDTO;
+  PersonOnPage!: UserDTO;
   chatForm!: FormGroup;
   email = '';
   roomname = '';
@@ -75,8 +76,10 @@ export class ChatroomComponent implements OnInit {
     private formBuilder: FormBuilder,
     public datepipe: DatePipe
   ) {
-    const user = JSON.parse(localStorage.getItem('user')!);
+    const user: User = JSON.parse(localStorage.getItem('user')!);
+
     this.email = user.email;
+    console.log(user);
     this.roomname = this.route.snapshot.params['roomname'];
     const db = getDatabase();
     onValue(ref(db, 'chats/'), (resp) => {
@@ -88,7 +91,29 @@ export class ChatroomComponent implements OnInit {
       );
     });
     this.getCreater(db);
+    this.getPersonOnPage(db, user);
   }
+
+  async getPersonOnPage(db: Database, user: User) {
+    if (user.photoURL == 'Individual') {
+      const userRef = query(ref(db, 'individual/' + user.uid));
+      get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          this.PersonOnPage = snapshot.val();
+        }
+      });
+    }
+
+    if (user.photoURL == 'Staff') {
+      const userRef = query(ref(db, 'staff/' + user.uid));
+      get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          this.PersonOnPage = snapshot.val();
+        }
+      });
+    }
+  }
+
   async getCreater(db: Database) {
     const dbRef = query(
       ref(db, 'rooms/'),
@@ -100,13 +125,12 @@ export class ChatroomComponent implements OnInit {
         const room: { [key: string]: { creater: string } } = snapshot.val(); // cast to expected type
         const createrValue = Object.values(room)[0].creater;
         const userRef = query(ref(db, 'individual/' + createrValue));
-       await get(userRef).then((snapshot)=>{
-        if(snapshot.exists()){
-          this.creater = snapshot.val();
-     
-        }
-       }); 
-      } 
+        await get(userRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            this.creater = snapshot.val();
+          }
+        });
+      }
     });
   }
 
@@ -119,7 +143,7 @@ export class ChatroomComponent implements OnInit {
   onFormSubmit(form: any) {
     const chat = form;
     chat.roomname = this.roomname;
-    chat.email = this.email;
+    chat.name = this.PersonOnPage.FirstName;
     chat.date = new Date().toISOString();
     chat.date = chat.date.replace(' ', 'T');
     chat.date = this.datepipe.transform(chat.date, 'yyyy-MM-ddTHH:mm');
@@ -135,17 +159,18 @@ export class ChatroomComponent implements OnInit {
   exitChat() {
     const chat = {
       roomname: '',
-      email: '',
+      name: '',
       message: '',
       date: '',
       type: '',
     };
     chat.roomname = this.roomname;
-    chat.email = this.email;
+    chat.name = this.PersonOnPage.FirstName;
     chat.date = new Date().toISOString();
     chat.date = chat.date.replace(' ', 'T');
     chat.date = this.datepipe.transform(chat.date, 'yyyy-MM-ddTHH:mm')!;
-    chat.message = `${this.email} leave the room`;
+    chat.message = `${
+      this.PersonOnPage.FirstName} leave the room`;
     chat.type = 'exit';
     const db = getDatabase();
     const newMessageRef = push(ref(db, 'chats/'));

@@ -21,9 +21,9 @@
           </div>
           <ng-template #message>
             <div class="chat-message">
-              <div class="right-bubble" [ngClass]="{'right-bubble': chat.email === email, 'left-bubble': chat.email !== email}">
-                <span class="msg-name" *ngIf="chat.email === email">Me</span>
-                <span class="msg-name" *ngIf="chat.email !== email">{{chat.email}}</span>
+              <div class="right-bubble" [ngClass]="{'right-bubble': chat.name === this.PersonOnPage.FirstName, 'left-bubble': chat.name !== this.PersonOnPage.FirstName}">
+                <span class="msg-name" *ngIf="chat.name === this.PersonOnPage.FirstName">Me</span>
+                <span class="msg-name" *ngIf="chat.name !== this.PersonOnPage.FirstName">{{chat.name}}</span>
                 <span class="msg-date"> at {{chat.date | date:'short'}}</span>
                 <p text-wrap>{{chat.message}}</p>
               </div>

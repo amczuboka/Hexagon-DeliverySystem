@@ -12,7 +12,10 @@ import {
   equalTo,
   onValue,
   update,
+  Database,
+  get,
 } from 'firebase/database';
+import { User, UserDTO } from 'src/app/modules/user.models';
 
 export const snapshotToArray = (snapshot: any) => {
   const returnArr: any[] = [];
@@ -35,6 +38,8 @@ export class RoomlistComponent {
   displayedColumns: string[] = ['roomname'];
   rooms: any[] = [];
   isLoadingResults = true;
+    PersonOnPage!: UserDTO;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -50,7 +55,20 @@ export class RoomlistComponent {
       this.rooms = snapshotToArray(snapshot);
       this.isLoadingResults = false;
     });
+
+        this.getPersonOnPage(db, user);
+
   }
+
+    async getPersonOnPage(db: Database, user: User) {
+    if (user.photoURL == 'Individual') {
+      const userRef = query(ref(db, 'individual/' + user.uid));
+      get(userRef).then((snapshot) => {
+        if (snapshot.exists()) {
+          this.PersonOnPage = snapshot.val();
+        }
+      });
+    }}
 
   enterChatRoom(roomname: string) {
     const chat = {
@@ -65,7 +83,7 @@ export class RoomlistComponent {
         chat.date = new Date().toISOString();
         chat.date = chat.date.replace(' ', 'T');
         chat.date = this.datepipe.transform(chat.date.replace(' ', 'T'), 'yyyy-MM-ddTHH:mm')!;
-    chat.message = `${this.email} enter the room`;
+    chat.message = ` ${this.PersonOnPage.FirstName} enter the room`;
     chat.type = 'join';
     const db = getDatabase();
     const newMessageRef = push(ref(db, 'chats/'));
