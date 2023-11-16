@@ -48,6 +48,10 @@
             </div>
             <div class="details-container">
               <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  RECURRING: {{ item.Frequency }}
+                </div>
                 <button
                   class=" button"
                   
@@ -97,6 +101,10 @@
             </div>
             <div class="details-container">
               <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  RECURRING: {{ item.Frequency }}
+                </div>
                 <div style="color: rgb(32, 100, 188)">
                   ESTIMATED DELIVERY ON
                 </div>
@@ -151,6 +159,10 @@
             </div>
             <div class="details-container">
               <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  RECURRING: {{ item.Frequency }}
+                </div>
                 <div style="color: rgb(32, 100, 188)">
                   ESTIMATED DELIVERY ON
                 </div>
@@ -205,6 +217,10 @@
             </div>
             <div class="details-container">
               <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  Recurring {{ item.Frequency }}
+                </div>
                 <div style="color: #28a745">DELIVERED ON</div>
                 <div class="order-details">
                   {{ item.EstimatedTime | date : "MMMM d, y" }}

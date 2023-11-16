@@ -15,12 +15,13 @@
             <ng-template #Quotation>
               <p class="delivery">Quotation Summary</p>
             </ng-template>
-            <p
-              *ngIf="delivery.Status !== 'Quotation'; else QuotationId"
-              class="delivery-id"
-            >
+            <p *ngIf="delivery.Status !== 'Quotation'; else QuotationId">
               Delivery ID: <b>{{ delivery.Id }}</b>
             </p>
+            <div *ngIf="delivery.Frequency != 'Once'" class="recurring">
+              <mat-icon>repeat</mat-icon>
+              RECURRING: {{ delivery.Frequency }}
+            </div>
             <ng-template #QuotationId>
               Quotation ID: <b>{{ delivery.Id }}</b>
             </ng-template>
@@ -131,7 +132,9 @@
             <br />
             <b>Distance: </b>{{ delivery.Distance }} km <br />
             <div *ngIf="delivery.Status !== 'Quotation'">
-              <ng-container *ngIf="delivery.Status !== 'Delivered';else Delivered">
+              <ng-container
+                *ngIf="delivery.Status !== 'Delivered'; else Delivered"
+              >
                 <b>Estimated Time of Delivery: </b>
               </ng-container>
               <ng-template #Delivered>
