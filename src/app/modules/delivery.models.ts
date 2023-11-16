@@ -9,8 +9,13 @@ export interface DeliveryInterface {
   EstimatedTime: Date;
   Id: string;
   Recurring: boolean;
+  Frequency: DeliveryFrequency;
   Total: number;
+
   calculateTotal(): number;
+
+  [key: string]: string | number | boolean | Date | Review | Item[]| (() => number);
+
 }
 export interface Review {
   stars: number;
@@ -34,6 +39,13 @@ export enum DeliveryStatus {
   Delivered = 'Delivered',
 }
 
+export enum DeliveryFrequency {
+  Once = 'Once',
+  Weekly = 'Weekly',
+  BiWeekly = 'Bi-Weekly',
+  Monthly = 'Monthly',
+}
+
 export class Delivery implements DeliveryInterface {
   Userid: string = '';
   Review: Review = {
@@ -50,12 +62,14 @@ export class Delivery implements DeliveryInterface {
   EstimatedTime: Date = new Date();
   Id: string = '';
   Recurring: boolean = false;
+  Frequency: DeliveryFrequency = DeliveryFrequency.Once;
   items: Item[] = [];
   Total: number = this.calculateTotal();
 
   constructor(init?: Partial<Delivery>) {
     Object.assign(this, init);
   }
+  [key: string]: string | number | boolean | Date | Review | Item[] | (() => number);
 
   calculateTotal(): number {
     return 0;

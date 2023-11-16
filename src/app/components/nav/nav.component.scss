@@ -17,3 +17,23 @@ background-size:contain ;
 background-repeat: no-repeat;
 padding-left: 32px;
 }
+
+.drop-menu {
+    text-align: center;
+    // border: none;
+}
+
+.dropdown-item {
+    // make its content wrap under if it is too long
+    white-space: normal;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+.dropdown-item:hover {
+    background-color: transparent;
+}
+
+.navbar-collapse {
+    transition: none;
+}
