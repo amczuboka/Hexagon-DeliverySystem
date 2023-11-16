@@ -21,10 +21,19 @@
 
 .users-card {
   margin: 5px 20px;
+  height: fit-content;
+  display: flex;
+  flex-flow: row nowrap;
+  line-height: 1;
+  div{
+    display: flex;
+    width: 70%;
+    flex-flow: column nowrap;
+    overflow-wrap: break-word;
+  }
 }
 
 .username {
-  position: absolute;
   margin-top: 5px;
   margin-left: 10px;
 }
@@ -52,6 +61,7 @@ footer.sticky-footer {
   float: left;
   width: 98%;
   margin: 5px 0 0 2%;
+  overflow-wrap: break-word;
 }
 
 .chat-message {
