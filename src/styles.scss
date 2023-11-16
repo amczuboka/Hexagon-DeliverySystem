@@ -1,7 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /* Importing Bootstrap SCSS file. */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
+.kawaiicolors {
+  background-color: rgb(251, 207, 170);
+  border-color: rgb(70, 20, 19);
+  color: rgb(70, 20, 19);
+  transition: all 0.5s ease-in-out;
+}
+
+.kawaiicolors:hover {
+  background-color: rgb(251, 207, 170);
+  filter: brightness(1.1);
+  border-color: rgb(70, 20, 19);
+    color: rgb(70, 20, 19);
+
+  transform: scale(1.1);
+  transition: all 0, 5s ease-in-out;
+}
+
+.kawaii-icon:hover {
+
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: tilt-shaking  0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes tilt-shaking {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(5deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}

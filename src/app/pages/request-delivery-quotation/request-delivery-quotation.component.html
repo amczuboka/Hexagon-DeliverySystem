@@ -184,91 +184,18 @@
         <app-delivery-item></app-delivery-item>
         <app-delivery-item></app-delivery-item>
 
-       <!--------------------------------------------------------------------------------Buttons----------------------------------------------------------------------->
+       <!--------------------------------------------------------------------------------Buttons to Open Dialogs----------------------------------------------------------------------->
        <!--Button to add Item-->
-       <div><button type="button" class="btn btn-primary" (click)="openAddItemDialog()">Add Item to Delivery</button></div>
+       <div><button type="button" class="kawaiicolors btn btn-primary"  (click)="openAddItemDialog()">Add Item to Delivery</button></div>
        <br>
-       <!--Button to get-->
-       <div><button type="button" class="btn btn-primary" (click)="orderSummary(orderSummaryContent)">Finish</button></div>
+       <!--Button to get order summary-->
+       <div><button type="button" class=" kawaiicolors btn btn-primary" (click)="openOrderDialog()">Finish</button></div>
        <br>
 
     </div>
-
-
-<!--------------------------------------------------------------------------------Pop-up of Order Summary----------------------------------------------------------------------->
-<ng-template #orderSummaryContent let-modal>
-   
-    <div class="card">
-      <div class="card-body mx-4">
-        <div class="container">
-          
-          <div class="modal-header">
-            <h2 class="modal-title" id="modal-basic-title">Order Summary</h2>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          
-          <br><br>
-          <div class="row">
-            <ul class="list-unstyled">
-              <li class="text-black">John Doe</li>
-              <li class="text-muted mt-1"><span class="text-black">Delivery ID</span> #12345</li>
-              <li class="text-black mt-1">April 17 2021</li>
-              <li class="text-black mt-1">Depart Location:</li>
-              <li class="text-black mt-1">Destination: </li>
-            </ul>
-            <hr>
-            <div class="col-xl-10">
-              <p>Pro Package (Qt:1)</p>
-            </div>
-            <div class="col-xl-2">
-              <p class="float-end">$199.00
-              </p>
-            </div>
-            <hr>
-          </div>
-          <div class="row">
-            <div class="col-xl-10">
-              <p>Consulting (Qt:1)</p>
-            </div>
-            <div class="col-xl-2">
-              <p class="float-end">$100.00
-              </p>
-            </div>
-            <hr>
-          </div>
-          <div class="row">
-            <div class="col-xl-10">
-              <p>Support (Qt:1)</p>
-            </div>
-            <div class="col-xl-2">
-              <p class="float-end">$10.00
-              </p>
-            </div>
-            <hr style="border: 2px solid black;">
-          </div>
-          <div class="row text-black">
-    
-            <div class="col-xl-12">
-              <p class="float-end fw-bold">Total: $10.00
-              </p>
-            </div>
-            <hr style="border: 2px solid black;">
-          </div>
-          
-        </div>
-      </div>
-    </div>
-    
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Proceed to Payment</button>
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save Quotation</button>
-    </div>
-  </ng-template>
-
 
   </section>
 
 
 </div>
+
