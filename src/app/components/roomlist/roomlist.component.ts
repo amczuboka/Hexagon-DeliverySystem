@@ -16,6 +16,7 @@ import {
   get,
 } from 'firebase/database';
 import { User, UserDTO } from 'src/app/modules/user.models';
+import { AuthService } from 'src/app/services/auth.service';
 
 export const snapshotToArray = (snapshot: any) => {
   const returnArr: any[] = [];
@@ -38,15 +39,15 @@ export class RoomlistComponent {
   displayedColumns: string[] = ['roomname'];
   rooms: any[] = [];
   isLoadingResults = true;
-    PersonOnPage!: UserDTO;
-
+  PersonOnPage!: UserDTO;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private authService: AuthService
   ) {
-    const user = JSON.parse(localStorage.getItem('user')!);
+    const user = this.authService.getUser();
     this.email = user.email;
 
     const db = getDatabase();
@@ -56,11 +57,10 @@ export class RoomlistComponent {
       this.isLoadingResults = false;
     });
 
-        this.getPersonOnPage(db, user);
-
+    this.getPersonOnPage(db, user);
   }
 
-    async getPersonOnPage(db: Database, user: User) {
+  async getPersonOnPage(db: Database, user: User) {
     if (user.photoURL == 'Individual') {
       const userRef = query(ref(db, 'individual/' + user.uid));
       get(userRef).then((snapshot) => {
@@ -68,7 +68,8 @@ export class RoomlistComponent {
           this.PersonOnPage = snapshot.val();
         }
       });
-    }}
+    }
+  }
 
   enterChatRoom(roomname: string) {
     const chat = {
@@ -80,15 +81,18 @@ export class RoomlistComponent {
     };
     chat.roomname = roomname;
     chat.email = this.email;
-        chat.date = new Date().toISOString();
-        chat.date = chat.date.replace(' ', 'T');
-        chat.date = this.datepipe.transform(chat.date.replace(' ', 'T'), 'yyyy-MM-ddTHH:mm')!;
+    chat.date = new Date().toISOString();
+    chat.date = chat.date.replace(' ', 'T');
+    chat.date = this.datepipe.transform(
+      chat.date.replace(' ', 'T'),
+      'yyyy-MM-ddTHH:mm'
+    )!;
     chat.message = ` ${this.PersonOnPage.FirstName} enter the room`;
     chat.type = 'join';
     const db = getDatabase();
     const newMessageRef = push(ref(db, 'chats/'));
     set(newMessageRef, chat);
 
-    this.router.navigate(['/chatroom',roomname]);
+    this.router.navigate(['/chatroom', roomname]);
   }
 }

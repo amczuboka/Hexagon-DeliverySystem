@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
@@ -53,11 +54,13 @@ export class AddroomComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-    const user = JSON.parse(localStorage.getItem('user')!);
+    
+    const user = this.authService.getUser();
     this.roomForm = this.formBuilder.group({
       roomname: [null, Validators.required],
       creater: [user.uid]

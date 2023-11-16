@@ -25,6 +25,7 @@ import {
   get,
 } from 'firebase/database';
 import { User, UserDTO } from 'src/app/modules/user.models';
+import { AuthService } from 'src/app/services/auth.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -74,9 +75,10 @@ export class ChatroomComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    public datepipe: DatePipe
+    public datepipe: DatePipe,
+    private authService: AuthService,
   ) {
-    const user: User = JSON.parse(localStorage.getItem('user')!);
+    const user: User = this.authService.getUser();
 
     this.email = user.email;
     console.log(user);
