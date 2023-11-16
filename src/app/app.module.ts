@@ -5,7 +5,7 @@ import {
   FaIconLibrary,
 } from '@fortawesome/angular-fontawesome';
 
-import { MatDialogModule } from '@angular/material/dialog'; //for dialog in requst delivery/quotation
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
