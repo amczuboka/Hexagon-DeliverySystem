@@ -123,7 +123,7 @@ export class PaymentComponent {
       First: ['', [Validators.required, Validators.minLength(1)]],
       Last: ['', [Validators.required, Validators.minLength(1)]],
       Street: ['', [Validators.required, Validators.minLength(1)]],
-      Apt: ['', [Validators.required, Validators.minLength(1)]],
+      Apt: ['', [Validators.minLength(1)]],
       City: ['', [Validators.required, Validators.minLength(1)]],
       Province: ['', [Validators.required]],
       Country: ['', [Validators.required]],
