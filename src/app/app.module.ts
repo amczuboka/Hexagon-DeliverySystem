@@ -17,12 +17,17 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DatePipe } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSortModule } from '@angular/material/sort';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LandingComponent } from './pages/landing/landing.component';
 import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component';
@@ -43,7 +48,6 @@ import { provideAuth } from '@angular/fire/auth';
 import { getAuth } from 'firebase/auth';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
-import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
 import { LoginComponent } from './pages/login/login.component';
@@ -63,11 +67,14 @@ import { ReviewComponent } from './components/review/review.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { SearchComponent } from './components/search/search.component';
 import { DeliveryCardComponent } from './components/delivery-card/delivery-card.component';
+import { RoomlistComponent } from './components/roomlist/roomlist.component';
+import { AddroomComponent } from './components/addroom/addroom.component';
+import { ChatroomComponent } from './components/chatroom/chatroom.component';
+import { environment } from '../environments/environment';
 import { OrderSummaryDialogComponent } from './components/order-summary-dialog/order-summary-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     FooterComponent,
     LandingComponent,
     MyDeliveriesComponent,
@@ -86,6 +93,9 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
     SearchComponent,
     DeliveryCardComponent,
     OrderSummaryDialogComponent,
+    RoomlistComponent,
+    AddroomComponent,
+    ChatroomComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,7 +109,7 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
     FontAwesomeModule,
     FormsModule,
     MatCardModule,
-    MatDialogModule,  //for dialog 
+    MatDialogModule, 
     MatIconModule,
     MatProgressBarModule,
     MatFormFieldModule,
@@ -122,8 +132,17 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
     AngularFireDatabaseModule,
     MatProgressSpinnerModule,
     provideMessaging(() => getMessaging()),
+    MatTableModule,
+    MatSidenavModule,
+    MatSortModule,
   ],
-  providers: [CookieService, StorageService, AuthService, AuthguardGuard],
+  providers: [
+    CookieService,
+    StorageService,
+    AuthService,
+    AuthguardGuard,
+    DatePipe,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
