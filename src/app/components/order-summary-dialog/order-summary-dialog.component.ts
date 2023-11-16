@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-order-summary-dialog',
@@ -7,13 +9,15 @@ import { Component } from '@angular/core';
 })
 export class OrderSummaryDialogComponent {
 
+  constructor(private router: Router, private dialogRef: MatDialogRef<OrderSummaryDialogComponent>) { }
+
   saveQuotation(){
     //save quotation
   }
 
-
   proceedToPayment(){
-    //proceed to payment
+    this.router.navigate(['/payment']);
+    this.dialogRef.close();
   }
 
 }
