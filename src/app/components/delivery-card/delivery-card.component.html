@@ -1,0 +1,242 @@
+<app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
+
+<div class="cardz">
+  <div
+    *ngFor="let item of deliveries; let i = index"
+    data-aos="fade-up"
+    data-aos-duration="900"
+    data-aos-easing="ease-in-out-back"
+    data-aos-mirror="true"
+  >
+    <a *ngIf="searchText === '' || isItemMatchingSearch(item, searchText)">
+      <ng-container [ngSwitch]="item.Status">
+        <div class="card" *ngSwitchCase="'Quotation'">
+          <div class="card-header">
+            <div class="header-item">
+              <div>QUOTATION PLACED ON</div>
+              <div class="order-date">
+                {{ item.orderDate | date : "MMMM d, y" }}
+              </div>
+            </div>
+            <div class="header-item">
+              <div>TOTAL</div>
+              <div class="total">${{ item.Total }}</div>
+            </div>
+            <div class="header-item">
+              <div>SHIP TO</div>
+              <div class="destinationLocation">{{ item.ArriveLocation }}</div>
+            </div>
+            <div class="header-item">
+              <div>QUOTATION #</div>
+              <div class="order-details">{{ item.Id }}</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="title-icon">
+              <div class="product-title">
+                {{ getFormattedItemsList(item.items) }}
+              </div>
+              <div class="icon-container">
+                <img
+                  class="kawaii-icon brown-icon "
+                  src="../../../assets/imgs/package.png"
+                  alt=""
+                />
+
+                <div class="badge">{{ calculateItemQuantity(item.items) }}</div>
+              </div>
+            </div>
+            <div class="details-container">
+              <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  RECURRING: {{ item.Frequency }}
+                </div>
+                <button
+                  class=" button"
+                  
+                  (click)="navigateToDeliverySummary(item)"
+                >
+                  View Quotation Details
+                </button>
+              </div>
+            </div>
+          </div>
+          <app-tracking [delivery]="item"></app-tracking>
+        </div>
+        <div class="card" *ngSwitchCase="'Pending'">
+          <div class="card-header">
+            <div class="header-item">
+              <div>ORDER PLACED ON</div>
+              <div class="order-date">
+                {{ item.orderDate | date : "MMMM d, y" }}
+              </div>
+            </div>
+            <div class="header-item">
+              <div>TOTAL</div>
+              <div class="total">${{ item.Total }}</div>
+            </div>
+            <div class="header-item">
+              <div>SHIP TO</div>
+              <div class="destinationLocation">{{ item.ArriveLocation }}</div>
+            </div>
+            <div class="header-item">
+              <div>ORDER #</div>
+              <div class="order-details">{{ item.Id }}</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="title-icon">
+              <div class="product-title">
+                {{ getFormattedItemsList(item.items) }}
+              </div>
+              <div class="icon-container">
+                <img
+                  class="brown-icon  kawaii-icon"
+                  src="../../../assets/imgs/package.png"
+                  alt=""
+                />
+                <div class="badge">{{ calculateItemQuantity(item.items) }}</div>
+              </div>
+            </div>
+            <div class="details-container">
+              <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  RECURRING: {{ item.Frequency }}
+                </div>
+                <div style="color: rgb(32, 100, 188)">
+                  ESTIMATED DELIVERY ON
+                </div>
+                <div class="order-details">
+                  {{ item.EstimatedTime | date : "MMMM d, y" }}
+                </div>
+                <button
+                  class="button"
+                  (click)="navigateToDeliverySummary(item)"
+                >
+                  View Delivery Details
+                </button>
+              </div>
+            </div>
+          </div>
+          <app-tracking [delivery]="item"></app-tracking>
+        </div>
+        <div class="card" *ngSwitchCase="'En Route'">
+          <div class="card-header">
+            <div class="header-item">
+              <div>ORDER PLACED ON</div>
+              <div class="order-date">
+                {{ item.orderDate | date : "MMMM d, y" }}
+              </div>
+            </div>
+            <div class="header-item">
+              <div>TOTAL</div>
+              <div class="total">${{ item.Total }}</div>
+            </div>
+            <div class="header-item">
+              <div>SHIP TO</div>
+              <div class="destinationLocation">{{ item.ArriveLocation }}</div>
+            </div>
+            <div class="header-item">
+              <div>ORDER #</div>
+              <div class="order-details">{{ item.Id }}</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="title-icon">
+              <div class="product-title">
+                {{ getFormattedItemsList(item.items) }}
+              </div>
+              <div class="icon-container">
+                <img
+                  class="brown-icon  kawaii-icon"
+                  src="../../../assets/imgs/package.png"
+                  alt=""
+                />
+                <div class="badge">{{ calculateItemQuantity(item.items) }}</div>
+              </div>
+            </div>
+            <div class="details-container">
+              <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  RECURRING: {{ item.Frequency }}
+                </div>
+                <div style="color: rgb(32, 100, 188)">
+                  ESTIMATED DELIVERY ON
+                </div>
+                <div class="order-details">
+                  {{ item.EstimatedTime | date : "MMMM d, y" }}
+                </div>
+                <button
+                  class="button"
+                  (click)="navigateToDeliverySummary(item)"
+                >
+                  View Delivery Details
+                </button>
+              </div>
+            </div>
+          </div>
+          <app-tracking [delivery]="item"></app-tracking>
+        </div>
+        <div class="card" *ngSwitchCase="'Delivered'">
+          <div class="card-header">
+            <div class="header-item">
+              <div>ORDER PLACED ON</div>
+              <div class="order-date">
+                {{ item.orderDate | date : "MMMM d, y" }}
+              </div>
+            </div>
+            <div class="header-item">
+              <div>TOTAL</div>
+              <div class="total">${{ item.Total }}</div>
+            </div>
+            <div class="header-item">
+              <div>SHIPPED TO</div>
+              <div class="destinationLocation">{{ item.ArriveLocation }}</div>
+            </div>
+            <div class="header-item">
+              <div>ORDER #</div>
+              <div class="order-details">{{ item.Id }}</div>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="title-icon">
+              <div class="product-title">
+                {{ getFormattedItemsList(item.items) }}
+              </div>
+              <div class="icon-container">
+                <img
+                  class="brown-icon  kawaii-icon"
+                  src="../../../assets/imgs/package.png"
+                  alt=""
+                />
+                <div class="badge">{{ calculateItemQuantity(item.items) }}</div>
+              </div>
+            </div>
+            <div class="details-container">
+              <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  Recurring {{ item.Frequency }}
+                </div>
+                <div style="color: #28a745">DELIVERED ON</div>
+                <div class="order-details">
+                  {{ item.EstimatedTime | date : "MMMM d, y" }}
+                </div>
+                <button
+                  class="button"
+                  (click)="navigateToDeliverySummary(item)"
+                >
+                  View Delivery Details
+                </button>
+              </div>
+            </div>
+          </div>
+          <app-tracking [delivery]="item"></app-tracking>
+        </div>
+      </ng-container>
+    </a>
+  </div>
+</div>
