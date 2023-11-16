@@ -213,7 +213,7 @@
               </div>
 
               <div class="billing">
-               <b>Billing Address </b>
+                <b>Billing Address </b>
               </div>
               <!-- Input for First Name -->
               <div class="EXP-CVV">
@@ -409,7 +409,7 @@
                     <mat-label class="form-label" for="form2Example17"
                       >Province</mat-label
                     >
-                    <select matNativeControl formControlName="province">
+                    <select matNativeControl formControlName="Province">
                       <option
                         *ngFor="let province of provinces"
                         [value]="province.code"
@@ -482,7 +482,7 @@
                     <mat-label class="form-label" for="form2Example17"
                       >Country</mat-label
                     >
-                    <select matNativeControl formControlName="country">
+                    <select matNativeControl formControlName="Country">
                       <option
                         *ngFor="let country of countries"
                         [value]="country.code"
@@ -495,9 +495,7 @@
                     >
                       Please select a country.
                     </mat-error>
-
                   </mat-form-field>
-
                 </div>
               </div>
 
@@ -597,36 +595,34 @@
             </div>
           </div>
         </form>
-        
       </div>
 
       <div class="col">
         <div class="content-padding-order">
-        <div class="row mb-2">
-          <div class="order-summary">
-            <div class="center_title">
-              Order Summary<br />
-              <hr />
+          <div class="row mb-2">
+            <div class="order-summary">
+              <div class="center_title">
+                Order Summary<br />
+                <hr />
+              </div>
+              <b>Subtotal: </b> <br />
+              <b>Taxes: </b> <br />
+              <br />
+              <b>Order Total: </b> <br />
             </div>
-            <b>Subtotal: </b> <br />
-            <b>Taxes: </b> <br />
-            <br />
-            <b>Order Total: </b> <br />
+          </div>
+
+          <div>
+            <button
+              mat-raised-button
+              class="my-button"
+              style="background-color: #007bff; color: white"
+            >
+              Place Order
+            </button>
           </div>
         </div>
-
-        <div>
-          <button
-            mat-raised-button
-            class="my-button"
-            style="background-color: #007bff; color: white"
-          >
-            Place Order
-          </button>
-        </div>
-
       </div>
-    </div>
     </div>
   </div>
 </section>
