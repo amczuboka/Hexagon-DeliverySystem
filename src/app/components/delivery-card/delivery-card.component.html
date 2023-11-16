@@ -37,14 +37,24 @@
                 {{ getFormattedItemsList(item.items) }}
               </div>
               <div class="icon-container">
-                <mat-icon class="brown-icon">shopping_cart</mat-icon>
+                <img
+                  class="kawaii-icon brown-icon "
+                  src="../../../assets/imgs/package.png"
+                  alt=""
+                />
+
                 <div class="badge">{{ calculateItemQuantity(item.items) }}</div>
               </div>
             </div>
             <div class="details-container">
               <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  RECURRING: {{ item.Frequency }}
+                </div>
                 <button
-                  class="button"
+                  class=" button"
+                  
                   (click)="navigateToDeliverySummary(item)"
                 >
                   View Quotation Details
@@ -81,12 +91,20 @@
                 {{ getFormattedItemsList(item.items) }}
               </div>
               <div class="icon-container">
-                <mat-icon class="brown-icon">shopping_cart</mat-icon>
+                <img
+                  class="brown-icon  kawaii-icon"
+                  src="../../../assets/imgs/package.png"
+                  alt=""
+                />
                 <div class="badge">{{ calculateItemQuantity(item.items) }}</div>
               </div>
             </div>
             <div class="details-container">
               <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  RECURRING: {{ item.Frequency }}
+                </div>
                 <div style="color: rgb(32, 100, 188)">
                   ESTIMATED DELIVERY ON
                 </div>
@@ -131,12 +149,20 @@
                 {{ getFormattedItemsList(item.items) }}
               </div>
               <div class="icon-container">
-                <mat-icon class="brown-icon">shopping_cart</mat-icon>
+                <img
+                  class="brown-icon  kawaii-icon"
+                  src="../../../assets/imgs/package.png"
+                  alt=""
+                />
                 <div class="badge">{{ calculateItemQuantity(item.items) }}</div>
               </div>
             </div>
             <div class="details-container">
               <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  RECURRING: {{ item.Frequency }}
+                </div>
                 <div style="color: rgb(32, 100, 188)">
                   ESTIMATED DELIVERY ON
                 </div>
@@ -181,12 +207,20 @@
                 {{ getFormattedItemsList(item.items) }}
               </div>
               <div class="icon-container">
-                <mat-icon class="brown-icon">shopping_cart</mat-icon>
+                <img
+                  class="brown-icon  kawaii-icon"
+                  src="../../../assets/imgs/package.png"
+                  alt=""
+                />
                 <div class="badge">{{ calculateItemQuantity(item.items) }}</div>
               </div>
             </div>
             <div class="details-container">
               <div class="header-item">
+                <div *ngIf="item.Frequency != 'Once'" class="recurring">
+                  <mat-icon>repeat</mat-icon>
+                  Recurring {{ item.Frequency }}
+                </div>
                 <div style="color: #28a745">DELIVERED ON</div>
                 <div class="order-details">
                   {{ item.EstimatedTime | date : "MMMM d, y" }}

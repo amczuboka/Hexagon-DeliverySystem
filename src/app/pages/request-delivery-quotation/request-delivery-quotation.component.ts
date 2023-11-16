@@ -1,21 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { 
   FormBuilder, 
-  FormControl, 
   FormGroup, 
-  FormGroupDirective, 
-  NgForm, 
   Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddItemDialogComponent } from 'src/app/components/add-item-dialog/add-item-dialog.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderSummaryDialogComponent } from 'src/app/components/order-summary-dialog/order-summary-dialog.component';
 
 
 @Component({
@@ -43,11 +34,13 @@ export class RequestDeliveryQuotationComponent{
 
   ngOnInit(): void{
     this.deliveryDetailsForm = this.form_builder.group({
+      
       //Depart Location Info
       departAddress: ['', [Validators.required]],
       departCity: ['', [Validators.required]],
       departProvince: ['', [Validators.required]],
       departPostalCode: ['', [Validators.required]],
+      
       //Destination Location Info
       destinationAddress: ['', [Validators.required]],
       destinationCity: ['', [Validators.required]],
@@ -58,32 +51,20 @@ export class RequestDeliveryQuotationComponent{
 
   }
 
-   //Functions for "finish" pop-up form
-   orderSummary(orderSummaryContent: any) {
-    this.nodalService.open(orderSummaryContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //Function to open "add new item dialog"
+  openAddItemDialog(): void {
+    let dialogRef = this.dialog.open(AddItemDialogComponent, {
+      width: '30%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-  
-
-  //Function for add new item dialog
-  openAddItemDialog(): void {
-    let dialogRef = this.dialog.open(AddItemDialogComponent, {
-      //width: '250px',
-      //height: '500px'
-      //data: {name: this.name, animal: this.animal}
+  //Function to open "order summary dialog"
+  openOrderDialog(): void {
+    let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {
     });
 
     dialogRef.afterClosed().subscribe(result => {

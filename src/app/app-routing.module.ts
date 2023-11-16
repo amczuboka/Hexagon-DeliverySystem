@@ -8,6 +8,7 @@ import { VerifyEmailComponent } from './pages/verify-email/verify-email.componen
 import { RequestDeliveryQuotationComponent } from './pages/request-delivery-quotation/request-delivery-quotation.component';
 import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summary.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component'; 
 import { RoomlistComponent } from './components/roomlist/roomlist.component';
 import { AddroomComponent } from './components/addroom/addroom.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
     canActivate: [AuthguardGuard],
   },
   { path: 'reviews', component: ReviewsComponent, canActivate: [AuthguardGuard] },
+  { path: 'payment', component: PaymentComponent, canActivate: [AuthguardGuard] },
   { path: 'my-deliveries', component: MyDeliveriesComponent, canActivate: [AuthguardGuard] },
   { path: 'roomlist', component: RoomlistComponent, canActivate: [AuthguardGuard] },
   { path: 'addroom', component: AddroomComponent,canActivate: [AuthguardGuard]  },
