@@ -1,20 +1,68 @@
 <style>
-    #myDIV {
-      text-align: center;
-    }
+  #myDIV {
+    text-align: center;
+  }
 </style>
 <!-- Responsive navbar-->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container px-5">
-        <a class="navbar-brand" href="">  Hexagon</a>
-        <button (click)=myFunction() class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div id="myDIV" class="collapse navbar-collapse" >
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" aria-current="page" href="">Home</a></li>
-                <li *ngIf="authService.isLoggedIn" class="nav-item"><a class="nav-link" aria-current="page" href="reviews">Reviews</a></li>
-                <li *ngIf="authService.isLoggedIn" class="nav-item"><a class="nav-link" (click)="authService.SignOut()">Log Out</a></li>
+  <div class="container px-5">
+    <a class="navbar-brand" href=""> Hexagon</a>
+    <button
+      (click)="myFunction()"
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="myDIV" class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="">Home</a>
+        </li>
+        <li *ngIf="authService.isLoggedIn" class="nav-item">
+          <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed">
+            <ul class="navbar-nav mr-auto">
+              <li
+                *ngIf="authService.isLoggedIn"
+                ngbDropdown
+                class="nav-item dropdown"
+              >
+                <!-- Delivery functions -->
+                <a ngbDropdownToggle class="nav-link">Deliveries & Quotations</a>
+                <div
+                  ngbDropdownMenu
+                  class="bg-dark drop-menu"
+                  aria-labelledby="deliveryDropdown"
+                >
+                  <!-- View Deliveries function -->
+                  <a class="dropdown-item nav-link" aria-current="page" href="my-deliveries"
+                    >My Deliveries & Quotations</a
+                  >
+                  <!-- Request Delivery/Quotation function -->
+                  <a class="dropdown-item nav-link" aria-current="page" href="request-delivery-quotation"
+                    >Request Delivery or Quotation</a
+                  >
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="reviews" role="button">Reviews</a>
+              </li>
             </ul>
           </div>
-        </div>
-    </nav>
+        </li>
+        <li *ngIf="authService.isLoggedIn" class="nav-item">
+          <a class="nav-link" aria-current="page" href="#">Customer Service</a>
+        </li>
+        <li *ngIf="authService.isLoggedIn" class="nav-item">
+          <a class="nav-link" (click)="authService.SignOut()">Log Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
