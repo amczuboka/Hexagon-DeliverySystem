@@ -65,6 +65,7 @@ import { TrackingComponent } from './components/tracking/tracking.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { ReviewComponent } from './components/review/review.component';
 import { PaymentComponent } from './pages/payment/payment.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 import { SearchComponent } from './components/search/search.component';
 import { DeliveryCardComponent } from './components/delivery-card/delivery-card.component';
 import { OrderSummaryDialogComponent } from './components/order-summary-dialog/order-summary-dialog.component';
@@ -72,6 +73,7 @@ import { RoomlistComponent } from './components/roomlist/roomlist.component';
 import { AddroomComponent } from './components/addroom/addroom.component';
 import { ChatroomComponent } from './components/chatroom/chatroom.component';
 import { environment } from '../environments/environment';
+import { OrderSummaryDialogComponent } from './components/order-summary-dialog/order-summary-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
