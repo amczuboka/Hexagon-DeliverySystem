@@ -60,6 +60,7 @@ import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summ
 import { TrackingComponent } from './components/tracking/tracking.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { ReviewComponent } from './components/review/review.component';
+import { PaymentComponent } from './pages/payment/payment.component';
 import { SearchComponent } from './components/search/search.component';
 import { DeliveryCardComponent } from './components/delivery-card/delivery-card.component';
 import { OrderSummaryDialogComponent } from './components/order-summary-dialog/order-summary-dialog.component';
@@ -81,6 +82,7 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
     TrackingComponent,
     ReviewsComponent,
     ReviewComponent,
+    PaymentComponent,
     SearchComponent,
     DeliveryCardComponent,
     OrderSummaryDialogComponent,

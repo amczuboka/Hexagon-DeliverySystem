@@ -1,0 +1,173 @@
+.col-md-8
+{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.col {
+    align-items: flex-start;
+    position: relative;
+}
+
+.row-md-2
+{
+    align-items: flex-start; 
+}
+
+section{
+    // make the section take up the whole viewport height if the content is less than the viewport height
+    height: 85vh;
+}
+
+.section{
+    display: flex;
+    //flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.center_title
+{
+    text-align: center;
+    font-size: 20px;
+    color: #007BFF;
+}
+
+*{
+    word-wrap: normal;     
+}
+
+.item-list {
+    margin-top: 10px; // adjust this value as needed
+    padding: 10px 10px 10px 10px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.content-padding {
+    padding: 10px;
+}
+
+.content-padding-order {
+    padding: 10px;
+}
+.payment-methods {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.card-details {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.email-confirmation {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.order-summary {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+
+@media screen and (max-width: 356px) {
+    .delivery {
+      padding-left: 0px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+
+    .EXP-CVV {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .content-padding-order {
+        padding: 20px;
+    }
+  }
+  
+@media screen and (min-width: 357px) {
+    .delivery {
+        padding-left: 5px;
+    }
+  }
+
+mat-icon{
+    color: red;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+form div {
+    width: 100%;
+}
+
+form div mat-form-field{
+    width: 100%;
+    padding: 0px;
+}
+
+ form div mat-form-field.right{
+     padding-right: 5px
+ }
+
+ form div mat-form-field.left{
+    padding-left: 5px
+}
+
+#hide{
+    color:black;
+}
+
+.EXP-CVV {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+:host ::ng-deep .mat-mdc-form-field-subscript-wrapper{
+    margin: 0 !important;
+    padding: 0;
+    display: none
+  }
+
+.billing{
+    padding:10px
+
+}
