@@ -120,7 +120,7 @@ export class DeliveryService {
    * Retrieves all deliveries that match the current authenticated user's ID from the 'deliveries' node in Firebase Realtime Database.
    * @returns A Promise resolving to an array of Delivery objects that match the current user's ID.
    */
-  async getAllDeliveriesMathcingTheUser(): Promise<Delivery[]> {
+  async getAllDeliveriesMatchingTheUser(): Promise<Delivery[]> {
     try {
       const currentUser = this.authService.getUser(); // Get the current authenticated user
       if (!currentUser) {
