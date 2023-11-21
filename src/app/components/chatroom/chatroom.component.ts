@@ -81,7 +81,6 @@ export class ChatroomComponent implements OnInit {
     const user: User = this.authService.getUser();
 
     this.email = user.email;
-    console.log(user);
     this.roomname = this.route.snapshot.params['roomname'];
     const db = getDatabase();
     onValue(ref(db, 'chats/'), (resp) => {
