@@ -90,7 +90,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "assets/imgs/logo/hex.png",
+              "src/assets/imgs/logo/hex.png",
               "src/assets"
             ],
             "styles": [
