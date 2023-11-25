@@ -22,6 +22,7 @@ export interface Review {
   title: string;
   description: string;
   date: Date;
+  id: string;
 }
 export interface ItemInterface {
   Name: string;
@@ -53,6 +54,7 @@ export class Delivery implements DeliveryInterface {
     description: '',
     title: '',
     date: new Date(),
+    id: '',
   };
   Distance: number = 0;
   DepartLocation: string = '';
