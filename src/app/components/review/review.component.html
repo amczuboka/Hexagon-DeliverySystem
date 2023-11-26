@@ -25,5 +25,5 @@
     <div class="comment">
         <p>{{review.description}}</p>
     </div>
-    <p class="date">Posted on: {{review.date.toLocaleDateString()}}</p>
+    <p class="date">Posted on: {{review.date | date : "MMMM d, y"}}</p>
 </div>

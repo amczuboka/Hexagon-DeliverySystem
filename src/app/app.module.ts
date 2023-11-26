@@ -73,6 +73,7 @@ import { ChatroomComponent } from './components/chatroom/chatroom.component';
 import { environment } from '../environments/environment';
 import { OrderSummaryDialogComponent } from './components/order-summary-dialog/order-summary-dialog.component';
 import { ReviewDialogComponent } from './components/review-dialog/review-dialog.component';
+import { DeleteReviewDialogComponent } from './components/delete-review-dialog/delete-review-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,6 +99,7 @@ import { ReviewDialogComponent } from './components/review-dialog/review-dialog.
     AddroomComponent,
     ChatroomComponent,
     ReviewDialogComponent,
+    DeleteReviewDialogComponent,
   ],
   imports: [
     BrowserModule,

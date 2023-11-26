@@ -6,6 +6,7 @@ import {
   DeliveryFrequency,
   DeliveryStatus,
   Item,
+  Review,
 } from 'src/app/modules/delivery.models';
 import { AuthService } from 'src/app/services/auth.service';
 import AOS from 'aos';
@@ -125,6 +126,13 @@ export class DeliveryCardComponent {
     delivery4.Total = 101.14;
     delivery4.Status = DeliveryStatus.Delivered;
     delivery4.Frequency = DeliveryFrequency.Once;
+    delivery4.Review = {
+      stars: 4,
+      description: 'Good service, would recommend',
+      title: 'Good service',
+      date: new Date(),
+      id: '5475325786',
+    } as Review;
     this.deliveries.push(delivery4);
   }
 

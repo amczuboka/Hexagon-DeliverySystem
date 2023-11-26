@@ -26,6 +26,7 @@ import { ReviewService } from 'src/app/services/review.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ReviewDialogComponent } from 'src/app/components/review-dialog/review-dialog.component';
 import { from } from 'rxjs';
+import { DeleteReviewDialogComponent } from 'src/app/components/delete-review-dialog/delete-review-dialog.component';
 
 @Component({
   selector: 'app-delivery-summary',
@@ -81,13 +82,13 @@ export class DeliverySummaryComponent {
   }
 
   deleteReview() {
-    const dialogRef = this.dialog.open(ReviewDialogComponent, {
-      data: this.delivery.Review as Review,
-    });
+    const dialogRef = this.dialog.open(DeleteReviewDialogComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        from(this.reviewService.editReview(result)).subscribe(() => {
+        from(
+          this.reviewService.deleteSpecificReview(this.delivery.Review.id)
+        ).subscribe(() => {
           console.log('Review deleted');
           this.storageService.sendNotification('Review deleted');
         });
