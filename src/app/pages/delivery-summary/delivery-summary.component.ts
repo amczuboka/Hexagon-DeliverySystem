@@ -20,7 +20,12 @@ import {
   Delivery,
   DeliveryStatus,
   Item,
+  Review,
 } from 'src/app/modules/delivery.models';
+import { ReviewService } from 'src/app/services/review.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ReviewDialogComponent } from 'src/app/components/review-dialog/review-dialog.component';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-delivery-summary',
@@ -39,7 +44,9 @@ export class DeliverySummaryComponent {
     private authService: AuthService,
     public database: Database,
     public storage: Storage,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private reviewService: ReviewService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -49,24 +56,58 @@ export class DeliverySummaryComponent {
     });
 
     this.myUser = this.authService.getUser();
-
   }
 
-  placeOrder(){
-    console.log('place order');
+  placeOrder() {
+    // redirect to the payment page and pass the delivery object
+    this.router.navigate(['/payment'], {
+      queryParams: { delivery: JSON.stringify(this.delivery) },
+    });
   }
 
   editReview() {
-    console.log('edit');
+    const dialogRef = this.dialog.open(ReviewDialogComponent, {
+      data: this.delivery.Review as Review,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        from(this.reviewService.editReview(result)).subscribe(() => {
+          console.log('Review edited');
+          this.storageService.sendNotification('Review edited');
+        });
+      }
+    });
   }
 
   deleteReview() {
-    // Add a confirm dialog
-    console.log('delete');
+    const dialogRef = this.dialog.open(ReviewDialogComponent, {
+      data: this.delivery.Review as Review,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        from(this.reviewService.editReview(result)).subscribe(() => {
+          console.log('Review deleted');
+          this.storageService.sendNotification('Review deleted');
+        });
+      }
+    });
   }
 
   addReview() {
-    // Create a dialog to add a review
-    console.log('add');
+    const dialogRef = this.dialog.open(ReviewDialogComponent, {
+      data: {} as Review,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        result.id = this.delivery.Id;
+        from(this.reviewService.addReview(result)).subscribe(() => {
+          console.log('Review added');
+          this.storageService.sendNotification('Review added');
+        });
+      }
+    });
   }
 }

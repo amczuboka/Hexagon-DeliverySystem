@@ -72,6 +72,7 @@ import { AddroomComponent } from './components/addroom/addroom.component';
 import { ChatroomComponent } from './components/chatroom/chatroom.component';
 import { environment } from '../environments/environment';
 import { OrderSummaryDialogComponent } from './components/order-summary-dialog/order-summary-dialog.component';
+import { ReviewDialogComponent } from './components/review-dialog/review-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,6 +97,7 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
     RoomlistComponent,
     AddroomComponent,
     ChatroomComponent,
+    ReviewDialogComponent,
   ],
   imports: [
     BrowserModule,
