@@ -51,25 +51,46 @@ export class RoomlistComponent {
     this.email = user.email;
 
     const db = getDatabase();
-    onValue(ref(db, 'rooms/'), (snapshot) => {
+    onValue(ref(db, 'rooms/'), async (snapshot) => {
       this.rooms = [];
       this.rooms = snapshotToArray(snapshot);
+      console.log(this.rooms);
       this.isLoadingResults = false;
+      this.PersonOnPage = await this.getPersonOnPage(db, user);
+      if(this.PersonOnPage.Authority == 'Individual'){
+      this.rooms = this.rooms.filter(
+        (room) => room.creater === this.PersonOnPage.ID
+      );
+      }
     });
 
-    this.getPersonOnPage(db, user);
+
   }
 
-  async getPersonOnPage(db: Database, user: User) {
+
+
+  async getPersonOnPage(db: Database, user: User): Promise<UserDTO> {
+    let personOnPage = {} as UserDTO;;
+
     if (user.photoURL == 'Individual') {
       const userRef = query(ref(db, 'individual/' + user.uid));
-      get(userRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          this.PersonOnPage = snapshot.val();
-        }
-      });
+      const snapshot = await get(userRef);
+      if (snapshot.exists()) {
+        personOnPage = snapshot.val();
+      }
     }
+
+    if (user.photoURL == 'Staff') {
+      const userRef = query(ref(db, 'staff/' + user.uid));
+      const snapshot = await get(userRef);
+      if (snapshot.exists()) {
+        personOnPage = snapshot.val();
+      } 
+    } 
+
+    return personOnPage;
   }
+
 
   enterChatRoom(roomname: string) {
     const chat = {
