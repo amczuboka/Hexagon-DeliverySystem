@@ -173,9 +173,29 @@
                           *ngIf="deliveryDetailsForm.controls['destinationPostalCode'].hasError('required')"
                             >Enter destination postal code</mat-error>
                         </mat-form-field>
+
+                        <!--Radio Buttons for Recurring Delivery-->
+                        <div>
+                          <p>I would like to have a recurring delivery (optional): </p>
+                          <label>
+                            <input type="radio" name="option" value="weekly"> Weekly
+                          </label><br>
+                          <label>
+                            <input type="radio" name="option" value="bi-weekly"> Bi-Weekly
+                          </label><br>
+                          <label>
+                            <input type="radio" name="option" value="monthly"> Monthly
+                          </label><br>
+                        </div>
+
+                        
+                        
+
                 </div>
               </div>
             </div>
+
+      
 
         </form>
 
