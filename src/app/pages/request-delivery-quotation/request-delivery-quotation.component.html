@@ -175,18 +175,24 @@
                         </mat-form-field>
 
                         <!--Radio Buttons for Recurring Delivery-->
-                        <div>
-                          <p>I would like to have a recurring delivery (optional): </p>
+                        <div *ngIf = "authority=='Company'">
+                          <p>I would like to have my delivery placed: </p>
                           <label>
-                            <input type="radio" name="option" value="weekly"> Weekly
+                            <input type="radio" name="option" value="Once"> Once
                           </label><br>
                           <label>
-                            <input type="radio" name="option" value="bi-weekly"> Bi-Weekly
+                            <input type="radio" name="option" value="Weekly"> Weekly
                           </label><br>
                           <label>
-                            <input type="radio" name="option" value="monthly"> Monthly
+                            <input type="radio" name="option" value="Bi-weekly"> Bi-Weekly
+                          </label><br>
+                          <label>
+                            <input type="radio" name="option" value="Monthly"> Monthly
                           </label><br>
                         </div>
+
+                        
+                        
 
                         
                         

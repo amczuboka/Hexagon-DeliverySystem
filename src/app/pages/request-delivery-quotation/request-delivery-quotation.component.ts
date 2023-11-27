@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, Component } from '@angular/core';
 import { 
   FormBuilder, 
   FormGroup, 
   Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddItemDialogComponent } from 'src/app/components/add-item-dialog/add-item-dialog.component';
 import { OrderSummaryDialogComponent } from 'src/app/components/order-summary-dialog/order-summary-dialog.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -14,7 +15,8 @@ import { OrderSummaryDialogComponent } from 'src/app/components/order-summary-di
   templateUrl: './request-delivery-quotation.component.html',
   styleUrls: ['./request-delivery-quotation.component.scss']
 })
-export class RequestDeliveryQuotationComponent{
+export class RequestDeliveryQuotationComponent implements AfterViewChecked {
+[x: string]: any;
   deliveryDetailsForm!: FormGroup<any>;
   newDeliveryItem!: FormGroup<any>;
   //matcher!: ErrorStateMatcher;
@@ -22,15 +24,27 @@ export class RequestDeliveryQuotationComponent{
   content: any;
   itemDescription: any;
   test: boolean = false;
-
-  
-
+  authority!: string;
+  myUser!: any; 
 
   constructor(
     private form_builder: FormBuilder,
-    private nodalService: NgbModal,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    public authService: AuthService,
+    private router: Router,
+    private Acrouter: ActivatedRoute
   ){}
+
+  ngAfterViewChecked() {
+    this.myUser = this.authService.getUser();
+    const type = this['Acrouter'].snapshot.params['type'];
+     if (type!= undefined) {
+       this.authority = type;
+     }
+    if (this.myUser) {
+      this.authority = this.myUser.photoURL;
+    }
+  }
 
   ngOnInit(): void{
     this.deliveryDetailsForm = this.form_builder.group({
