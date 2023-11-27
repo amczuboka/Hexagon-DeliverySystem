@@ -51,9 +51,7 @@
             </ul>
           </div>
         </li>
-        <li *ngIf="authService.isLoggedIn" class="nav-item">
-          <a class="nav-link" aria-current="page" href="roomlist">Customer Service</a>
-        </li>
+   
         <li *ngIf="authService.isLoggedIn" class="nav-item">
           <a class="nav-link" (click)="authService.SignOut()">Log Out</a>
         </li>

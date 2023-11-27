@@ -10,9 +10,7 @@ import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summ
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component'; 
-import { RoomlistComponent } from './components/roomlist/roomlist.component';
-import { AddroomComponent } from './components/addroom/addroom.component';
-import { ChatroomComponent } from './components/chatroom/chatroom.component';
+
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthguardGuard] },
@@ -28,9 +26,7 @@ const routes: Routes = [
   { path: 'reviews', component: ReviewsComponent, canActivate: [AuthguardGuard] },
   { path: 'payment', component: PaymentComponent, canActivate: [AuthguardGuard] },
   { path: 'my-deliveries', component: MyDeliveriesComponent, canActivate: [AuthguardGuard] },
-  { path: 'roomlist', component: RoomlistComponent, canActivate: [AuthguardGuard] },
-  { path: 'addroom', component: AddroomComponent,canActivate: [AuthguardGuard]  },
-  { path: 'chatroom/:roomname', component: ChatroomComponent,canActivate: [AuthguardGuard]  },
+  
 ];
 
 @NgModule({
