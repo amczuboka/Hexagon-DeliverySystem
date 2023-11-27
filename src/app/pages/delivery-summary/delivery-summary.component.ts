@@ -60,6 +60,7 @@ export class DeliverySummaryComponent {
     });
 
     this.myUser = this.authService.getUser();
+    this.myUser.Authority = this.myUser.photoURL;
   }
 
   placeOrder() {
