@@ -148,8 +148,17 @@
             <b>Total: </b>${{ delivery.Total }} <br />
           </div>
         </div>
-        <div class="pb-2">
+        <div class="pb-2 tracking-container">
           <app-tracking [delivery]="delivery"></app-tracking>
+          <ng-container>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="changeTrackingStatus()"
+            >
+              Change Tracking Status
+            </button>
+          </ng-container>
         </div>
       </div>
     </div>

@@ -27,6 +27,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ReviewDialogComponent } from 'src/app/components/review-dialog/review-dialog.component';
 import { from } from 'rxjs';
 import { DeleteReviewDialogComponent } from 'src/app/components/delete-review-dialog/delete-review-dialog.component';
+import { DeliveryService } from 'src/app/services/delivery.service';
+import { ChangeDeliveryStatusDialogComponent } from 'src/app/components/change-delivery-status-dialog/change-delivery-status-dialog.component';
 
 @Component({
   selector: 'app-delivery-summary',
@@ -47,6 +49,7 @@ export class DeliverySummaryComponent {
     public storage: Storage,
     private storageService: StorageService,
     private reviewService: ReviewService,
+    private deliveryService: DeliveryService,
     private dialog: MatDialog
   ) {}
 
@@ -71,9 +74,9 @@ export class DeliverySummaryComponent {
       data: this.delivery.Review as Review,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        from(this.reviewService.editReview(result)).subscribe(() => {
+    dialogRef.afterClosed().subscribe((review) => {
+      if (review) {
+        from(this.reviewService.editReview(review)).subscribe(() => {
           console.log('Review edited');
           this.storageService.sendNotification('Review edited');
         });
@@ -84,8 +87,8 @@ export class DeliverySummaryComponent {
   deleteReview() {
     const dialogRef = this.dialog.open(DeleteReviewDialogComponent);
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+    dialogRef.afterClosed().subscribe((confirm) => {
+      if (confirm) {
         from(
           this.reviewService.deleteSpecificReview(this.delivery.Review.id)
         ).subscribe(() => {
@@ -101,12 +104,31 @@ export class DeliverySummaryComponent {
       data: {} as Review,
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        result.id = this.delivery.Id;
-        from(this.reviewService.addReview(result)).subscribe(() => {
+    dialogRef.afterClosed().subscribe((review) => {
+      if (review) {
+        review.id = this.delivery.Id;
+        from(this.reviewService.addReview(review)).subscribe(() => {
           console.log('Review added');
           this.storageService.sendNotification('Review added');
+        });
+      }
+    });
+  }
+
+  changeTrackingStatus() {
+    const dialogRef = this.dialog.open(ChangeDeliveryStatusDialogComponent, {
+      data: this.delivery.Status as DeliveryStatus,
+    });
+
+    dialogRef.afterClosed().subscribe((status) => {
+      if (status) {
+        from(
+          this.deliveryService.updateDelivery(this.delivery.Id, {
+            Status: status,
+          })
+        ).subscribe(() => {
+          console.log('Delivery status changed');
+          this.storageService.sendNotification('Delivery status changed');
         });
       }
     });

@@ -74,6 +74,7 @@ import { environment } from '../environments/environment';
 import { OrderSummaryDialogComponent } from './components/order-summary-dialog/order-summary-dialog.component';
 import { ReviewDialogComponent } from './components/review-dialog/review-dialog.component';
 import { DeleteReviewDialogComponent } from './components/delete-review-dialog/delete-review-dialog.component';
+import { ChangeDeliveryStatusDialogComponent } from './components/change-delivery-status-dialog/change-delivery-status-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -100,6 +101,7 @@ import { DeleteReviewDialogComponent } from './components/delete-review-dialog/d
     ChatroomComponent,
     ReviewDialogComponent,
     DeleteReviewDialogComponent,
+    ChangeDeliveryStatusDialogComponent,
   ],
   imports: [
     BrowserModule,

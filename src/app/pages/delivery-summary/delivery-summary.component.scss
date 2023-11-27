@@ -87,6 +87,21 @@ section{
     margin: 10px;
 }
 
+.tracking-container {
+    // place items one on top of the other and have apscing between them
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    button {
+        margin-top: 10px;
+        width: auto;
+        height: auto;
+        padding: 10px;
+        background-color: #007BFF;
+    }
+}
+
 
 @media screen and (max-width: 356px) {
     .delivery {

@@ -9,8 +9,7 @@ import { DeliverySummaryComponent } from 'src/app/pages/delivery-summary/deliver
 })
 export class DeleteReviewDialogComponent {
   constructor(
-    public dialogRef: MatDialogRef<DeliverySummaryComponent>,
-    @Inject(MAT_DIALOG_DATA) public review: boolean
+    public dialogRef: MatDialogRef<DeliverySummaryComponent>
   ) {}
 
   confirmDelete() {
