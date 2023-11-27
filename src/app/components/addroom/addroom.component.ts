@@ -1,6 +1,5 @@
 import { AuthService } from './../../services/auth.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import {
   getDatabase,
   ref,
@@ -45,7 +44,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 export class AddroomComponent implements OnInit {
   @Output() dataFromChild = new EventEmitter<any>();
-  
+
   roomForm!: FormGroup;
   email = '';
   roomname = '';
@@ -54,8 +53,6 @@ export class AddroomComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private authService: AuthService
@@ -83,11 +80,19 @@ export class AddroomComponent implements OnInit {
         const newRoomRef = push(this.dbRef);
         set(newRoomRef, room);
         const pageInfo: PageInfo = {
-          pageNumber: 1,  
+          pageNumber: 1,
           roomName: '',
         };
         this.dataFromChild.emit(pageInfo);
       }
     });
+  }
+
+  exitPage() {
+    const pageInfo: PageInfo = {
+      pageNumber: 1,
+      roomName: '',
+    };
+    this.dataFromChild.emit(pageInfo);
   }
 }

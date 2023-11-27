@@ -1,13 +1,13 @@
 <div class="example-container mat-elevation-z8">
   <h3>{{ PersonOnPage.FirstName }}</h3>
   <h2 *ngIf="!seeAddButton">Room List</h2>
-  <h2 *ngIf="seeAddButton">Your rooms</h2>
+  <h2 *ngIf="seeAddButton">Your issues</h2>
   <div class="example-loading-shade" *ngIf="isLoadingResults">
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
   <div class="button-row" *ngIf="seeAddButton">
-    <button mat-flat-button color="primary"  (click)="GotoPage(2)">
-      <mat-icon>add</mat-icon>
+    <button mat-flat-button (click)="GotoPage(2)">
+      <mat-icon>add</mat-icon>Create issues
     </button>
   </div>
   <div class="mat-elevation-z8">

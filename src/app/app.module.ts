@@ -23,6 +23,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatExpansionModule } from '@angular/material/expansion';
 
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -110,7 +112,7 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
     FontAwesomeModule,
     FormsModule,
     MatCardModule,
-    MatDialogModule, 
+    MatDialogModule,
     MatIconModule,
     MatProgressBarModule,
     MatFormFieldModule,
@@ -144,6 +146,12 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
     AuthService,
     AuthguardGuard,
     DatePipe,
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        subscriptSizing: 'dynamic',
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })
