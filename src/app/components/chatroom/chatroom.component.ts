@@ -32,6 +32,7 @@ import {
 } from 'firebase/database';
 import { User, UserDTO } from 'src/app/modules/user.models';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatroomService } from 'src/app/services/chatroom.service';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -83,14 +84,15 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     public datepipe: DatePipe,
-    private authService: AuthService
+    private authService: AuthService,
+    private chatroomService: ChatroomService
   ) {
     const user: User = this.authService.getUser();
 
     this.email = user.email;
     this.roomname = this.route.snapshot.params['roomname'];
     const db = getDatabase();
-    onValue(ref(db, 'chats/'), (resp) => {
+    onValue(ref(db, 'chats/'), async (resp) => {
       this.chats = [];
       this.chats = snapshotToArray(resp).filter(
         (chat) => chat.roomname == this.roomname
@@ -99,9 +101,9 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
         () => (this.scrolltop = this.chatcontent.nativeElement.scrollHeight),
         500
       );
+      this.PersonOnPage = await this.chatroomService.getPersonOnPage(db, user);
     });
     this.getCreater(db);
-    this.getPersonOnPage(db, user);
   }
 
   ngAfterViewInit() {
@@ -118,28 +120,9 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
   scrollToBottom() {
     this.chatcontent.nativeElement.scrollTop =
       this.chatcontent.nativeElement.scrollHeight;
-
   }
 
-  async getPersonOnPage(db: Database, user: User) {
-    if (user.photoURL == 'Individual') {
-      const userRef = query(ref(db, 'individual/' + user.uid));
-      get(userRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          this.PersonOnPage = snapshot.val();
-        }
-      });
-    }
 
-    if (user.photoURL == 'Staff') {
-      const userRef = query(ref(db, 'staff/' + user.uid));
-      get(userRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          this.PersonOnPage = snapshot.val();
-        }
-      });
-    }
-  }
 
   async getCreater(db: Database) {
     const dbRef = query(
@@ -196,7 +179,7 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     chat.date = new Date().toISOString();
     chat.date = chat.date.replace(' ', 'T');
     chat.date = this.datepipe.transform(chat.date, 'yyyy-MM-ddTHH:mm')!;
-    chat.message = `${this.PersonOnPage.FirstName} leave the room`;
+    chat.message = ` ${this.PersonOnPage.FirstName} leave the room`;
     chat.type = 'exit';
     const db = getDatabase();
     const newMessageRef = push(ref(db, 'chats/'));

@@ -14,9 +14,11 @@ import {
   update,
   Database,
   get,
+  remove,
 } from 'firebase/database';
 import { User, UserDTO } from 'src/app/modules/user.models';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatroomService } from 'src/app/services/chatroom.service';
 
 export const snapshotToArray = (snapshot: any) => {
   const returnArr: any[] = [];
@@ -40,12 +42,14 @@ export class RoomlistComponent {
   rooms: any[] = [];
   isLoadingResults = true;
   PersonOnPage!: UserDTO;
+  seeAddButton = true;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public datepipe: DatePipe,
-    private authService: AuthService
+    private authService: AuthService,
+    private chatroomService: ChatroomService
   ) {
     const user = this.authService.getUser();
     this.email = user.email;
@@ -56,41 +60,17 @@ export class RoomlistComponent {
       this.rooms = snapshotToArray(snapshot);
       console.log(this.rooms);
       this.isLoadingResults = false;
-      this.PersonOnPage = await this.getPersonOnPage(db, user);
-      if(this.PersonOnPage.Authority == 'Individual'){
-      this.rooms = this.rooms.filter(
-        (room) => room.creater === this.PersonOnPage.ID
-      );
+      this.PersonOnPage = await this.chatroomService.getPersonOnPage(db, user);
+      if (this.PersonOnPage.Authority == 'Individual') {
+        this.rooms = this.rooms.filter(
+          (room) => room.creater === this.PersonOnPage.ID
+        );
+      }
+      if (this.PersonOnPage.Authority == 'Staff') {
+        this.seeAddButton = false;
       }
     });
-
-
   }
-
-
-
-  async getPersonOnPage(db: Database, user: User): Promise<UserDTO> {
-    let personOnPage = {} as UserDTO;;
-
-    if (user.photoURL == 'Individual') {
-      const userRef = query(ref(db, 'individual/' + user.uid));
-      const snapshot = await get(userRef);
-      if (snapshot.exists()) {
-        personOnPage = snapshot.val();
-      }
-    }
-
-    if (user.photoURL == 'Staff') {
-      const userRef = query(ref(db, 'staff/' + user.uid));
-      const snapshot = await get(userRef);
-      if (snapshot.exists()) {
-        personOnPage = snapshot.val();
-      } 
-    } 
-
-    return personOnPage;
-  }
-
 
   enterChatRoom(roomname: string) {
     const chat = {
@@ -115,5 +95,32 @@ export class RoomlistComponent {
     set(newMessageRef, chat);
 
     this.router.navigate(['/chatroom', roomname]);
+  }
+
+  deleteRoom(roomname: string) {
+    const db = getDatabase();
+
+    const RoomRef = ref(db, 'rooms/');
+    const ChatRef = ref(db, 'chats/');
+
+    const roomRef = query(RoomRef, orderByChild('roomname'), equalTo(roomname));
+    get(roomRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          const childRef = ref(db, `rooms/${childSnapshot.key}`);
+          remove(childRef);
+        });
+      }
+    });
+
+    const chatRef = query(ChatRef, orderByChild('roomname'), equalTo(roomname));
+    get(chatRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          const childRef = ref(db, `chats/${childSnapshot.key}`);
+          remove(childRef);
+        });
+      }
+    });
   }
 }

@@ -66,7 +66,7 @@ export class AddroomComponent implements OnInit {
       creater: [user.uid]
     });
   }
-  //TODO only a client should be able to create a room
+
   onFormSubmit(form: any) {
     const room = form;
   const roomRef = query(
