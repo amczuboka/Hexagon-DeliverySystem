@@ -81,7 +81,10 @@
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/assets/imgs/logo/hex.png", "src/assets"],
+            "assets": [
+              "src/assets/imgs/logo/hex.png",
+              "src/assets"
+            ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
