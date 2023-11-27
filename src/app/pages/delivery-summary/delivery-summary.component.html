@@ -150,7 +150,7 @@
         </div>
         <div class="pb-2 tracking-container">
           <app-tracking [delivery]="delivery"></app-tracking>
-          <ng-container>
+          <ng-container *ngIf="myUser.Authority === 'Staff'">
             <button
               mat-raised-button
               color="primary"
