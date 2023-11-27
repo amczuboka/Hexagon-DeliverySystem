@@ -1,5 +1,5 @@
 import { AuthService } from './../../services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {
   getDatabase,
@@ -23,6 +23,7 @@ import {
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import firebase from 'firebase/compat/app';
+import { PageInfo } from 'src/app/modules/chatbox.models';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -43,6 +44,8 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./addroom.component.scss'],
 })
 export class AddroomComponent implements OnInit {
+  @Output() dataFromChild = new EventEmitter<any>();
+  
   roomForm!: FormGroup;
   email = '';
   roomname = '';
@@ -55,33 +58,36 @@ export class AddroomComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    
     const user = this.authService.getUser();
     this.roomForm = this.formBuilder.group({
       roomname: [null, Validators.required],
-      creater: [user.uid]
+      creater: [user.uid],
     });
   }
 
   onFormSubmit(form: any) {
     const room = form;
-  const roomRef = query(
-    this.dbRef,
-    orderByChild('roomname'),
-    equalTo(room.roomname)
-  );
-  get(roomRef).then((snapshot) => {
-    if (snapshot.exists()) {
-      this.snackBar.open('Room name already exist!');
-    } else {
-      const newRoomRef = push(this.dbRef);
-      set(newRoomRef, room);
-      this.router.navigate(['/roomlist']);
-    }
-  });
+    const roomRef = query(
+      this.dbRef,
+      orderByChild('roomname'),
+      equalTo(room.roomname)
+    );
+    get(roomRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        this.snackBar.open('Room name already exist!');
+      } else {
+        const newRoomRef = push(this.dbRef);
+        set(newRoomRef, room);
+        const pageInfo: PageInfo = {
+          pageNumber: 1,  
+          roomName: '',
+        };
+        this.dataFromChild.emit(pageInfo);
+      }
+    });
   }
 }

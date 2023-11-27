@@ -2,9 +2,20 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+
+   
+
+
 }
 
-article, .router-outlet-class {
+article, router-outlet{
     flex: 1;
     overflow: auto;
+}
+
+app-footer {
+   
+background-color: transparent!important;
+
+
 }

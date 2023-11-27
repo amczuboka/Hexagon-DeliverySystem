@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import firebase from 'firebase/compat/app';
@@ -19,6 +19,7 @@ import {
 import { User, UserDTO } from 'src/app/modules/user.models';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatroomService } from 'src/app/services/chatroom.service';
+import { PageInfo } from 'src/app/modules/chatbox.models';
 
 export const snapshotToArray = (snapshot: any) => {
   const returnArr: any[] = [];
@@ -37,6 +38,8 @@ export const snapshotToArray = (snapshot: any) => {
   styleUrls: ['./roomlist.component.scss'],
 })
 export class RoomlistComponent {
+  @Output() dataFromChild = new EventEmitter<any>();
+
   email: string;
   displayedColumns: string[] = ['roomname'];
   rooms: any[] = [];
@@ -72,6 +75,11 @@ export class RoomlistComponent {
     });
   }
 
+  GotoPage(pagenumber: number, roomname?: string) {
+    const dataToSend:PageInfo ={ pageNumber: pagenumber, roomName: roomname!} ;
+    this.dataFromChild.emit(dataToSend);
+  }
+
   enterChatRoom(roomname: string) {
     const chat = {
       roomname: '',
@@ -93,8 +101,7 @@ export class RoomlistComponent {
     const db = getDatabase();
     const newMessageRef = push(ref(db, 'chats/'));
     set(newMessageRef, chat);
-
-    this.router.navigate(['/chatroom', roomname]);
+    this.GotoPage(3, roomname);  
   }
 
   deleteRoom(roomname: string) {

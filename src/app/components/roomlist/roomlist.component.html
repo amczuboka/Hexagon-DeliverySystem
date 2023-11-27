@@ -6,7 +6,7 @@
     <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
   </div>
   <div class="button-row" *ngIf="seeAddButton">
-    <button mat-flat-button color="primary" [routerLink]="['/addroom']">
+    <button mat-flat-button color="primary"  (click)="GotoPage(2)">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -22,7 +22,7 @@
     >
       <!-- Room Name Column -->
       <ng-container matColumnDef="roomname">
-        <th mat-header-cell *matHeaderCellDef>Room Name</th>
+        <th mat-header-cell *matHeaderCellDef>Customer Service Chats</th>
         <td mat-cell *matCellDef="let row">
           {{ row.roomname }}
           <button
