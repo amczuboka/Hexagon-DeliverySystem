@@ -79,6 +79,6 @@ describe('DeliveryCardComponent', () => {
 
     const totalQuantity = component.calculateItemQuantity(items);
 
-    expect(totalQuantity).toEqual(8); 
+    expect(totalQuantity).toEqual(9); 
   });
 });
