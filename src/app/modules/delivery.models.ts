@@ -27,12 +27,25 @@ export interface Review {
 export interface ItemInterface {
   Name: string;
   Quantity: number;
-  Height: number;
-  Length: number;
-  Width: number;
-  Weight: number;
+  Size: ItemSize;
+  Weight: ItemWeight;
   calculateItemPrice(): number;
 }
+
+export enum ItemSize {
+  size1 = '1',
+  size2 = '2',
+  size3 = '3',
+  size4 = '4'
+}
+
+export enum ItemWeight {
+  weight1 = '1',
+  weight2 = '2',
+  weight3 = '3',
+  weight4 = '4'
+}
+
 export enum DeliveryStatus {
   Quotation = 'Quotation',
   Pending = 'Pending',
@@ -81,26 +94,12 @@ export class Delivery implements DeliveryInterface {
 export class Item implements ItemInterface {
   Name: string = '';
   Quantity: number = 0;
-  Height: number = 0;
-  Length: number = 0;
-  Width: number = 0;
-  Weight: number = 0;
+  Size: ItemSize = ItemSize.size1;
+  Weight: ItemWeight = ItemWeight.weight1;
   itemPrice = this.calculateItemPrice();
 
-  constructor(
-    name: string,
-    quantity: number,
-    height: number,
-    length: number,
-    width: number,
-    weight: number
-  ) {
-    this.Name = name;
-    this.Quantity = quantity;
-    this.Height = height;
-    this.Length = length;
-    this.Width = width;
-    this.Weight = weight;
+  constructor(init?: Partial<Item>) {
+    Object.assign(this, init);
   }
 
   calculateItemPrice(): number {
