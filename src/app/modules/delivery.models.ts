@@ -85,6 +85,7 @@ export class Item implements ItemInterface {
   Length: number = 0;
   Width: number = 0;
   Weight: number = 0;
+  Size: number = 0;
   itemPrice = this.calculateItemPrice();
 
   constructor(
@@ -93,7 +94,8 @@ export class Item implements ItemInterface {
     height: number,
     length: number,
     width: number,
-    weight: number
+    weight: number,
+    size: number
   ) {
     this.Name = name;
     this.Quantity = quantity;
@@ -101,6 +103,7 @@ export class Item implements ItemInterface {
     this.Length = length;
     this.Width = width;
     this.Weight = weight;
+    this.Size = size;
   }
 
   calculateItemPrice(): number {

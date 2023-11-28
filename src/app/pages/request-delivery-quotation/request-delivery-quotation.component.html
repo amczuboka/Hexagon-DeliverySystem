@@ -180,10 +180,8 @@
         </form>
 
         <!--------------------------------------------------------------------------------Delivery Item Card----------------------------------------------------------------------->
-        <!--Must put this in an ngFor loop-->
-        <app-delivery-item></app-delivery-item>
-        <app-delivery-item></app-delivery-item>
-
+          <app-delivery-item [deliveryItems]="deliveryItems"></app-delivery-item>
+        
        <!--------------------------------------------------------------------------------Buttons to Open Dialogs----------------------------------------------------------------------->
        <!--Button to add Item-->
        <div><button type="button" class="kawaiicolors btn btn-primary"  (click)="openAddItemDialog()">Add Item to Delivery</button></div>
