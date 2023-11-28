@@ -207,7 +207,7 @@ export class DeliveryCardComponent {
     let navigationExtras = { queryParams: { delivery: JSON.stringify(item) } };
 
     // Navigate to the delivery summary page with the specified navigation extras
-    this.router.navigate(['../delivery-summary'], navigationExtras);
+     this.router.navigate(['../delivery-summary'], navigationExtras);
   }
 
   /**

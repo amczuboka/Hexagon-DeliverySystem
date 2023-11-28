@@ -605,10 +605,10 @@
                 Order Summary<br />
                 <hr />
               </div>
-              <b>Subtotal: </b> <br />
-              <b>Taxes: </b> <br />
+              <b>Subtotal: {{ subTotalValue$ }}$ </b> <br />
+              <b>Taxes: {{ taxesValue$ }}$ </b> <br />
               <br />
-              <b>Order Total: </b> <br />
+              <b>Order Total: {{ totalValue$ }}$</b> <br />
             </div>
           </div>
 
@@ -617,6 +617,7 @@
               mat-raised-button
               class="my-button"
               style="background-color: #007bff; color: white"
+              (click)="placeOrder()"
             >
               Place Order
             </button>

@@ -11,6 +11,11 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import {PaymentConfirmationDialogComponent  } from 'src/app/components/payment-confirmation-dialog/payment-confirmation-dialog.component';
+import { DeliveryService } from 'src/app/services/delivery.service';
+import { Delivery, DeliveryStatus } from 'src/app/modules/delivery.models';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -78,11 +83,16 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
+
 export class PaymentComponent {
   paymentForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
   hide = true;
   preselectedValue = "Canada"
+  delivery!: Delivery;
+  subTotalValue$: any;
+  taxesValue$: any;
+  totalValue$: any;
 
    // Define the countries array as a property of your component
    countries = [
@@ -110,7 +120,10 @@ export class PaymentComponent {
   constructor(
     public authService: AuthService,
     private formBuilder: FormBuilder,
-    private storageService: StorageService
+    private storageService: StorageService,
+    public dialog: MatDialog,
+    public deliveryService: DeliveryService,
+    private Acrouter: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -130,22 +143,65 @@ export class PaymentComponent {
       Phone: ['', [Validators.required, phoneNumberValidator()]],
       Postal: ['', [Validators.required, canadianPostalCodeValidator()]],
     });
-  
-  }
-  
-  async onSubmit() {
-    // stop the process here if form is invalid
-    if (this.paymentForm.invalid) {
-      this.storageService.sendNotification(
-        'make sure to answer all required fields'
-      );
 
-      return;
+      this.Acrouter.queryParams.subscribe((params) => {
+        const deliveryProps = JSON.parse(params['delivery']);
+        this.delivery = new Delivery(deliveryProps);
+      });  
+    this.calculateValues();
+  }
+
+  calculateValues(): void {
+    this.subTotalValue$ = this.delivery.Total;
+    this.taxesValue$ = this.calculateTaxes(this.subTotalValue$);
+    this.totalValue$ = this.calculateTotal(this.subTotalValue$, this.taxesValue$);
+    console.log(this.taxesValue$ + this.totalValue$)
+  }
+
+  calculateTaxes(subTotalValue: any): any {
+    const taxAmount = subTotalValue * (0.14975);
+  
+    // Round off the total amount to two decimal places
+    const taxes = roundToTwoDecimalPlaces(taxAmount);
+  
+    return taxes;
+  }
+
+  calculateTotal(subTotalValue: any, taxesValue: any): any {
+    const total = subTotalValue + taxesValue;
+
+    return total;
+  }
+
+  placeOrder(){
+    const {valid} = this.paymentForm;
+    if (!valid){
+      this.paymentForm.markAllAsTouched();
     }
+    else{
+      console.log(this.delivery.Id);
+      this.deliveryService.updateDelivery(this.delivery.Id, {
+        Status: DeliveryStatus.Pending,
+      });
+      this.storageService.sendNotification('Delivery status changed');
 
-    window.open('', '_self');
+      this.openPaymentSummaryDialog();
+    }
   }
 
+  openPaymentSummaryDialog(): void {
+    let dialogRef = this.dialog.open(PaymentConfirmationDialogComponent, {
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
 
 }
+function roundToTwoDecimalPlaces(value: any) {
+  return Number(value.toFixed(2));
+}
+
