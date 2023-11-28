@@ -18,7 +18,10 @@ import { StorageService } from './storage.service';
   providedIn: 'root',
 })
 export class DeliveryService {
-  constructor(public authService: AuthService, public storageService: StorageService) {}
+  constructor(
+    public authService: AuthService,
+    public storageService: StorageService
+  ) {}
 
   /**
    * Adds a new delivery to the 'deliveries' node in Firebase Realtime Database.
@@ -27,13 +30,40 @@ export class DeliveryService {
   async addDelivery(delivery: Delivery): Promise<void> {
     try {
       const db = getDatabase();
-      const generatedId = await this.storageService.IDgenerator('deliveries/', db); // Generate an ID using your generator
-  
+      const generatedId = await this.storageService.IDgenerator(
+        'deliveries/',
+        db
+      );
+
       // Assign the generated ID to the delivery object
       delivery['Id'] = generatedId;
-  
-      const newDeliveryRef = ref(db, `deliveries/${generatedId}`); // Create a reference with the generated ID
-      await set(newDeliveryRef, delivery); // Set the delivery object at the reference
+
+      const currentUser = this.authService.getUser(); // Get the current authenticated user
+      const userAuthority = currentUser.Authority; /* Get user authority */
+
+      let userNode: string;
+      if (userAuthority === 'company') {
+        userNode = 'company';
+      } else {
+        userNode = 'individual';
+      }
+
+      const userRef = ref(db, `${userNode}/${currentUser.uid}`);
+      const userSnapshot = await get(userRef);
+
+      if (userSnapshot.exists()) {
+        const user = userSnapshot.val();
+        if (!user.DeliveryIDs) {
+          user.DeliveryIDs = []; // Initialize deliveryIDs if it doesn't exist
+        }
+        user.DeliveryIDs.push(generatedId); // Add generatedId to the deliveryIDs array
+
+        // Update the user node with the updated deliveryIDs array
+        await set(userRef, user);
+      }
+
+      const newDeliveryRef = ref(db, `deliveries/${generatedId}`);
+      await set(newDeliveryRef, delivery);
     } catch (error) {
       console.error('Error adding delivery:', error);
       throw error;
@@ -68,6 +98,32 @@ export class DeliveryService {
       const db = getDatabase();
       const deliveryRef = ref(db, `deliveries/${deliveryId}`); // Reference to the specific delivery
       await remove(deliveryRef);
+
+      const currentUser = this.authService.getUser(); // Get the current authenticated user
+      const userAuthority = currentUser.Authority; /* Get user authority */
+
+      let userNode: string;
+
+      if (userAuthority === 'company') {
+        userNode = 'company';
+      } else {
+        userNode = 'individual';
+      }
+
+      const userRef = ref(db, `${userNode}/${currentUser.uid}`);
+      const userSnapshot = await get(userRef);
+
+      if (userSnapshot.exists()) {
+        const userData = userSnapshot.val();
+        if (userData && userData.DeliveryIDs) {
+          userData.DeliveryIDs = userData.DeliveryIDs.filter(
+            (id: string) => id !== deliveryId
+          );
+
+          // Update the user node with the updated deliveryIDs array
+          await set(userRef, userData);
+        }
+      }
     } catch (error) {
       console.error('Error deleting delivery:', error);
       throw error;
@@ -95,31 +151,31 @@ export class DeliveryService {
     }
   }
 
-    /**
+  /**
    * Retrieves all deliveries from the 'deliveries' node in Firebase Realtime Database.
    * @returns A Promise resolving to an array of all Delivery objects.
    */
-    async getAllDeliveries(): Promise<Delivery[]> {
-      try {
-        const db = getDatabase();
-        const deliveriesRef = ref(db, 'deliveries');
-  
-        const snapshot = await get(deliveriesRef);
-        const deliveries: Delivery[] = [];
-  
-        if (snapshot.exists()) {
-          snapshot.forEach((childSnapshot) => {
-            const delivery = childSnapshot.val() as Delivery;
-            deliveries.push(delivery);
-          });
-        }
-  
-        return deliveries;
-      } catch (error) {
-        console.error('Error getting all deliveries:', error);
-        throw error;
+  async getAllDeliveries(): Promise<Delivery[]> {
+    try {
+      const db = getDatabase();
+      const deliveriesRef = ref(db, 'deliveries');
+
+      const snapshot = await get(deliveriesRef);
+      const deliveries: Delivery[] = [];
+
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          const delivery = childSnapshot.val() as Delivery;
+          deliveries.push(delivery);
+        });
       }
+
+      return deliveries;
+    } catch (error) {
+      console.error('Error getting all deliveries:', error);
+      throw error;
     }
+  }
 
   /**
    * Retrieves all deliveries that match the current authenticated user's ID from the 'deliveries' node in Firebase Realtime Database.
@@ -141,7 +197,7 @@ export class DeliveryService {
         orderByChild('Userid'),
         equalTo(currentUser.uid)
       );
-        console.log("items: " +userDeliveriesQuery)
+
       const snapshot = await get(userDeliveriesQuery);
       const deliveries: Delivery[] = [];
 
