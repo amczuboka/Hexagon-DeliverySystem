@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Delivery, DeliveryFrequency, DeliveryStatus, Item } from 'src/app/modules/delivery.models';
+import { Delivery, DeliveryFrequency, DeliveryStatus, Item, ItemSize, ItemWeight } from 'src/app/modules/delivery.models';
 import { AppModule } from 'src/app/app.module';
 import { DeliveryCardComponent } from './delivery-card.component';
 
@@ -23,10 +23,10 @@ describe('DeliveryCardComponent', () => {
 
   it('should format items list properly', () => {
     const items: Item[] = [
-      new Item('Item 1', 1, 40, 25, 15, 3),
-      new Item('Item 2', 3, 30, 15, 10, 2),
-      new Item('Item 3', 1, 35, 20, 12, 4),
-      new Item('Item 4', 4, 45, 25, 18, 6),
+      new Item('Item 1', 1, ItemSize.size1, ItemWeight.weight1),
+      new Item('Item 2', 2, ItemSize.size2, ItemWeight.weight1),
+      new Item('Item 3', 2, ItemSize.size2, ItemWeight.weight1),
+      new Item('Item 4', 4, ItemSize.size2, ItemWeight.weight2)
     ];
 
     const formattedList = component.getFormattedItemsList(items);
@@ -41,12 +41,12 @@ describe('DeliveryCardComponent', () => {
     const item: Delivery = {
       Userid: '',
       Review: {
-        stars: 4, 
+        stars: 4,
         title: "Shipped to Alberta",
         description: "Very great service from start to finish",
         date: estimatedTime,
         id: "123456"
-    },
+      },
       Distance: 0,
       DepartLocation: 'Montreal',
       ArriveLocation: 'Alberta',
@@ -60,7 +60,7 @@ describe('DeliveryCardComponent', () => {
       Total: 0,
       calculateTotal: function (): number {
         throw new Error('Function not implemented.');
-      }
+      },
     };
     const searchText = 'Montreal';
 
@@ -71,10 +71,10 @@ describe('DeliveryCardComponent', () => {
 
   it('should calculate the total quantity of items correctly', () => {
     const items: Item[] = [
-        new Item('Item 1', 1, 40, 25, 15, 3),
-        new Item('Item 2', 3, 30, 15, 10, 2),
-        new Item('Item 3', 1, 35, 20, 12, 4),
-        new Item('Item 4', 4, 45, 25, 18, 6),
+      new Item('Item 1', 1, ItemSize.size1, ItemWeight.weight1),
+      new Item('Item 2', 2, ItemSize.size2, ItemWeight.weight1),
+      new Item('Item 3', 2, ItemSize.size2, ItemWeight.weight1),
+      new Item('Item 4', 4, ItemSize.size2, ItemWeight.weight2)
     ];
 
     const totalQuantity = component.calculateItemQuantity(items);
