@@ -59,7 +59,9 @@ export class DeliverySummaryComponent {
     });
 
     this.myUser = this.authService.getUser();
-    this.authority = this.myUser.photoURL;
+    if(this.myUser){
+      this.authority = this.myUser.photoURL;
+    }
   }
 
   placeOrder() {
@@ -108,17 +110,19 @@ export class DeliverySummaryComponent {
   }
 
   changeTrackingStatus() {
-    const dialogRef = this.dialog.open(ChangeDeliveryStatusDialogComponent, {
-      data: this.delivery.Status as DeliveryStatus,
-    });
-
-    dialogRef.afterClosed().subscribe((status) => {
-      if (status) {
-        this.deliveryService.updateDelivery(this.delivery.Id, {
-          Status: status,
-        });
-        this.storageService.sendNotification('Delivery status changed');
-      }
-    });
+    if(this.delivery) {
+      const dialogRef = this.dialog.open(ChangeDeliveryStatusDialogComponent, {
+        data: this.delivery.Status as DeliveryStatus,
+      });
+  
+      dialogRef.afterClosed().subscribe((status) => {
+        if (status != null) {
+          this.deliveryService.updateDelivery(this.delivery.Id, {
+            Status: status,
+          });
+          this.storageService.sendNotification('Delivery status changed');
+        }
+      });
+    }
   }
 }
