@@ -116,7 +116,7 @@ export class Item implements ItemInterface {
     var total = 0;
 
     //if-statements to calculate price for item size
-    if (this.Size == ItemSize.size2){
+    if (this.Size == ItemSize.size1){
       priceForSize = 6.95;
     }
 
