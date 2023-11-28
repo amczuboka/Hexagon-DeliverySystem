@@ -37,7 +37,7 @@ import { ChangeDeliveryStatusDialogComponent } from 'src/app/components/change-d
 })
 export class DeliverySummaryComponent {
   delivery!: Delivery;
-  authority!: string;
+  authority: string = 'user';
   myUser!: any;
 
   constructor(
@@ -59,7 +59,7 @@ export class DeliverySummaryComponent {
     });
 
     this.myUser = this.authService.getUser();
-    this.delivery = this.myUser.photoURL;
+    this.authority = this.myUser.photoURL;
   }
 
   placeOrder() {
