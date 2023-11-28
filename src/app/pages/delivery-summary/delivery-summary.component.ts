@@ -39,6 +39,7 @@ export class DeliverySummaryComponent {
   delivery!: Delivery;
   authority: string = 'user';
   myUser!: any;
+  isLoading: boolean = false;
 
   constructor(
     private Acrouter: ActivatedRoute,
@@ -122,11 +123,13 @@ export class DeliverySummaryComponent {
 
     dialogRef.afterClosed().subscribe((status) => {
       if (status) {
+        this.isLoading = true;
         from(
           this.deliveryService.updateDelivery(this.delivery.Id, {
             Status: status,
           })
         ).subscribe(() => {
+          this.isLoading = false;
           console.log('Delivery status changed');
           this.storageService.sendNotification('Delivery status changed');
         });
