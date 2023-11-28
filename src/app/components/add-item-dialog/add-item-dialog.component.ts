@@ -34,24 +34,8 @@ export class AddItemDialogComponent implements OnInit {
     const {valid} = this.newDeliveryItem;
     if (valid){
       this.data.dialogRef.close();
-    } else {
-      this.calculateItemPrice();  //calculate item price
-
-      //save item to delivery
-    }
+    } 
 
   }
-
-  calculateItemPrice(){
-    //calculate price
-    //this.form.controls['newDeliveryItem'].value;
-  }
-
-  selectedWeight = "";
-  onWeightSelected(value : string): void{
-    this.selectedWeight = value;
-    console.log(this.selectedWeight);
-  }
-
 
 }

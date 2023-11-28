@@ -134,19 +134,19 @@ export class Item implements ItemInterface {
 
     //if-statements to calculate price for item weight
     if (this.Weight == ItemWeight.weight1){
-      priceForSize = 15.96;
+      priceForWeight = 15.96;
     }
 
     if (this.Weight == ItemWeight.weight2){
-      priceForSize = 29.57;
+      priceForWeight = 29.57;
     }
 
     if (this.Weight == ItemWeight.weight3){
-      priceForSize = 35.81;
+      priceForWeight = 35.81;
     }
 
     if (this.Weight == ItemWeight.weight4){
-      priceForSize = 50.33;
+      priceForWeight = 50.33;
     }
 
     //calculating total
