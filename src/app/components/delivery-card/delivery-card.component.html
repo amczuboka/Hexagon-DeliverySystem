@@ -1,6 +1,9 @@
 <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
 
 <div class="cardz">
+  <div *ngIf="!deliveriesExist">
+    <p>You have not requested any deliveries or quotations!</p>
+  </div>
   <div
     *ngFor="let item of deliveries; let i = index"
     data-aos="fade-up"

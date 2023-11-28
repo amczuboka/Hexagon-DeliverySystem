@@ -24,6 +24,11 @@ export class DeliveryCardComponent {
   searchText: string = '';
 
   /**
+   * boolean representing if deliveries exists
+   */
+  deliveriesExist: boolean = true;
+
+  /**
    * Inject AuthService in the constructor
    *
    * @param authService - The authentication service
@@ -45,6 +50,20 @@ export class DeliveryCardComponent {
       // Handle error as needed
     });
   }
+
+/**
+ * Lifecycle hook called after every check of the component's content.
+ * Checks if deliveries exist and updates the flag accordingly.
+ */
+ngAfterContentChecked() {
+  if (this.deliveries) {
+    if (this.deliveries.length === 0) {
+      this.deliveriesExist = false;
+    } else {
+      this.deliveriesExist = true;
+    }
+  }
+}
 
   /**
    * Format items list for display
