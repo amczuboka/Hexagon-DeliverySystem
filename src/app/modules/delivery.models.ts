@@ -111,6 +111,47 @@ export class Item implements ItemInterface {
   }
 
   calculateItemPrice(): number {
-    return 0;
+    var priceForSize = 0;
+    var priceForWeight = 0;
+    var total = 0;
+
+    //if-statements to calculate price for item size
+    if (this.Size == ItemSize.size2){
+      priceForSize = 6.95;
+    }
+
+    if (this.Size == ItemSize.size2){
+      priceForSize = 16.50;
+    }
+
+    if (this.Size == ItemSize.size3){
+      priceForSize = 24.55;
+    }
+
+    if (this.Size == ItemSize.size4){
+      priceForSize = 27.05;
+    }
+
+    //if-statements to calculate price for item weight
+    if (this.Weight == ItemWeight.weight1){
+      priceForSize = 15.96;
+    }
+
+    if (this.Weight == ItemWeight.weight2){
+      priceForSize = 29.57;
+    }
+
+    if (this.Weight == ItemWeight.weight3){
+      priceForSize = 35.81;
+    }
+
+    if (this.Weight == ItemWeight.weight4){
+      priceForSize = 50.33;
+    }
+
+    //calculating total
+    total = this.Quantity * (priceForSize + priceForWeight);
+
+    return total;
   }
 }
