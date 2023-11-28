@@ -39,7 +39,6 @@ export class DeliverySummaryComponent {
   delivery!: Delivery;
   authority: string = 'user';
   myUser!: any;
-  isLoading: boolean = false;
 
   constructor(
     private Acrouter: ActivatedRoute,
@@ -77,10 +76,8 @@ export class DeliverySummaryComponent {
 
     dialogRef.afterClosed().subscribe((review) => {
       if (review) {
-        from(this.reviewService.editReview(review)).subscribe(() => {
-          console.log('Review edited');
-          this.storageService.sendNotification('Review edited');
-        });
+        this.reviewService.editReview(review);
+        this.storageService.sendNotification('Review edited');
       }
     });
   }
@@ -90,12 +87,8 @@ export class DeliverySummaryComponent {
 
     dialogRef.afterClosed().subscribe((confirm) => {
       if (confirm) {
-        from(
-          this.reviewService.deleteSpecificReview(this.delivery.Review.id)
-        ).subscribe(() => {
-          console.log('Review deleted');
-          this.storageService.sendNotification('Review deleted');
-        });
+        this.reviewService.deleteSpecificReview(this.delivery.Id);
+        this.storageService.sendNotification('Review deleted');
       }
     });
   }
@@ -108,10 +101,8 @@ export class DeliverySummaryComponent {
     dialogRef.afterClosed().subscribe((review) => {
       if (review) {
         review.id = this.delivery.Id;
-        from(this.reviewService.addReview(review)).subscribe(() => {
-          console.log('Review added');
-          this.storageService.sendNotification('Review added');
-        });
+        this.reviewService.addReview(review);
+        this.storageService.sendNotification('Review added');
       }
     });
   }
@@ -123,16 +114,10 @@ export class DeliverySummaryComponent {
 
     dialogRef.afterClosed().subscribe((status) => {
       if (status) {
-        this.isLoading = true;
-        from(
-          this.deliveryService.updateDelivery(this.delivery.Id, {
-            Status: status,
-          })
-        ).subscribe(() => {
-          this.isLoading = false;
-          console.log('Delivery status changed');
-          this.storageService.sendNotification('Delivery status changed');
+        this.deliveryService.updateDelivery(this.delivery.Id, {
+          Status: status,
         });
+        this.storageService.sendNotification('Delivery status changed');
       }
     });
   }

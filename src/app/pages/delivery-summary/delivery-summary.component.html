@@ -1,171 +1,166 @@
-<div>
-  <section class="py-2">
-    <div
-      class="container py-2 h-100 px-xs-0 d-flex justify-content-center align-items-center"
-    >
-      <div class="row h-100 m-2 section">
-        <div class="col-md-8 height-fit-content delivery-details">
-          <div class="content-padding">
-            <div class="center_title">
-              <p
-                *ngIf="delivery.Status !== 'Quotation'; else Quotation"
-                class="delivery"
-              >
-                Delivery Summary
-              </p>
-              <ng-template #Quotation>
-                <p class="delivery">Quotation Summary</p>
-              </ng-template>
-              <p *ngIf="delivery.Status !== 'Quotation'; else QuotationId">
-                Delivery ID: <b>{{ delivery.Id }}</b>
-              </p>
-              <div *ngIf="delivery.Frequency != 'Once'" class="recurring">
-                <mat-icon>repeat</mat-icon>
-                RECURRING: {{ delivery.Frequency }}
+<section class="py-2">
+  <div
+    class="container py-2 h-100 px-xs-0 d-flex justify-content-center align-items-center"
+  >
+    <div class="row h-100 m-2 section">
+      <div class="col-md-8 height-fit-content delivery-details">
+        <div class="content-padding">
+          <div class="center_title">
+            <p
+              *ngIf="delivery.Status !== 'Quotation'; else Quotation"
+              class="delivery"
+            >
+              Delivery Summary
+            </p>
+            <ng-template #Quotation>
+              <p class="delivery">Quotation Summary</p>
+            </ng-template>
+            <p *ngIf="delivery.Status !== 'Quotation'; else QuotationId">
+              Delivery ID: <b>{{ delivery.Id }}</b>
+            </p>
+            <div *ngIf="delivery.Frequency != 'Once'" class="recurring">
+              <mat-icon>repeat</mat-icon>
+              RECURRING: {{ delivery.Frequency }}
+            </div>
+            <ng-template #QuotationId>
+              Quotation ID: <b>{{ delivery.Id }}</b>
+            </ng-template>
+            <hr />
+          </div>
+          <br />
+          <div
+            *ngIf="delivery.Status !== 'Quotation'; else QuotationItems"
+            class="center_title"
+          >
+            Delivery Items
+          </div>
+          <ng-template #QuotationItems class="center_title">
+            <div class="center_title">Quotation Items</div>
+          </ng-template>
+          <div class="item-list">
+            <div *ngFor="let item of delivery.items">
+              <div class="row">
+                <div class="col-md-6">
+                  <p><b>Item Name:</b> {{ item.Name }}</p>
+                  <p><b>Quantity:</b> {{ item.Quantity }}</p>
+                </div>
+                <div class="col-md-6">
+                  <p><b>Price:</b> ${{ item.itemPrice }}</p>
+                </div>
               </div>
-              <ng-template #QuotationId>
-                Quotation ID: <b>{{ delivery.Id }}</b>
-              </ng-template>
               <hr />
             </div>
-            <br />
-            <div
-              *ngIf="delivery.Status !== 'Quotation'; else QuotationItems"
-              class="center_title"
-            >
-              Delivery Items
-            </div>
-            <ng-template #QuotationItems class="center_title">
-              <div class="center_title">Quotation Items</div>
-            </ng-template>
-            <div class="item-list">
-              <div *ngFor="let item of delivery.items">
-                <div class="row">
-                  <div class="col-md-6">
-                    <p><b>Item Name:</b> {{ item.Name }}</p>
-                    <p><b>Quantity:</b> {{ item.Quantity }}</p>
-                  </div>
-                  <div class="col-md-6">
-                    <p><b>Price:</b> ${{ item.itemPrice }}</p>
-                  </div>
-                </div>
-                <hr />
-              </div>
-            </div>
-            <ng-container
-              *ngIf="
-                !delivery.Review.title && delivery.Status === 'Delivered';
-                else PlaceOrder
-              "
-            >
-              <div>
-                <button
-                  mat-raised-button
-                  class="my-button"
-                  style="background-color: #007bff; color: white"
-                  (click)="addReview()"
-                >
-                  <mat-icon>add</mat-icon>Add Review
-                </button>
-              </div>
-            </ng-container>
-            <ng-template #PlaceOrder>
-              <div *ngIf="delivery.Status === 'Quotation'">
-                <button
-                  mat-raised-button
-                  class="my-button"
-                  style="background-color: #007bff; color: white"
-                  (click)="placeOrder()"
-                >
-                  <mat-icon>add</mat-icon>Place Order
-                </button>
-              </div>
-            </ng-template>
-            <ng-container
-              *ngIf="delivery.Review.title && delivery.Status === 'Delivered'"
-            >
-              <div class="center_title">
-                <br />
-                Review
-              </div>
-              <div class="buttons">
-                <button
-                  mat-fab
-                  class="my-button"
-                  color="accent"
-                  (click)="editReview()"
-                >
-                  <mat-icon>edit</mat-icon>
-                </button>
-                <button
-                  mat-fab
-                  class="my-button"
-                  color="warn"
-                  (click)="deleteReview()"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-              <div class="review">
-                <app-review [review]="delivery.Review"></app-review>
-              </div>
-            </ng-container>
           </div>
-        </div>
-        <div class="col">
-          <div class="row mb-2 delivery-info-container">
+          <ng-container
+            *ngIf="
+              !delivery.Review.title && delivery.Status === 'Delivered';
+              else PlaceOrder
+            "
+          >
             <div>
-              <div
-                *ngIf="delivery.Status !== 'Quotation'; else QuotationInfo"
-                class="center_title"
-              >
-                Delivery Information<br />
-                <hr />
-              </div>
-              <ng-template #QuotationInfo>
-                <div class="center_title">
-                  Quotation Information<br />
-                  <hr />
-                </div>
-              </ng-template>
-              <b>Depart Location: </b> {{ delivery.DepartLocation }}<br />
-              <b>Arrival Location: </b> {{ delivery.ArriveLocation }}
-              <br />
-              <b>Distance: </b>{{ delivery.Distance }} km <br />
-              <div *ngIf="delivery.Status !== 'Quotation'">
-                <ng-container
-                  *ngIf="delivery.Status !== 'Delivered'; else Delivered"
-                >
-                  <b>Estimated Time of Delivery: </b>
-                </ng-container>
-                <ng-template #Delivered>
-                  <b>Delivered on: </b>
-                </ng-template>
-                {{ delivery.EstimatedTime | date : "MMMM d, y" }} <br />
-              </div>
-              <ng-container *ngIf="authority === 'Company'"
-                ><b>Recurring: </b>{{ delivery.Recurring }} <br
-              /></ng-container>
-              <b>Total: </b>${{ delivery.Total }} <br />
-            </div>
-          </div>
-          <div class="pb-2 tracking-container">
-            <app-tracking [delivery]="delivery"></app-tracking>
-            <ng-container *ngIf="authority === 'Staff'">
               <button
                 mat-raised-button
-                color="primary"
-                (click)="changeTrackingStatus()"
+                class="my-button"
+                style="background-color: #007bff; color: white"
+                (click)="addReview()"
               >
-                Change Tracking Status
+                <mat-icon>add</mat-icon>Add Review
               </button>
-            </ng-container>
+            </div>
+          </ng-container>
+          <ng-template #PlaceOrder>
+            <div *ngIf="delivery.Status === 'Quotation'">
+              <button
+                mat-raised-button
+                class="my-button"
+                style="background-color: #007bff; color: white"
+                (click)="placeOrder()"
+              >
+                <mat-icon>add</mat-icon>Place Order
+              </button>
+            </div>
+          </ng-template>
+          <ng-container
+            *ngIf="delivery.Review.title && delivery.Status === 'Delivered'"
+          >
+            <div class="center_title">
+              <br />
+              Review
+            </div>
+            <div class="buttons">
+              <button
+                mat-fab
+                class="my-button"
+                color="accent"
+                (click)="editReview()"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-fab
+                class="my-button"
+                color="warn"
+                (click)="deleteReview()"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <div class="review">
+              <app-review [review]="delivery.Review"></app-review>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row mb-2 delivery-info-container">
+          <div>
+            <div
+              *ngIf="delivery.Status !== 'Quotation'; else QuotationInfo"
+              class="center_title"
+            >
+              Delivery Information<br />
+              <hr />
+            </div>
+            <ng-template #QuotationInfo>
+              <div class="center_title">
+                Quotation Information<br />
+                <hr />
+              </div>
+            </ng-template>
+            <b>Depart Location: </b> {{ delivery.DepartLocation }}<br />
+            <b>Arrival Location: </b> {{ delivery.ArriveLocation }}
+            <br />
+            <b>Distance: </b>{{ delivery.Distance }} km <br />
+            <div *ngIf="delivery.Status !== 'Quotation'">
+              <ng-container
+                *ngIf="delivery.Status !== 'Delivered'; else Delivered"
+              >
+                <b>Estimated Time of Delivery: </b>
+              </ng-container>
+              <ng-template #Delivered>
+                <b>Delivered on: </b>
+              </ng-template>
+              {{ delivery.EstimatedTime | date : "MMMM d, y" }} <br />
+            </div>
+            <ng-container *ngIf="authority === 'Company'"
+              ><b>Recurring: </b>{{ delivery.Recurring }} <br
+            /></ng-container>
+            <b>Total: </b>${{ delivery.Total }} <br />
           </div>
+        </div>
+        <div class="pb-2 tracking-container">
+          <app-tracking [delivery]="delivery"></app-tracking>
+          <ng-container *ngIf="authority === 'Staff'">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="changeTrackingStatus()"
+            >
+              Change Tracking Status
+            </button>
+          </ng-container>
         </div>
       </div>
     </div>
-  </section>
-  <div class="loading-indicator" *ngIf="isLoading">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
   </div>
-</div>
+</section>
