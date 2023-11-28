@@ -26,6 +26,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   test: boolean = false;
   authority!: string;
   myUser!: any; 
+  isChecked: boolean = true;
 
   constructor(
     private form_builder: FormBuilder,
@@ -35,6 +36,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
     private Acrouter: ActivatedRoute
   ){}
 
+  //For user authentication
   ngAfterViewChecked() {
     this.myUser = this.authService.getUser();
     const type = this['Acrouter'].snapshot.params['type'];
@@ -61,6 +63,8 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
       destinationProvince: ['', [Validators.required]],
       destinationPostalCode: ['', [Validators.required]],
 
+      //Recurring
+      recurrence: ['']
     })
 
   }

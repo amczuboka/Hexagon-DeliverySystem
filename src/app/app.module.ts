@@ -21,6 +21,7 @@ import { DatePipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -134,6 +135,7 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
     MatTableModule,
     MatSidenavModule,
     MatSortModule,
+    MatRadioModule
   ],
   providers: [
     CookieService,
