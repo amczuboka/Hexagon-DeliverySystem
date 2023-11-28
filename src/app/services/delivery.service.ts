@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   getDatabase,
   ref,
-  push,
   update,
   remove,
   get,
@@ -13,12 +12,13 @@ import {
 } from '@angular/fire/database';
 import { Delivery } from '../modules/delivery.models';
 import { AuthService } from './auth.service';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DeliveryService {
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, public storageService: StorageService) {}
 
   /**
    * Adds a new delivery to the 'deliveries' node in Firebase Realtime Database.
@@ -27,8 +27,13 @@ export class DeliveryService {
   async addDelivery(delivery: Delivery): Promise<void> {
     try {
       const db = getDatabase();
-      const newDeliveryRef = push(ref(db, 'deliveries')); // Create a new reference for 'deliveries'
-      await set(newDeliveryRef, delivery); // Use set to add a new entry at the generated reference
+      const generatedId = await this.storageService.IDgenerator('deliveries/', db); // Generate an ID using your generator
+  
+      // Assign the generated ID to the delivery object
+      delivery['Id'] = generatedId;
+  
+      const newDeliveryRef = ref(db, `deliveries/${generatedId}`); // Create a reference with the generated ID
+      await set(newDeliveryRef, delivery); // Set the delivery object at the reference
     } catch (error) {
       console.error('Error adding delivery:', error);
       throw error;
@@ -136,7 +141,7 @@ export class DeliveryService {
         orderByChild('Userid'),
         equalTo(currentUser.uid)
       );
-
+        console.log("items: " +userDeliveriesQuery)
       const snapshot = await get(userDeliveriesQuery);
       const deliveries: Delivery[] = [];
 

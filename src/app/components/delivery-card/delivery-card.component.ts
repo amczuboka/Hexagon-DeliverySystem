@@ -2,13 +2,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  Delivery,
-  DeliveryFrequency,
-  DeliveryStatus,
-  Item,
+  Delivery, Item,
 } from 'src/app/modules/delivery.models';
-import { AuthService } from 'src/app/services/auth.service';
 import AOS from 'aos';
+import { DeliveryService } from 'src/app/services/delivery.service';
 
 @Component({
   selector: 'app-delivery-card',
@@ -22,11 +19,6 @@ export class DeliveryCardComponent {
   deliveries: Delivery[] = [];
 
   /**
-   * User information
-   */
-  myUser!: any;
-
-  /**
    * Search text for filtering deliveries
    */
   searchText: string = '';
@@ -36,96 +28,22 @@ export class DeliveryCardComponent {
    *
    * @param authService - The authentication service
    */
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private deliveryService: DeliveryService, private router: Router) {}
 
   /**
    * Lifecycle hook called after component initialization
    */
   ngOnInit() {
     AOS.init();
-    // Get user information
-    this.myUser = this.authService.getUser();
-
-    this.pushDeliveries();
-  }
-
-  pushDeliveries(): void {
-    // Create sample items
-    let items1: Item[] = [
-      new Item('Shipping Equipement', 1, 50, 30, 20, 5),
-      new Item('Bolts', 2, 50, 30, 20, 5),
-      new Item('Screws', 2, 50, 30, 20, 5),
-      new Item('Knobs', 2, 50, 30, 20, 5),
-    ];
-
-    let items2: Item[] = [
-      new Item('Wrench', 1, 40, 25, 15, 3),
-      new Item('Nails', 3, 30, 15, 10, 2),
-      new Item('Screwdriver', 1, 35, 20, 12, 4),
-      new Item('Hinges', 4, 45, 25, 18, 6),
-    ];
-
-    let items3: Item[] = [
-      new Item('Paintbrushes', 5, 40, 20, 15, 3),
-      new Item('Door Handles', 3, 50, 30, 22, 5),
-    ];
-
-    let items4: Item[] = [
-      new Item('Pliers', 2, 45, 28, 17, 4),
-      new Item('Wood Glue', 3, 25, 15, 10, 2),
-      new Item('Drill Bits', 4, 55, 35, 22, 6),
-    ];
-
-    //First Delivery
-    let delivery1 = new Delivery();
-    delivery1.items = items1;
-    let estimatedTime1 = new Date();
-    estimatedTime1.setDate(estimatedTime1.getDate() + 5);
-    delivery1.EstimatedTime = estimatedTime1;
-    delivery1.ArriveLocation = 'Montreal, Beaconsfield, H79 B7S';
-    delivery1.Id = '102972814683';
-    delivery1.Total = 37.94;
-    delivery1.Status = DeliveryStatus.Quotation;
-    delivery1.Frequency = DeliveryFrequency.BiWeekly;
-    this.deliveries.push(delivery1);
-
-    //Second Delivery
-    let delivery2 = new Delivery();
-    delivery2.items = items2;
-    let estimatedTime2 = new Date();
-    estimatedTime2.setDate(estimatedTime2.getDate() + 10);
-    delivery2.EstimatedTime = estimatedTime2;
-    delivery2.ArriveLocation = 'Montreal, Kirkland, H9W 6B5';
-    delivery2.Id = '12344568932';
-    delivery2.Total = 40.94;
-    delivery2.Status = DeliveryStatus.EnRoute;
-    delivery2.Frequency = DeliveryFrequency.Monthly;
-    this.deliveries.push(delivery2);
-
-    //Third Delivery
-    let delivery3 = new Delivery();
-    delivery3.items = items3;
-    let estimatedTime3 = new Date();
-    estimatedTime3.setDate(estimatedTime3.getDate() + 9);
-    delivery3.EstimatedTime = estimatedTime3;
-    delivery3.ArriveLocation = 'Montreal, Saint Laurent, C7G 6K8';
-    delivery3.Id = '9877652423';
-    delivery3.Total = 79.24;
-    delivery3.Status = DeliveryStatus.Pending;
-    this.deliveries.push(delivery3);
-
-    //Fourth Delivery
-    let delivery4 = new Delivery();
-    delivery4.items = items4;
-    let estimatedTime4 = new Date();
-    estimatedTime4.setDate(estimatedTime4.getDate() + 12);
-    delivery4.EstimatedTime = estimatedTime4;
-    delivery4.ArriveLocation = 'Quebec, Saint Louis, B6T 8S5';
-    delivery4.Id = '5475325786';
-    delivery4.Total = 101.14;
-    delivery4.Status = DeliveryStatus.Delivered;
-    delivery4.Frequency = DeliveryFrequency.Once;
-    this.deliveries.push(delivery4);
+    // Retrieve user's deliveries from Real Time Database 
+    this.deliveryService.getAllDeliveriesMatchingTheUser()
+    .then(deliveries => {
+      this.deliveries = deliveries;
+    })
+    .catch(error => {
+      console.error('Error getting deliveries:', error);
+      // Handle error as needed
+    });
   }
 
   /**
@@ -164,7 +82,7 @@ export class DeliveryCardComponent {
 
     // Iterate over the properties of the item and check if any match the search criteria
     for (const key in item) {
-      if (Object.prototype.hasOwnProperty.call(item, key)) {
+      if (Object.hasOwn(item, key)) {
         const propertyValue = item[key];
 
         // Exclude type "Recurring or totalPrice"
@@ -174,7 +92,7 @@ export class DeliveryCardComponent {
         ) {
           // For Items, check each item's name
           if (Array.isArray(propertyValue)) {
-            const itemArray = propertyValue as Item[];
+            const itemArray = propertyValue;
             if (
               itemArray.some((item) =>
                 item.Name.toLowerCase().includes(lowerCaseSearchText)
