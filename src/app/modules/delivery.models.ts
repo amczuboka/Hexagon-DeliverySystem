@@ -33,17 +33,17 @@ export interface ItemInterface {
 }
 
 export enum ItemSize {
-  size1 = '1',
-  size2 = '2',
-  size3 = '3',
-  size4 = '4'
+  size1 = '0.23m X 0.20m X 0.025m',
+  size2 = '0.5m X 0.5m X 0.5m',
+  size3 = '1m X 1m X 1m',
+  size4 = '2m X 2m X 2m'
 }
 
 export enum ItemWeight {
-  weight1 = '1',
-  weight2 = '2',
-  weight3 = '3',
-  weight4 = '4'
+  weight1 = '0.1kg - 5kg',
+  weight2 = '5kg - 10kg',
+  weight3 = '10kg - 20kg',
+  weight4 = '20kg - 30kg'
 }
 
 export enum DeliveryStatus {
