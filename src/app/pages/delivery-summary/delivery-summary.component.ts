@@ -36,9 +36,8 @@ import { ChangeDeliveryStatusDialogComponent } from 'src/app/components/change-d
   styleUrls: ['./delivery-summary.component.scss'],
 })
 export class DeliverySummaryComponent {
-  // status: string = DeliveryStatus.EnRoute.toString();
   delivery!: Delivery;
-  authority!: string; // Don't thik it is needed
+  authority!: string;
   myUser!: any;
 
   constructor(
@@ -60,7 +59,7 @@ export class DeliverySummaryComponent {
     });
 
     this.myUser = this.authService.getUser();
-    this.myUser.Authority = this.myUser.photoURL;
+    this.delivery = this.myUser.photoURL;
   }
 
   placeOrder() {
