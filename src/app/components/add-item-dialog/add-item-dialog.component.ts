@@ -34,7 +34,14 @@ export class AddItemDialogComponent implements OnInit {
     if (valid){
       this.data.dialogRef.close();
     }
+    //calculate item price
+    this.calculateItemPrice();
+    
     //save item to delivery
+  }
+
+  calculateItemPrice(){
+    //calculate price
   }
 
 
