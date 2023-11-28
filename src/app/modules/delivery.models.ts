@@ -98,8 +98,16 @@ export class Item implements ItemInterface {
   Weight: ItemWeight = ItemWeight.weight1;
   itemPrice = this.calculateItemPrice();
 
-  constructor(init?: Partial<Item>) {
-    Object.assign(this, init);
+  constructor(
+    name: string,
+    quantity: number,
+    size: ItemSize,
+    weight: ItemWeight
+  ) {
+    this.Name = name;
+    this.Quantity = quantity;
+    this.Size = size;
+    this.Weight = weight;
   }
 
   calculateItemPrice(): number {
