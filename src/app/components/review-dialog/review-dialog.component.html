@@ -1,0 +1,84 @@
+<div class="review-dialog">
+  <h2>Review Dialog</h2>
+  <form (submit)="saveReview()">
+    <div class="form-group">
+      <div class="stars-container">
+        <label for="stars">Stars:</label>
+        <div class="star-rating">
+          <ng-container *ngFor="let star of getStarArr(); let i = index">
+            <div class="star">
+              <fa-icon
+                *ngIf="star; else emptyStar"
+                [icon]="reviewStarSolid"
+                (click)="setStarRating(i + 1)"
+              ></fa-icon>
+              <ng-template #emptyStar>
+                <fa-icon
+                  [icon]="reviewStarEmpty"
+                  (click)="setStarRating(i + 1)"
+                ></fa-icon>
+              </ng-template>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div [formGroup]="reviewForm" class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label for="title">Title:</mat-label>
+        <textarea
+          matInput
+          required
+          formControlName="title"
+          name="title"
+          [errorStateMatcher]="matcher"
+          id="title"
+          class="form-control form-control-lg"
+        ></textarea>
+        <mat-icon
+          matSuffix
+          *ngIf="
+            reviewForm.controls['title'].hasError('required') &&
+            reviewForm.controls['title'].touched
+          "
+          >error_outline
+        </mat-icon>
+        <mat-error *ngIf="reviewForm.controls['title'].hasError('required')"
+          >Enter a title
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div [formGroup]="reviewForm" class="form-group">
+      <mat-form-field appearance="outline">
+        <mat-label for="title">Description:</mat-label>
+        <textarea
+          matInput
+          required
+          formControlName="description"
+          name="description"
+          [errorStateMatcher]="matcher"
+          id="description"
+          class="form-control form-control-lg"
+        ></textarea>
+        <mat-icon
+          matSuffix
+          *ngIf="
+            reviewForm.controls['description'].hasError('required') &&
+            reviewForm.controls['description'].touched
+          "
+          >error_outline
+        </mat-icon>
+        <mat-error
+          *ngIf="reviewForm.controls['description'].hasError('required')"
+          >Enter a description
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="button-group">
+      <button mat-raised-button color="primary" type="submit">Submit</button>
+      <button mat-raised-button color="warn" type="button" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
