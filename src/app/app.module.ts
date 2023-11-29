@@ -145,7 +145,6 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
     MatSortModule,
     MatRadioModule,
     MatExpansionModule,
-    MatRadioModule
   ],
   providers: [
     CookieService,
