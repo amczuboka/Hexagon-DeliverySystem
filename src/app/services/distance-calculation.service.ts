@@ -14,13 +14,9 @@ export class DistanceCalculationService {
     this.getCoordinates(address1)
       .pipe(take(1))
       .subscribe((location1) => {
-        console.log(location1);
-
         this.getCoordinates(address2)
           .pipe(take(1))
           .subscribe((location2) => {
-            console.log(location2);
-
             if (location1 && location2) {
               const distance = this.getDistanceFromLatLonInKm(
                 location1.latitude,
