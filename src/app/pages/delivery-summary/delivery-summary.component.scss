@@ -1,101 +1,112 @@
-.col-md-8 
-{
-    margin-right: 10px;
-    margin-bottom: 10px;
+.col-md-8 {
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
-section{
-    // make the section take up the whole viewport height if the content is less than the viewport height
-    height: 85vh;
-}
-
-.section{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+section {
+  // make the section take up the whole viewport height if the content is less than the viewport height
+  height: 85vh;
 }
 
-.review{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.review {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .recurring {
-    display: flex;
-    display: row;
-    align-items: center;
-    justify-content: center;
-    color: rgb(195, 117, 27);
-    padding-bottom: 30px;
-  }
-
-.center
-{
-    text-align: center;
+  display: flex;
+  display: row;
+  align-items: center;
+  justify-content: center;
+  color: rgb(195, 117, 27);
+  padding-bottom: 30px;
 }
 
-.center_title
-{
-    text-align: center;
-    font-size: 20px;
-    color: #007BFF;
+.center {
+  text-align: center;
 }
 
-*{
-    word-wrap: normal;     
+.center_title {
+  text-align: center;
+  font-size: 20px;
+  color: #007bff;
+}
+
+* {
+  word-wrap: normal;
 }
 
 .item-list {
-    margin-top: 20px; // adjust this value as needed
-    padding: 10px 10px 10px 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+  margin-top: 20px; // adjust this value as needed
+  padding: 10px 10px 10px 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 }
 
 .delivery {
-    font-size: 24px;
-    color: #007BFF;
+  font-size: 24px;
+  color: #007bff;
 }
 
 .underline {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .delivery-details {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 }
 
 .delivery-info-container {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(0,0,0,0.15);
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
 }
 
 .buttons {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .my-button {
-    margin: 10px;
+  margin: 10px;
 }
 
+.tracking-container {
+  // place items one on top of the other and have apscing between them
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  button {
+    margin-top: 10px;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    background-color: #007bff;
+  }
+}
 
 @media screen and (max-width: 356px) {
-    .delivery {
-      padding-left: 0px;
-    }
+  .delivery {
+    padding-left: 0px;
   }
-  
+}
+
 @media screen and (min-width: 357px) {
-    .delivery {
-        padding-left: 5px;
-    }
+  .delivery {
+    padding-left: 5px;
   }
+}
