@@ -409,14 +409,14 @@
                     <mat-label class="form-label" for="form2Example17"
                       >Province</mat-label
                     >
-                    <select matNativeControl formControlName="Province">
-                      <option
+                    <mat-select matNativeControl formControlName="Province">
+                      <mat-option
                         *ngFor="let province of provinces"
                         [value]="province.code"
                       >
                         {{ province.name }}
-                      </option>
-                    </select>
+                      </mat-option>
+                    </mat-select>
                     <mat-error
                       *ngIf="paymentForm.get('province')?.hasError('required')"
                     >
@@ -482,14 +482,14 @@
                     <mat-label class="form-label" for="form2Example17"
                       >Country</mat-label
                     >
-                    <select matNativeControl formControlName="Country">
-                      <option
+                    <mat-select matNativeControl formControlName="Country">
+                      <mat-option
                         *ngFor="let country of countries"
                         [value]="country.code"
                       >
                         {{ country.name }}
-                      </option>
-                    </select>
+                      </mat-option>
+                    </mat-select>
                     <mat-error
                       *ngIf="paymentForm.get('country')?.hasError('required')"
                     >
