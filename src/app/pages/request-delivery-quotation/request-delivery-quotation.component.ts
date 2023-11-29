@@ -27,6 +27,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   myUser!: any;
   isChecked: boolean = true;
   deliveryItems: Item[] = [];
+  deliveryObj!: Delivery;
  
 
   //departLocation!: string;  //depart location info concatenated
@@ -69,8 +70,29 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
       destinationPostalCode: ['', [Validators.required]],
 
       //Recurring
-      recurrence: [''],
+      frequency: [''],
     });
+
+      //Obtaining values from form
+      let depart_address = this.deliveryDetailsForm.value.departAddress;
+      let depart_city = this.deliveryDetailsForm.value.departCity;
+      let depart_province = this.deliveryDetailsForm.value.departProvince;
+      let depart_postalCode = this.deliveryDetailsForm.value.departPostalCode;
+
+      let arrive_address = this.deliveryDetailsForm.value.destinationAddress;
+      let arrive_city = this.deliveryDetailsForm.value.destinationCity;
+      let arrive_province = this.deliveryDetailsForm.value.destinationProvince;
+      let arrive_postalCode = this.deliveryDetailsForm.value.destinationPostalCode;
+
+      let DepartLocation = depart_address + ", " + depart_city + ", " + depart_province + ", " + depart_postalCode;
+      let ArriveLocation = arrive_address + ", " + arrive_city + ", " + arrive_province + ", " + arrive_postalCode;
+      let Frequency = this.deliveryDetailsForm.value.frequency;
+
+
+      this.deliveryObj.DepartLocation = DepartLocation; //creating delivery object
+      this.deliveryObj.ArriveLocation = ArriveLocation;
+      this.deliveryObj.Frequency = Frequency;
+      this.deliveryObj.items = this.deliveryItems;
     }
 
 
@@ -90,25 +112,12 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
     });
   }
 
+  
+
   //Function to open "order summary dialog"
   openOrderDialog(): void {
-    let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {});
-    
-    let depart_address = this.deliveryDetailsForm.value.departAddress;
-    let depart_city = this.deliveryDetailsForm.value.departCity;
-    let depart_province = this.deliveryDetailsForm.value.departProvince;
-    let depart_postalCode = this.deliveryDetailsForm.value.departPostalCode;
-    let departLocation = depart_address + ", " + depart_city + ", " + depart_province + ", " + depart_postalCode;
+    let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {data: this.deliveryObj});
 
-    let arrive_address = this.deliveryDetailsForm.value.destinationAddress;
-    let arrive_city = this.deliveryDetailsForm.value.destinationCity;
-    let arrive_province = this.deliveryDetailsForm.value.destinationProvince;
-    let arrive_postalCode = this.deliveryDetailsForm.value.destinationPostalCode;
-    let arriveLocation = arrive_address + ", " + arrive_city + ", " + arrive_province + ", " + arrive_postalCode;
-    
-    console.log(departLocation);
-    console.log(arriveLocation);
-    
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-order-summary-dialog',
@@ -9,7 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class OrderSummaryDialogComponent {
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<OrderSummaryDialogComponent>) { }
+  constructor(private router: Router, private dialogRef: MatDialogRef<OrderSummaryDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   saveQuotation(){
     //save quotation
