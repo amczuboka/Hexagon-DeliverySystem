@@ -5,19 +5,25 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-order-summary-dialog',
   templateUrl: './order-summary-dialog.component.html',
-  styleUrls: ['./order-summary-dialog.component.scss']
+  styleUrls: ['./order-summary-dialog.component.scss'],
 })
 export class OrderSummaryDialogComponent {
+  deliveryObj: any;
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<OrderSummaryDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(
+    private router: Router,
+    private dialogRef: MatDialogRef<OrderSummaryDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+      this.deliveryObj = data;
+    }
 
-  saveQuotation(){
+  saveQuotation() {
     //save quotation
   }
 
-  proceedToPayment(){
+  proceedToPayment() {
     this.router.navigate(['/payment']);
     this.dialogRef.close();
   }
-
 }
