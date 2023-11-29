@@ -5,8 +5,8 @@ export interface DeliveryInterface {
   DepartLocation: string;
   ArriveLocation: string;
   Status: DeliveryStatus;
-  orderDate: Date;
-  EstimatedTime: Date;
+  OrderDate: string;
+  EstimatedTime: string;
   Id: string;
   Recurring: boolean;
   Frequency: DeliveryFrequency;
@@ -14,7 +14,7 @@ export interface DeliveryInterface {
 
   calculateTotal(): number;
 
-  [key: string]: string | number | boolean | Date | Review | Item[]| (() => number);
+  [key: string]: string | number | boolean | Review | Item[]| (() => number);
 
 }
 export interface Review {
@@ -73,8 +73,8 @@ export class Delivery implements DeliveryInterface {
   DepartLocation: string = '';
   ArriveLocation: string = '';
   Status: DeliveryStatus = DeliveryStatus.Quotation;
-  orderDate: Date = new Date();
-  EstimatedTime: Date = new Date();
+  OrderDate: string = '';
+  EstimatedTime: string = '';
   Id: string = '';
   Recurring: boolean = false;
   Frequency: DeliveryFrequency = DeliveryFrequency.Once;
@@ -84,7 +84,7 @@ export class Delivery implements DeliveryInterface {
   constructor(init?: Partial<Delivery>) {
     Object.assign(this, init);
   }
-  [key: string]: string | number | boolean | Date | Review | Item[] | (() => number);
+  [key: string]: string | number | boolean | Review | Item[] | (() => number);
 
   calculateTotal(): number {
     return 0;
@@ -155,3 +155,4 @@ export class Item implements ItemInterface {
     return total;
   }
 }
+
