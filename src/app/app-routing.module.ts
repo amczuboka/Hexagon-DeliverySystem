@@ -17,16 +17,37 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
-  { path: 'request-delivery-quotation', component: RequestDeliveryQuotationComponent, canActivate: [AuthguardGuard] },
+  {
+    path: 'request-delivery-quotation',
+    component: RequestDeliveryQuotationComponent,
+    canActivate: [AuthguardGuard],
+  },
   {
     path: 'delivery-summary',
     component: DeliverySummaryComponent,
     canActivate: [AuthguardGuard],
   },
-  { path: 'reviews', component: ReviewsComponent, canActivate: [AuthguardGuard] },
-  { path: 'payment', component: PaymentComponent, canActivate: [AuthguardGuard] },
-  { path: 'my-deliveries', component: MyDeliveriesComponent, canActivate: [AuthguardGuard] },
-  
+  {
+    path: 'reviews',
+    component: ReviewsComponent,
+    canActivate: [AuthguardGuard],
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent,
+    canActivate: [AuthguardGuard],
+  },
+  {
+    path: 'my-deliveries',
+    component: MyDeliveriesComponent,
+    canActivate: [AuthguardGuard],
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full',
+    canActivate: [AuthguardGuard],
+  },
 ];
 
 @NgModule({
