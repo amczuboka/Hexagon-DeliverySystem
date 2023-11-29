@@ -6,7 +6,8 @@ import {
   DeliveryFrequency,
   DeliveryStatus,
   Item,
-  Review,
+  ItemSize,
+  ItemWeight,
 } from 'src/app/modules/delivery.models';
 import { AuthService } from 'src/app/services/auth.service';
 import AOS from 'aos';
@@ -53,28 +54,28 @@ export class DeliveryCardComponent {
   pushDeliveries(): void {
     // Create sample items
     let items1: Item[] = [
-      new Item('Shipping Equipement', 1, 50, 30, 20, 5),
-      new Item('Bolts', 2, 50, 30, 20, 5),
-      new Item('Screws', 2, 50, 30, 20, 5),
-      new Item('Knobs', 2, 50, 30, 20, 5),
+      new Item('Shipping Equipment', 1, ItemSize.size1, ItemWeight.weight1),
+      new Item('Bolts', 2, ItemSize.size2, ItemWeight.weight1),
+      new Item('Screws', 2, ItemSize.size2, ItemWeight.weight1),
+      new Item('Knobs', 4, ItemSize.size2, ItemWeight.weight2)
     ];
 
     let items2: Item[] = [
-      new Item('Wrench', 1, 40, 25, 15, 3),
-      new Item('Nails', 3, 30, 15, 10, 2),
-      new Item('Screwdriver', 1, 35, 20, 12, 4),
-      new Item('Hinges', 4, 45, 25, 18, 6),
+      new Item('Wrench', 1, ItemSize.size2, ItemWeight.weight3),
+      new Item('Nails', 50, ItemSize.size2, ItemWeight.weight2),
+      new Item('Screwdriver', 10, ItemSize.size4, ItemWeight.weight4),
+      new Item('Hinges', 4, ItemSize.size2, ItemWeight.weight2)
     ];
 
     let items3: Item[] = [
-      new Item('Paintbrushes', 5, 40, 20, 15, 3),
-      new Item('Door Handles', 3, 50, 30, 22, 5),
+      new Item('Paintbrushes', 5, ItemSize.size3, ItemWeight.weight3),
+      new Item('Door Handles', 3, ItemSize.size2, ItemWeight.weight3)
     ];
 
     let items4: Item[] = [
-      new Item('Pliers', 2, 45, 28, 17, 4),
-      new Item('Wood Glue', 3, 25, 15, 10, 2),
-      new Item('Drill Bits', 4, 55, 35, 22, 6),
+      new Item('Pliers', 2, ItemSize.size2, ItemWeight.weight2),
+      new Item('Wood Glue', 3, ItemSize.size2, ItemWeight.weight1),
+      new Item('Drill Bits', 4, ItemSize.size2, ItemWeight.weight1)
     ];
 
     //First Delivery
