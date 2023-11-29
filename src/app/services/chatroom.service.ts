@@ -12,12 +12,20 @@ import {
 } from 'firebase/database';
 import { User, UserDTO } from '../modules/user.models';
 import { DatePipe } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
+import { PageInfo } from '../modules/chatbox.models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatroomService {
+  private pageNumberSource = new BehaviorSubject({} as PageInfo);
+  pageNumber$ = this.pageNumberSource.asObservable();
   constructor() {}
+
+  setPageNumber(value: PageInfo) {
+    this.pageNumberSource.next(value);
+  }
 
   async getPersonOnPage(db: Database, user: User): Promise<UserDTO> {
     let personOnPage = {} as UserDTO;
