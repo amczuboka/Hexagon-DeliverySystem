@@ -5,7 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddItemDialogComponent } from 'src/app/components/add-item-dialog/add-item-dialog.component';
 import { OrderSummaryDialogComponent } from 'src/app/components/order-summary-dialog/order-summary-dialog.component';
-import { Item } from 'src/app/modules/delivery.models';import { AuthService } from 'src/app/services/auth.service';
+import { Item } from 'src/app/modules/delivery.models';
+import { Delivery } from 'src/app/modules/delivery.models';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -17,7 +19,6 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   [x: string]: any;
   deliveryDetailsForm!: FormGroup<any>;
   newDeliveryItem!: FormGroup<any>;
-  //matcher!: ErrorStateMatcher;
   closeResult!: string;
   content: any;
   itemDescription: any;
@@ -26,6 +27,10 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   myUser!: any;
   isChecked: boolean = true;
   deliveryItems: Item[] = [];
+ 
+
+  //departLocation!: string;  //depart location info concatenated
+  //arriveLocation!: string;  //arrive location info concatenated
 
   constructor(
     private form_builder: FormBuilder,
@@ -34,6 +39,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
     private router: Router,
     private Acrouter: ActivatedRoute,
     private nodalService: NgbModal,
+    
   ) {}
 
   //For user authentication
@@ -65,7 +71,8 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
       //Recurring
       recurrence: [''],
     });
-  }
+    }
+
 
   //Function to open "add new item dialog"
   openAddItemDialog(): void {
@@ -86,7 +93,22 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   //Function to open "order summary dialog"
   openOrderDialog(): void {
     let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {});
+    
+    let depart_address = this.deliveryDetailsForm.value.departAddress;
+    let depart_city = this.deliveryDetailsForm.value.departCity;
+    let depart_province = this.deliveryDetailsForm.value.departProvince;
+    let depart_postalCode = this.deliveryDetailsForm.value.departPostalCode;
+    let departLocation = depart_address + ", " + depart_city + ", " + depart_province + ", " + depart_postalCode;
 
+    let arrive_address = this.deliveryDetailsForm.value.destinationAddress;
+    let arrive_city = this.deliveryDetailsForm.value.destinationCity;
+    let arrive_province = this.deliveryDetailsForm.value.destinationProvince;
+    let arrive_postalCode = this.deliveryDetailsForm.value.destinationPostalCode;
+    let arriveLocation = arrive_address + ", " + arrive_city + ", " + arrive_province + ", " + arrive_postalCode;
+    
+    console.log(departLocation);
+    console.log(arriveLocation);
+    
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
