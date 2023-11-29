@@ -158,6 +158,13 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
             }
           }
         });
+        const companyRef = query(ref(db, 'company/' + createrValue));
+        await get(companyRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            this.creater = snapshot.val();
+            this.CompanyName = snapshot.val().CompanyName;
+          }
+        });
       }
     });
   }
