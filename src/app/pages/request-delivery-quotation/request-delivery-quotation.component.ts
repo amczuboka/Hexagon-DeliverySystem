@@ -9,7 +9,6 @@ import { Item } from 'src/app/modules/delivery.models';
 import { Delivery } from 'src/app/modules/delivery.models';
 import { AuthService } from 'src/app/services/auth.service';
 
-
 @Component({
   selector: 'app-request-delivery-quotation',
   templateUrl: './request-delivery-quotation.component.html',
@@ -28,7 +27,6 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   isChecked: boolean = true;
   deliveryItems: Item[] = [];
   deliveryObj!: Delivery;
- 
 
   //departLocation!: string;  //depart location info concatenated
   //arriveLocation!: string;  //arrive location info concatenated
@@ -39,8 +37,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
     public authService: AuthService,
     private router: Router,
     private Acrouter: ActivatedRoute,
-    private nodalService: NgbModal,
-    
+    private nodalService: NgbModal
   ) {}
 
   //For user authentication
@@ -72,29 +69,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
       //Recurring
       frequency: [''],
     });
-
-      //Obtaining values from form
-      let depart_address = this.deliveryDetailsForm.value.departAddress;
-      let depart_city = this.deliveryDetailsForm.value.departCity;
-      let depart_province = this.deliveryDetailsForm.value.departProvince;
-      let depart_postalCode = this.deliveryDetailsForm.value.departPostalCode;
-
-      let arrive_address = this.deliveryDetailsForm.value.destinationAddress;
-      let arrive_city = this.deliveryDetailsForm.value.destinationCity;
-      let arrive_province = this.deliveryDetailsForm.value.destinationProvince;
-      let arrive_postalCode = this.deliveryDetailsForm.value.destinationPostalCode;
-
-      let DepartLocation = depart_address + ", " + depart_city + ", " + depart_province + ", " + depart_postalCode;
-      let ArriveLocation = arrive_address + ", " + arrive_city + ", " + arrive_province + ", " + arrive_postalCode;
-      let Frequency = this.deliveryDetailsForm.value.frequency;
-
-
-      this.deliveryObj.DepartLocation = DepartLocation; //creating delivery object
-      this.deliveryObj.ArriveLocation = ArriveLocation;
-      this.deliveryObj.Frequency = Frequency;
-      this.deliveryObj.items = this.deliveryItems;
-    }
-
+  }
 
   //Function to open "add new item dialog"
   openAddItemDialog(): void {
@@ -112,14 +87,56 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
     });
   }
 
-  
-
   //Function to open "order summary dialog"
+  
   openOrderDialog(): void {
-    let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {data: this.deliveryObj});
+    if(this.deliveryDetailsForm.valid && this.deliveryItems.length>0){
+      //Obtaining values from form
+    let depart_address = this.deliveryDetailsForm.value.departAddress;
+    let depart_city = this.deliveryDetailsForm.value.departCity;
+    let depart_province = this.deliveryDetailsForm.value.departProvince;
+    let depart_postalCode = this.deliveryDetailsForm.value.departPostalCode;
+
+    let arrive_address = this.deliveryDetailsForm.value.destinationAddress;
+    let arrive_city = this.deliveryDetailsForm.value.destinationCity;
+    let arrive_province = this.deliveryDetailsForm.value.destinationProvince;
+    let arrive_postalCode = this.deliveryDetailsForm.value.destinationPostalCode;
+
+    let DepartLocation =
+      depart_address +
+      ', ' +
+      depart_city +
+      ', ' +
+      depart_province +
+      ', ' +
+      depart_postalCode;
+    let ArriveLocation =
+      arrive_address +
+      ', ' +
+      arrive_city +
+      ', ' +
+      arrive_province +
+      ', ' +
+      arrive_postalCode;
+    let Frequency = this.deliveryDetailsForm.value.frequency;
+    
+
+    this.deliveryObj = new Delivery({
+      DepartLocation: DepartLocation,
+      ArriveLocation: ArriveLocation,
+      Frequency: Frequency,
+      items: this.deliveryItems
+    });
+    console.log(this.deliveryObj);
+    
+    let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {
+      data: this.deliveryObj,
+    }); //opening dialog
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
   }
+    }
+    
 }
