@@ -28,6 +28,7 @@ import { ReviewDialogComponent } from 'src/app/components/review-dialog/review-d
 import { from } from 'rxjs';
 import { DeleteReviewDialogComponent } from 'src/app/components/delete-review-dialog/delete-review-dialog.component';
 import { DeliveryService } from 'src/app/services/delivery.service';
+import { UserService } from 'src/app/services/user.service';
 import { ChangeDeliveryStatusDialogComponent } from 'src/app/components/change-delivery-status-dialog/change-delivery-status-dialog.component';
 
 @Component({
@@ -49,6 +50,7 @@ export class DeliverySummaryComponent {
     private storageService: StorageService,
     private reviewService: ReviewService,
     private deliveryService: DeliveryService,
+    private userService: UserService,
     private dialog: MatDialog
   ) {}
 
@@ -78,8 +80,12 @@ export class DeliverySummaryComponent {
 
     dialogRef.afterClosed().subscribe((review) => {
       if (review) {
-        this.reviewService.editReview(review);
-        this.storageService.sendNotification('Review edited');
+        this.userService.getUser(this.myUser.uid).then((user) => {
+          review = this.setReviewUserAndDeliveryData(review, user);
+        }).then(() => {
+          this.reviewService.editReview(review);
+          this.storageService.sendNotification('Review edited');
+        });
       }
     });
   }
@@ -99,12 +105,14 @@ export class DeliverySummaryComponent {
     const dialogRef = this.dialog.open(ReviewDialogComponent, {
       data: {} as Review,
     });
-
     dialogRef.afterClosed().subscribe((review) => {
       if (review) {
-        review.id = this.delivery.Id;
-        this.reviewService.addReview(review);
-        this.storageService.sendNotification('Review added');
+        this.userService.getUser(this.myUser.uid).then((user) => {
+          review = this.setReviewUserAndDeliveryData(review, user);
+        }).then(() => {
+          this.reviewService.addReview(review);
+          this.storageService.sendNotification('Review added');
+        });
       }
     });
   }
@@ -124,5 +132,15 @@ export class DeliverySummaryComponent {
         }
       });
     }
+  }
+
+  private setReviewUserAndDeliveryData(review: Review, user: any): Review {
+    review.username = user?.FirstName + ' ' + user?.LastName;
+    review.id = this.delivery.Id;
+    review.date = new Date().toISOString();
+    review.fromLocation = this.delivery.DepartLocation;
+    review.toLocation = this.delivery.ArriveLocation;
+    review.itemNames = this.delivery.items.map((item) => item.Name);
+    return review;
   }
 }
