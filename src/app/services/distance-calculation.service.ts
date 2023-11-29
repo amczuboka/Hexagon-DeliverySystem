@@ -9,6 +9,7 @@ import { secrets } from 'src/environments/secrets';
 export class DistanceCalculationService {
   constructor(private http: HttpClient) {}
 
+  // Returns distance in km
   public calculateDistance(address1: string, address2: string) {
     this.getCoordinates(address1)
       .pipe(take(1))
@@ -27,8 +28,11 @@ export class DistanceCalculationService {
                 location2.latitude,
                 location2.longitude
               );
-              console.log(distance);
+              const roundedDistance = distance.toFixed(2); // Round to 2 decimals
+              console.log(roundedDistance);
+              return roundedDistance;
             }
+            return null;
           });
       });
   }
