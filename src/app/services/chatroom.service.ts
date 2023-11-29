@@ -30,6 +30,14 @@ export class ChatroomService {
       }
     }
 
+    if (user.photoURL == 'Company') {
+      const userRef = query(ref(db, 'company/' + user.uid));
+      const snapshot = await get(userRef);
+      if (snapshot.exists()) {
+        personOnPage = snapshot.val();
+      }
+    }
+
     if (user.photoURL == 'Staff') {
       const userRef = query(ref(db, 'staff/' + user.uid));
       const snapshot = await get(userRef);
