@@ -90,7 +90,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   //Function to open "order summary dialog"
   
   openOrderDialog(): void {
-    if(this.deliveryDetailsForm.valid && this.deliveryItems.length>0){
+    if(this.deliveryDetailsForm.valid && this.deliveryItems.length>0){  //makes sure the form is filled out and there is at least one item in the delivery
       //Obtaining values from form
     let depart_address = this.deliveryDetailsForm.value.departAddress;
     let depart_city = this.deliveryDetailsForm.value.departCity;
@@ -131,7 +131,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
     
     let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {
       data: this.deliveryObj,
-    }); //opening dialog
+    }); //opening dialog and sending delivery object
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
