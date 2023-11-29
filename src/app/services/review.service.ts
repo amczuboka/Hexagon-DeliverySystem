@@ -28,7 +28,7 @@ export class ReviewService {
    * Adds a new Review to the corresponding delivery node in Firebase Realtime Database.
    * @param review - The Review object to be added.
    */
-  async addRewview(review: Review): Promise<void> {
+  async addReview(review: Review): Promise<void> {
     try {
       var delivery = await this.deliveryService.getDeliveryById(review.id);
       if (delivery) {
