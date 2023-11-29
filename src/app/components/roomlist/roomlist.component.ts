@@ -72,7 +72,7 @@ export class RoomlistComponent {
       this.rooms = snapshotToArray(snapshot);
       this.isLoadingResults = false;
       this.PersonOnPage = await this.chatroomService.getPersonOnPage(db, user);
-      if (this.PersonOnPage.Authority ==( 'Individual' || 'Company')) {
+      if (this.PersonOnPage.Authority == 'Individual' || this.PersonOnPage.Authority == 'Company') {
         this.rooms = this.rooms.filter(
           (room) => room.creater === this.PersonOnPage.ID
         );
