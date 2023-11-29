@@ -78,6 +78,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     );
   }
 }
+
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
@@ -128,7 +129,7 @@ export class PaymentComponent {
 
   ngOnInit(): void {
     this.paymentForm = this.formBuilder.group({
-      Email: ['', [Validators.required, Validators.email]],
+      //Email: ['', [Validators.required, Validators.email]],
       CardNumber: ['', [Validators.required, Validators.minLength(16), Validators.pattern(/^[0-9]*$/)]],
       ExpiryDate: ['', [Validators.required, Validators.minLength(4), Validators.pattern(/^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/) ]],
       CVV: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[0-9]{1,3}$/) ]],
