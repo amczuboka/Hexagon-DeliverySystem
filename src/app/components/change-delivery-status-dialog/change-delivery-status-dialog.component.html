@@ -1,0 +1,32 @@
+<div class="dialog-container">
+    <h2>Change Delivery Status</h2>
+  <form [formGroup]="statusForm">
+    <mat-form-field>
+      <mat-label>Choose a status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="Quotation">Quotation</mat-option>
+        <mat-option value="Pending">Pending</mat-option>
+        <mat-option value="In Progress">In Progress</mat-option>
+        <mat-option value="Delivered">Delivered</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="buttons">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="changeStatus()"
+      >
+        Submit
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="cancelChange()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

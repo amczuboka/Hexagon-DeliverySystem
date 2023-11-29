@@ -2,7 +2,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  Delivery, Item,
+  Delivery,
+  DeliveryFrequency,
+  DeliveryStatus,
+  Item,
+  ItemSize,
+  ItemWeight,
 } from 'src/app/modules/delivery.models';
 import AOS from 'aos';
 import { DeliveryService } from 'src/app/services/delivery.service';

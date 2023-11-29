@@ -173,17 +173,29 @@
                           *ngIf="deliveryDetailsForm.controls['destinationPostalCode'].hasError('required')"
                             >Enter destination postal code</mat-error>
                         </mat-form-field>
+
+                        <!--Radio Buttons for Recurring Delivery (can only be seen by Company user)-->
+                        <div *ngIf = "authority=='Company'">
+                          <p>I would like to have my delivery placed: </p>
+                          <mat-radio-group
+                            ngModel name="recurrence" 
+                            formControlName = "recurrence"
+                          >
+                            <mat-radio-button value="once" [checked]="isChecked">Once</mat-radio-button>
+                            <mat-radio-button value="weekly">Weekly</mat-radio-button>
+                            <mat-radio-button value="bi-weekly">Bi-Weekly</mat-radio-button>
+                            <mat-radio-button value="monthly">Monthly</mat-radio-button>
+                          </mat-radio-group>
+                        </div>
+
                 </div>
               </div>
             </div>
-
         </form>
 
         <!--------------------------------------------------------------------------------Delivery Item Card----------------------------------------------------------------------->
-        <!--Must put this in an ngFor loop-->
-        <app-delivery-item></app-delivery-item>
-        <app-delivery-item></app-delivery-item>
-
+          <app-delivery-item [deliveryItems]="deliveryItems"></app-delivery-item>
+        
        <!--------------------------------------------------------------------------------Buttons to Open Dialogs----------------------------------------------------------------------->
        <!--Button to add Item-->
        <div><button type="button" class="kawaiicolors btn btn-primary"  (click)="openAddItemDialog()">Add Item to Delivery</button></div>
