@@ -41,39 +41,35 @@
         </div>
       </div>
       <footer class="sticky-footer">
-        
-      
-
-          <button
-            mat-icon-button
-            [matMenuTriggerFor]="menu"
-            aria-label="Example icon-button with a menu"
-          >
-            <mat-icon>info</mat-icon>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>info</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngIf="creater">
+            <mat-icon>person</mat-icon>
+            {{ creater.FirstName }} {{ creater.LastName }}
           </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="creater">
-              <mat-icon>person</mat-icon>
-              {{ creater.FirstName }} {{ creater.LastName }}
-            </button>
-            <button mat-menu-item>
-              <mat-icon>meeting_room</mat-icon>
-              {{ roomname }}
-            </button>
-            <button mat-menu-item *ngIf="creater">
-              <a href="mailto:{{ creater.Email }}">
-                <mat-icon>alternate_email</mat-icon>
-                <div class="username">{{ creater.Email }}</div>
-              </a>
-            </button>
+          <button mat-menu-item>
+            <mat-icon>meeting_room</mat-icon>
+            {{ roomname }}
+          </button>
+          <button mat-menu-item *ngIf="creater">
+            <a href="mailto:{{ creater.Email }}">
+              <mat-icon>alternate_email</mat-icon>
+              <div class="username">{{ creater.Email }}</div>
+            </a>
+          </button>
 
-            <button mat-menu-item  (click)="exitChat()">
-              
+          <button mat-menu-item (click)="exitChat()">
             <mat-icon>logout</mat-icon>
-              Exit Chat
-            </button>
-          </mat-menu>
-       
+            Exit Chat
+          </button>
+        </mat-menu>
+
         <form
           class="message-form"
           [formGroup]="chatForm"

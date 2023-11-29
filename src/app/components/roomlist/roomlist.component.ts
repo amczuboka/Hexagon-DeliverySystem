@@ -45,16 +45,16 @@ export class RoomlistComponent {
   rooms: any[] = [];
   isLoadingResults = true;
   PersonOnPage: UserDTO = {
-      FirstName: '',
-      LastName: '',
-      ID: '',
-      Authority: '',
-      Email: '',
-      uid: '',
-      email: '',
-      photoURL: '',
-      emailVerified: false,
-    };
+    FirstName: '',
+    LastName: '',
+    ID: '',
+    Authority: '',
+    Email: '',
+    uid: '',
+    email: '',
+    photoURL: '',
+    emailVerified: false,
+  };
   seeAddButton = true;
 
   constructor(
@@ -63,18 +63,13 @@ export class RoomlistComponent {
     private chatroomService: ChatroomService
   ) {
     const user = this.authService.getUser();
-    if (user != undefined)
-    this.email = user.email;
-  else
-    this.email = '';
-
-    console.log(this.email);
+    if (user != undefined) this.email = user.email;
+    else this.email = '';
 
     const db = getDatabase();
     onValue(ref(db, 'rooms/'), async (snapshot) => {
       this.rooms = [];
       this.rooms = snapshotToArray(snapshot);
-      console.log(this.rooms);
       this.isLoadingResults = false;
       this.PersonOnPage = await this.chatroomService.getPersonOnPage(db, user);
       if (this.PersonOnPage.Authority == 'Individual') {
@@ -86,37 +81,24 @@ export class RoomlistComponent {
         this.seeAddButton = false;
       }
     });
-
- 
   }
 
   GotoPage(pagenumber: number, roomname?: string) {
-    const dataToSend:PageInfo ={ pageNumber: pagenumber, roomName: roomname!} ;
+    const dataToSend: PageInfo = {
+      pageNumber: pagenumber,
+      roomName: roomname!,
+    };
     this.dataFromChild.emit(dataToSend);
   }
 
   enterChatRoom(roomname: string) {
-    const chat = {
-      roomname: '',
-      email: '',
-      message: '',
-      date: '',
-      type: '',
-    };
-    chat.roomname = roomname;
-    chat.email = this.email || '';
-    chat.date = new Date().toISOString();
-    chat.date = chat.date.replace(' ', 'T');
-    chat.date = this.datepipe.transform(
-      chat.date.replace(' ', 'T'),
-      'yyyy-MM-ddTHH:mm'
-    )!;
-    chat.message = ` ${this.PersonOnPage.FirstName} enter the room`;
-    chat.type = 'join';
-    const db = getDatabase();
-    const newMessageRef = push(ref(db, 'chats/'));
-    set(newMessageRef, chat);
-    this.GotoPage(3, roomname);  
+    this.chatroomService.addChat(
+      roomname,
+      this.PersonOnPage,
+      this.datepipe,
+      'join'
+    );
+    this.GotoPage(3, roomname);
   }
 
   deleteRoom(roomname: string) {
@@ -136,7 +118,7 @@ export class RoomlistComponent {
     });
 
     const chatRef = query(ChatRef, orderByChild('roomname'), equalTo(roomname));
-    get(chatRef).then((snapshot) => {
+    onValue(chatRef, (snapshot) => {
       if (snapshot.exists()) {
         snapshot.forEach((childSnapshot) => {
           const childRef = ref(db, `chats/${childSnapshot.key}`);

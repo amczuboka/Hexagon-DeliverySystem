@@ -93,20 +93,36 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     const user: User = this.authService.getUser();
 
     console.log('this.dataFromParent', this.dataFromParent);
-    
-    this.roomname = this.dataFromParent.roomName
+
+    this.roomname = this.dataFromParent.roomName;
 
     const db = getDatabase();
-    onValue(ref(db, 'chats/'), async (resp) => {
-      this.chats = [];
-      this.chats = snapshotToArray(resp).filter(
-        (chat) => chat.roomname == this.roomname
-      );
-      setTimeout(
-        () => (this.scrolltop = this.chatcontent.nativeElement.scrollHeight),
-        500
-      );
-      this.PersonOnPage = await this.chatroomService.getPersonOnPage(db, user);
+    const RoomRef = ref(db, 'rooms/');
+    const roomRef = query(
+      RoomRef,
+      orderByChild('roomname'),
+      equalTo(this.roomname)
+    );
+    get(roomRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+        onValue(ref(db, `rooms/${childSnapshot.key}/chats/`), async (resp) => {
+          this.chats = [];
+          this.chats = snapshotToArray(resp).filter(
+            (chat) => chat.roomname == this.roomname
+          );
+          setTimeout(
+            () =>
+              (this.scrolltop = this.chatcontent.nativeElement.scrollHeight),
+            500
+          );
+          this.PersonOnPage = await this.chatroomService.getPersonOnPage(
+            db,
+            user
+          );
+        });
+      });
+      }
     });
     this.getCreater(db);
 
@@ -145,40 +161,25 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
   }
 
   onFormSubmit(form: any) {
-    const chat = form;
-    chat.roomname = this.roomname;
-    chat.name = this.PersonOnPage.FirstName;
-    chat.date = new Date().toISOString();
-    chat.date = chat.date.replace(' ', 'T');
-    chat.date = this.datepipe.transform(chat.date, 'yyyy-MM-ddTHH:mm');
-    chat.type = 'message';
-    const db = getDatabase();
-    const newMessageRef = push(ref(db, 'chats/'));
-    set(newMessageRef, chat);
+    this.chatroomService.addChat(
+      this.roomname,
+      this.PersonOnPage,
+      this.datepipe,
+      'message',
+      form
+    );
     this.chatForm = this.formBuilder.group({
       message: [null, Validators.required],
     });
   }
 
   exitChat() {
-    const chat = {
-      roomname: '',
-      name: '',
-      message: '',
-      date: '',
-      type: '',
-    };
-    chat.roomname = this.roomname;
-    chat.name = this.PersonOnPage.FirstName;
-    chat.date = new Date().toISOString();
-    chat.date = chat.date.replace(' ', 'T');
-    chat.date = this.datepipe.transform(chat.date, 'yyyy-MM-ddTHH:mm')!;
-    chat.message = ` ${this.PersonOnPage.FirstName} leave the room`;
-    chat.type = 'exit';
-    const db = getDatabase();
-    const newMessageRef = push(ref(db, 'chats/'));
-    set(newMessageRef, chat);
-
+    this.chatroomService.addChat(
+      this.roomname,
+      this.PersonOnPage,
+      this.datepipe,
+      'exit'
+    );
     const pageInfo: PageInfo = {
       pageNumber: 1,
       roomName: '',
