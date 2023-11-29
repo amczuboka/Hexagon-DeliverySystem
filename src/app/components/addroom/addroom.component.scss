@@ -27,6 +27,9 @@
 }
 
 .buttons {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
   border: 0;
   background-color: transparent;
 

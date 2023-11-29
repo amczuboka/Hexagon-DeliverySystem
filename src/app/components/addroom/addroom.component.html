@@ -24,11 +24,11 @@
       </mat-error>
     </mat-form-field>
     <div class="button-row">
-      <button type="submit" (click)="exitPage()" class="buttons">
+      <button type="button" (click)="exitPage()" class="buttons">
         <mat-icon id="exit">logout</mat-icon>
       </button>
       <button type="submit" [disabled]="!roomForm.valid" class="buttons">
-        <mat-icon id="save">save</mat-icon>
+        Validate &nbsp;<mat-icon id="save">check_circle</mat-icon>
       </button>
     </div>
   </form>
