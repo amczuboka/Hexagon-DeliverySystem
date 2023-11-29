@@ -6,4 +6,11 @@ import { Component, Input } from '@angular/core';
 })
 export class DeliveryItemComponent {  
   @Input() deliveryItems: any; // Input binding to receive deliveryItems array
+
+  deleteItem(item: any) {
+    // Delete the item from the deliveryItems array
+    this.deliveryItems.splice(this.deliveryItems.indexOf(item), 1);
+    console.log('Item deleted:', item);
+    console.log(this.deliveryItems);
+  }
 }
