@@ -11,6 +11,7 @@ import { RequestDeliveryQuotationComponent } from 'src/app/pages/request-deliver
 })
 export class AddItemDialogComponent implements OnInit {
   newDeliveryItem!: FormGroup<any>;
+  form: any;
 
   constructor(public dialogRef: MatDialogRef<RequestDeliveryQuotationComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,6 +36,5 @@ export class AddItemDialogComponent implements OnInit {
       this.dialogRef.close(value); // Pass the new item data when closing the dialog
     }
   }
-
 
 }
