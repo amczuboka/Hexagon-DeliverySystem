@@ -74,6 +74,7 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
   @ViewChild('chatcontent') chatcontent!: ElementRef;
   scrolltop!: number;
   creater!: UserDTO;
+  CompanyName!: string;
   PersonOnPage!: UserDTO;
   chatForm!: FormGroup;
   roomname = '';
@@ -106,22 +107,26 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     get(roomRef).then((snapshot) => {
       if (snapshot.exists()) {
         snapshot.forEach((childSnapshot) => {
-        onValue(ref(db, `rooms/${childSnapshot.key}/chats/`), async (resp) => {
-          this.chats = [];
-          this.chats = snapshotToArray(resp).filter(
-            (chat) => chat.roomname == this.roomname
-          );
-          setTimeout(
-            () =>
-              (this.scrolltop = this.chatcontent.nativeElement.scrollHeight),
-            500
-          );
-          this.PersonOnPage = await this.chatroomService.getPersonOnPage(
-            db,
-            user
+          onValue(
+            ref(db, `rooms/${childSnapshot.key}/chats/`),
+            async (resp) => {
+              this.chats = [];
+              this.chats = snapshotToArray(resp).filter(
+                (chat) => chat.roomname == this.roomname
+              );
+              setTimeout(
+                () =>
+                  (this.scrolltop =
+                    this.chatcontent.nativeElement.scrollHeight),
+                500
+              );
+              this.PersonOnPage = await this.chatroomService.getPersonOnPage(
+                db,
+                user
+              );
+            }
           );
         });
-      });
       }
     });
     this.getCreater(db);
@@ -148,6 +153,9 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
         await get(userRef).then((snapshot) => {
           if (snapshot.exists()) {
             this.creater = snapshot.val();
+            if (snapshot.val().Authority == 'Company') {
+              this.CompanyName = snapshot.val().CompanyName;
+            }
           }
         });
       }

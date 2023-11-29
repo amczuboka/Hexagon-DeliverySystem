@@ -64,6 +64,13 @@
             </a>
           </button>
 
+            <button mat-menu-item *ngIf="creater && CompanyName">
+            
+              <mat-icon> business</mat-icon>
+              <div class="username">{{ CompanyName }}</div>
+           
+          </button>
+
           <button mat-menu-item (click)="exitChat()">
             <mat-icon>logout</mat-icon>
             Exit Chat
