@@ -22,6 +22,10 @@ describe('FooterComponent', () => {
   });
 
   describe('receiveData', () => {
+    beforeEach(() => {
+      spyOnProperty(component.authService, 'isLoggedIn', 'get').and.returnValue(true);
+    }); 
+
     it('should set pageNumber to 1', () => {
       const data = { pageNumber: 1, roomName: '' };
       component.receiveData(data);
