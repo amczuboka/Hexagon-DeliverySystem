@@ -1,21 +1,19 @@
 body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-
-   
-
-
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-article, router-outlet{
-    flex: 1;
-    overflow: auto;
+article,
+router-outlet {
+  flex: 1;
+  overflow: auto;
 }
 
 app-footer {
-   
-background-color: transparent!important;
+  background-color: transparent !important;
+}
 
-
+.content {
+  display: none;
 }

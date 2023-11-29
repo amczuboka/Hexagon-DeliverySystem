@@ -40,7 +40,32 @@ describe('FooterComponent', () => {
       expect(component.CustumorServicePage.pageNumber).toEqual(3);
       expect(component.CustumorServicePage.roomName).toEqual('testRoom');
     });
+
+    it('should display app-roomlist when pageNumber is 1', () => {
+      const data = { pageNumber: 1, roomName: '' };
+      component.receiveData(data);
+      fixture.detectChanges();
+      const roomlistElement =
+        fixture.debugElement.nativeElement.querySelector('app-roomlist');
+      expect(roomlistElement).toBeTruthy();
+    });
+
+    it('should display app-addroom when pageNumber is 2', () => {
+      const data = { pageNumber: 2, roomName: '' };
+      component.receiveData(data);
+      fixture.detectChanges();
+      const roomlistElement =
+        fixture.debugElement.nativeElement.querySelector('app-addroom');
+      expect(roomlistElement).toBeTruthy();
+    });
+
+    it('should display app-chatroom when pageNumber is 3', () => {
+      const data = { pageNumber: 3, roomName: '' };
+      component.receiveData(data);
+      fixture.detectChanges();
+      const roomlistElement =
+        fixture.debugElement.nativeElement.querySelector('app-chatroom');
+      expect(roomlistElement).toBeTruthy();
+    });
   });
-
 });
-

@@ -1,6 +1,6 @@
 
 <div class="myFooty" id="myFooty">
-  <div class="basic-container">
+  <div class="basic-container" *ngIf="authService.isLoggedIn">
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>
