@@ -20,21 +20,20 @@ export class AddItemDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.newDeliveryItem = this.form_builder.group({
-      itemDescription: ['', [Validators.required]],
-      itemWeight: ['', [Validators.required]],
-      itemSize: ['', [Validators.required]],
-      qty: ['', [Validators.required]]
+      Name: ['', [Validators.required]],
+      Weight: ['', [Validators.required]],
+      Size: ['', [Validators.required]],
+      Quantity: ['', [Validators.required]]
     });
     
 
   }
 
   saveItem(){
-    const {valid} = this.newDeliveryItem;
-    if (valid){
-      this.data.dialogRef.close();
+    const { valid, value } = this.newDeliveryItem;
+    if (valid) {
+      this.dialogRef.close(value); // Pass the new item data when closing the dialog
     }
-    //save item to delivery
   }
 
 
