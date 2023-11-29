@@ -60,9 +60,10 @@ export class AddroomComponent implements OnInit {
 
   ngOnInit(): void {
     const user = this.authService.getUser();
+
     this.roomForm = this.formBuilder.group({
       roomname: [null, Validators.required],
-      creater: [user.uid],
+      creater: [user?.uid || ''],
     });
   }
 

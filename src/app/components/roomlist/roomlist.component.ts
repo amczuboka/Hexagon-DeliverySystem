@@ -40,22 +40,35 @@ export const snapshotToArray = (snapshot: any) => {
 export class RoomlistComponent {
   @Output() dataFromChild = new EventEmitter<any>();
 
-  email: string;
+  email: string | undefined;
   displayedColumns: string[] = ['roomname'];
   rooms: any[] = [];
   isLoadingResults = true;
-  PersonOnPage!: UserDTO;
+  PersonOnPage: UserDTO = {
+      FirstName: '',
+      LastName: '',
+      ID: '',
+      Authority: '',
+      Email: '',
+      uid: '',
+      email: '',
+      photoURL: '',
+      emailVerified: false,
+    };
   seeAddButton = true;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     public datepipe: DatePipe,
     private authService: AuthService,
     private chatroomService: ChatroomService
   ) {
     const user = this.authService.getUser();
+    if (user != undefined)
     this.email = user.email;
+  else
+    this.email = '';
+
+    console.log(this.email);
 
     const db = getDatabase();
     onValue(ref(db, 'rooms/'), async (snapshot) => {
@@ -73,6 +86,8 @@ export class RoomlistComponent {
         this.seeAddButton = false;
       }
     });
+
+ 
   }
 
   GotoPage(pagenumber: number, roomname?: string) {
@@ -89,7 +104,7 @@ export class RoomlistComponent {
       type: '',
     };
     chat.roomname = roomname;
-    chat.email = this.email;
+    chat.email = this.email || '';
     chat.date = new Date().toISOString();
     chat.date = chat.date.replace(' ', 'T');
     chat.date = this.datepipe.transform(

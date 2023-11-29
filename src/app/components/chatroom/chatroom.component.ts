@@ -8,7 +8,6 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import {
   FormControl,
   FormGroupDirective,
@@ -18,7 +17,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import firebase from 'firebase/compat/app';
 import { DatePipe } from '@angular/common';
 import {
   getDatabase,
@@ -29,7 +27,6 @@ import {
   equalTo,
   push,
   set,
-  update,
   Database,
   get,
 } from 'firebase/database';
@@ -79,7 +76,6 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
   creater!: UserDTO;
   PersonOnPage!: UserDTO;
   chatForm!: FormGroup;
-  email = '';
   roomname = '';
   message = '';
 
@@ -87,8 +83,6 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
   matcher = new MyErrorStateMatcher();
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     public datepipe: DatePipe,
     private authService: AuthService,
@@ -99,9 +93,9 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     const user: User = this.authService.getUser();
 
     console.log('this.dataFromParent', this.dataFromParent);
+    
+    this.roomname = this.dataFromParent.roomName
 
-    this.email = user.email;
-    this.roomname = this.dataFromParent.roomName;
     const db = getDatabase();
     onValue(ref(db, 'chats/'), async (resp) => {
       this.chats = [];
