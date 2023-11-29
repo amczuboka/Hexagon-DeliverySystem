@@ -34,8 +34,20 @@ import { User, UserDTO } from 'src/app/modules/user.models';
 import { AuthService } from 'src/app/services/auth.service';
 import { ChatroomService } from 'src/app/services/chatroom.service';
 import { PageInfo } from 'src/app/modules/chatbox.models';
+import { snapshotToArray } from '../roomlist/roomlist.component';
 
+/**
+ * Custom ErrorStateMatcher implementation for form validation.
+ * @class
+ * @implements {ErrorStateMatcher}
+ */
 export class MyErrorStateMatcher implements ErrorStateMatcher {
+  /**
+   * Checks whether the control is in an error state.
+   * @param {FormControl | null} control - The form control being checked.
+   * @param {FormGroupDirective | NgForm | null} form - The form to which the control belongs.
+   * @returns {boolean} - A boolean indicating whether the control is in an error state.
+   */
   isErrorState(
     control: FormControl | null,
     form: FormGroupDirective | NgForm | null
@@ -49,40 +61,54 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   }
 }
 
-export const snapshotToArray = (snapshot: any) => {
-  const returnArr: any[] = [];
-
-  snapshot.forEach((childSnapshot: any) => {
-    const item = childSnapshot.val();
-    item.key = childSnapshot.key;
-    returnArr.push(item);
-  });
-
-  return returnArr;
-};
-
+/**
+ * Component representing a chatroom.
+ * @component
+ */
 @Component({
   selector: 'app-chatroom',
   templateUrl: './chatroom.component.html',
   styleUrls: ['./chatroom.component.scss'],
 })
 export class ChatroomComponent implements OnInit, AfterViewInit {
+  /** Input property to receive data from the parent component. */
   @Input() dataFromParent: any;
+  /** Output property to emit data to the parent component. */
   @Output() dataFromChild = new EventEmitter<any>();
 
+  /** Reference to the left drawer element. */
   @ViewChild('leftDrawer') leftDrawer!: ElementRef;
+  /** Reference to the chat content element. */
   @ViewChild('chatcontent') chatcontent!: ElementRef;
+
+  /** Scroll top position for chat content. */
   scrolltop!: number;
+  /** Information about the room creator. */
   creater!: UserDTO;
+  /** Company name associated with the chatroom. */
   CompanyName!: string;
+  /** Information about the person currently on the page. */
   PersonOnPage!: UserDTO;
+  /** Form group for the chat form. */
   chatForm!: FormGroup;
+  /** Name of the chat room. */
   roomname = '';
+  /** Message to be sent in the chat. */
   message = '';
 
+  /** Array containing chat messages. */
   chats: any[] = [];
+  /** Custom error state matcher instance. */
   matcher = new MyErrorStateMatcher();
 
+  /**
+   * Constructor of the ChatroomComponent.
+   * @constructor
+   * @param {FormBuilder} formBuilder - The FormBuilder for creating form controls.
+   * @param {DatePipe} datepipe - The DatePipe service for formatting dates.
+   * @param {AuthService} authService - The AuthService for user authentication.
+   * @param {ChatroomService} chatroomService - The ChatroomService for managing chatroom-related functionality.
+   */
   constructor(
     private formBuilder: FormBuilder,
     public datepipe: DatePipe,
@@ -90,6 +116,11 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     private chatroomService: ChatroomService
   ) {}
 
+  /**
+   * Lifecycle hook called after the component's view has been initialized.
+   * @memberof ChatroomComponent
+   * @method
+   */
   ngAfterViewInit() {
     const user: User = this.authService.getUser();
 
@@ -130,15 +161,14 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
       }
     });
     this.getCreater(db);
-
-    this.scrollToBottom();
   }
 
-  scrollToBottom() {
-    this.chatcontent.nativeElement.scrollTop =
-      this.chatcontent.nativeElement.scrollHeight;
-  }
-
+  /**
+   * Retrieves information about the room creator from the database.
+   * @param {Database} db - The Firebase Database instance.
+   * @memberof ChatroomComponent
+   * @method
+   */
   async getCreater(db: Database) {
     const dbRef = query(
       ref(db, 'rooms/'),
@@ -147,7 +177,7 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     );
     get(dbRef).then(async (snapshot) => {
       if (snapshot.exists()) {
-        const room: { [key: string]: { creater: string } } = snapshot.val(); // cast to expected type
+        const room: { [key: string]: { creater: string } } = snapshot.val();
         const createrValue = Object.values(room)[0].creater;
         const userRef = query(ref(db, 'individual/' + createrValue));
         await get(userRef).then((snapshot) => {
@@ -169,12 +199,26 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+
+Lifecycle hook called after the component has been initialized.
+Initializes the chat form.
+@memberof ChatroomComponent
+@method
+*/
   ngOnInit(): void {
     this.chatForm = this.formBuilder.group({
       message: [null, Validators.required],
     });
   }
+  /**
 
+Handles form submission for sending a message in the chat.
+Adds the message to the chatroom and resets the form.
+@param {any} form - The form data containing the message.
+@memberof ChatroomComponent
+@method
+*/
   onFormSubmit(form: any) {
     this.chatroomService.addChat(
       this.roomname,
@@ -187,7 +231,13 @@ export class ChatroomComponent implements OnInit, AfterViewInit {
       message: [null, Validators.required],
     });
   }
+  /**
 
+Handles the user's request to exit the chat.
+Adds an exit message to the chatroom and emits an event to inform the parent component.
+@memberof ChatroomComponent
+@method
+*/
   exitChat() {
     this.chatroomService.addChat(
       this.roomname,
