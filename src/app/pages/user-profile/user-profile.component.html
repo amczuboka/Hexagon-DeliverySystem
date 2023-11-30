@@ -1,0 +1,61 @@
+      <section class="vh-200">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+               
+                  <div
+                    class="col-md-4 gradient-custom text-center text-white"
+                    style="
+                      border-top-right-radius: 0.5rem;
+                      border-top-left-radius: 0.5rem;
+                      border-bottom-left-radius: 0.5rem;
+                      border-bottom-right-radius: 0.5rem;
+                      background-color: #A1887F;
+                    "
+                  >
+                  <div class="photoDiv">
+                    <div class="rounded-image-container">
+                      <img 
+                        src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=2340&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="Avatar"
+                      />
+                     </div>
+                  </div>
+                    <!-- first_name -->
+                    <div class="information">
+                      <span class="heading">First Name: {{ userDTO.FirstName }} <br /></span>
+                      
+
+                    </div>
+                    <br />
+                    <!-- last name -->
+                    <div class="information">
+                      <span class="heading">Last Name: {{ userDTO.LastName }} <br /></span>
+                      
+                    </div>
+  
+                    <br />
+                    <!--Email-->
+                    <div class="information">
+                      <span class="heading">Email: {{ userDTO.Email }} <br /></span>
+                      
+                    </div>
+                    <br />
+                    <!--Authority-->
+                    <div class="information">
+                      <span class="heading">Authority: {{ userDTO.Authority }} <br /></span>
+                     
+                    </div>
+  
+                    <br />
+                    <div *ngIf = "authority=='Company'">
+                    <!--Company Name-->
+                    <div class="information">
+                      <span class="heading">Company Name: {{ userDTO.CompanyName }}<br /></span>
+                     
+                    </div>
+                   </div>
+                    <br />
+                  </div>
+          </div>
+        </div>
+      </section>
