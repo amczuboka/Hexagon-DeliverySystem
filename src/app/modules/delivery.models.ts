@@ -1,3 +1,5 @@
+import { from } from "rxjs";
+
 export interface DeliveryInterface {
   Userid: string;
   Review: Review;
@@ -21,7 +23,11 @@ export interface Review {
   stars: number;
   title: string;
   description: string;
-  date: Date;
+  date: string;
+  fromLocation: string;
+  toLocation: string;
+  username: string;
+  itemNames: string[];
   id: string;
 }
 export interface ItemInterface {
@@ -66,7 +72,11 @@ export class Delivery implements DeliveryInterface {
     stars: 0,
     description: '',
     title: '',
-    date: new Date(),
+    date: '',
+    fromLocation: '',
+    toLocation: '',
+    username: '',
+    itemNames: [],
     id: '',
   };
   Distance: number = 0;
