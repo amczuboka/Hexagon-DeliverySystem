@@ -5,7 +5,7 @@
                 <strong>{{review.title}}</strong>
             </div>
             <div class="user">
-                <p>[User's Name]</p>
+                <p>{{ review.username }}</p>
             </div>
         </div>
         <div class="stars">
@@ -17,13 +17,13 @@
     </div>
     <div class="details">
         <p>
-            Item(s): [The item(s)] <br>
-            Departed from: [from location]<br>
-            Arrived on: [to location]
+            Item(s): {{ review.itemNames }} <br>
+            Departed from: {{ review.fromLocation }}<br>
+            Arrived at: {{ review.toLocation }}
         </p>
     </div>
     <div class="comment">
         <p>{{review.description}}</p>
     </div>
-    <p class="date">Posted on: {{review.date | date : "MMMM d, y"}}</p>
+    <p class="date">Posted on: {{review.date  | date : "MMMM d, y" }}</p>
 </div>
