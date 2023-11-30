@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RequestDeliveryQuotationComponent } from './request-delivery-quotation.component';
+import { AppModule } from 'src/app/app.module';
 
 describe('RequestDeliveryQuotationComponent', () => {
   let component: RequestDeliveryQuotationComponent;
@@ -8,7 +9,8 @@ describe('RequestDeliveryQuotationComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RequestDeliveryQuotationComponent]
+      imports: [AppModule],
+      declarations: [RequestDeliveryQuotationComponent],
     });
     fixture = TestBed.createComponent(RequestDeliveryQuotationComponent);
     component = fixture.componentInstance;

@@ -12,12 +12,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import {PaymentConfirmationDialogComponent  } from 'src/app/components/payment-confirmation-dialog/payment-confirmation-dialog.component';
+import { PaymentConfirmationDialogComponent } from 'src/app/components/payment-confirmation-dialog/payment-confirmation-dialog.component';
 import { DeliveryService } from 'src/app/services/delivery.service';
 import { Delivery, DeliveryStatus } from 'src/app/modules/delivery.models';
 import { ActivatedRoute } from '@angular/router';
-
-
 
 export function canadianPostalCodeValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: any } | null => {
@@ -82,27 +80,26 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  styleUrls: ['./payment.component.scss'],
 })
-
 export class PaymentComponent {
   delivery!: Delivery;
   paymentForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
   hide = true;
-  preselectedValue = "Canada"
+  preselectedValue = 'Canada';
   subTotalValue$: any;
   taxesValue$: any;
   totalValue$: any;
 
-   // Define the countries array as a property of your component
-   countries = [
+  // Define the countries array as a property of your component
+  countries = [
     { code: 'CA', name: 'Canada' },
     // Add more countries as needed
   ];
 
-   // Define the countries array as a property of your component
-   provinces = [
+  // Define the countries array as a property of your component
+  provinces = [
     { code: 'Qc', name: 'Quebec' },
     { code: 'On', name: 'Ontario' },
     { code: 'Al', name: 'Alberta' },
@@ -114,9 +111,6 @@ export class PaymentComponent {
     { code: 'PEI', name: 'Prince Edward Island' },
     { code: 'Sk', name: 'Saskatchewan' },
   ];
- 
-
-  
 
   constructor(
     public authService: AuthService,
@@ -124,7 +118,7 @@ export class PaymentComponent {
     private storageService: StorageService,
     public dialog: MatDialog,
     public deliveryService: DeliveryService,
-    private Acrouter: ActivatedRoute,
+    private Acrouter: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -134,9 +128,30 @@ export class PaymentComponent {
     });
     this.paymentForm = this.formBuilder.group({
       //Email: ['', [Validators.required, Validators.email]],
-      CardNumber: ['', [Validators.required, Validators.minLength(16), Validators.pattern(/^[0-9]*$/)]],
-      ExpiryDate: ['', [Validators.required, Validators.minLength(4), Validators.pattern(/^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/) ]],
-      CVV: ['', [Validators.required, Validators.minLength(3), Validators.pattern(/^[0-9]{1,3}$/) ]],
+      CardNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(16),
+          Validators.pattern(/^[0-9]*$/),
+        ],
+      ],
+      ExpiryDate: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.pattern(/^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/),
+        ],
+      ],
+      CVV: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern(/^[0-9]{1,3}$/),
+        ],
+      ],
       Name: ['', [Validators.required, Validators.minLength(1)]],
       First: ['', [Validators.required, Validators.minLength(1)]],
       Last: ['', [Validators.required, Validators.minLength(1)]],
@@ -149,26 +164,29 @@ export class PaymentComponent {
       Postal: ['', [Validators.required, canadianPostalCodeValidator()]],
     });
 
-      this.Acrouter.queryParams.subscribe((params) => {
-        const deliveryProps = JSON.parse(params['delivery']);
-        this.delivery = new Delivery(deliveryProps);
-      });  
-    this.calculateValues();
+    this.Acrouter.queryParams.subscribe((params) => {
+      const deliveryProps = JSON.parse(params['delivery']);
+      this.delivery = new Delivery(deliveryProps);
+      this.calculateValues();
+    });
   }
 
   calculateValues(): void {
     this.subTotalValue$ = this.delivery.Total;
     this.taxesValue$ = this.calculateTaxes(this.subTotalValue$);
-    this.totalValue$ = this.calculateTotal(this.subTotalValue$, this.taxesValue$);
-    console.log(this.taxesValue$ + this.totalValue$)
+    this.totalValue$ = this.calculateTotal(
+      this.subTotalValue$,
+      this.taxesValue$
+    );
+    console.log(this.taxesValue$ + this.totalValue$);
   }
 
   calculateTaxes(subTotalValue: any): any {
-    const taxAmount = subTotalValue * (0.14975);
-  
+    const taxAmount = subTotalValue * 0.14975;
+
     // Round off the total amount to two decimal places
     const taxes = roundToTwoDecimalPlaces(taxAmount);
-  
+
     return taxes;
   }
 
@@ -178,12 +196,11 @@ export class PaymentComponent {
     return total;
   }
 
-  placeOrder(){
-    const {valid} = this.paymentForm;
-    if (!valid){
+  placeOrder() {
+    const { valid } = this.paymentForm;
+    if (!valid) {
       this.paymentForm.markAllAsTouched();
-    }
-    else{
+    } else {
       console.log(this.delivery.Id);
       this.deliveryService.updateDelivery(this.delivery.Id, {
         Status: DeliveryStatus.Pending,
@@ -195,18 +212,13 @@ export class PaymentComponent {
   }
 
   openPaymentSummaryDialog(): void {
-    let dialogRef = this.dialog.open(PaymentConfirmationDialogComponent, {
+    let dialogRef = this.dialog.open(PaymentConfirmationDialogComponent, {});
 
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
   }
-
-
 }
 function roundToTwoDecimalPlaces(value: any) {
   return Number(value.toFixed(2));
 }
-

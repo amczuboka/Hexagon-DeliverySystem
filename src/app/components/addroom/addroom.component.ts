@@ -20,9 +20,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import firebase from 'firebase/compat/app';
 import { PageInfo } from 'src/app/modules/chatbox.models';
+import { StorageService } from 'src/app/services/storage.service';
 
 /**
  * Custom ErrorStateMatcher implementation for form validation.
@@ -80,13 +80,12 @@ export class AddroomComponent implements OnInit {
   /**
    * Constructor of the AddroomComponent.
    * @param formBuilder - The FormBuilder for creating form controls.
-   * @param snackBar - The MatSnackBar for displaying notifications.
    * @param authService - The AuthService for user authentication.
    */
   constructor(
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar,
-    private authService: AuthService
+    private authService: AuthService,
+    private storageService: StorageService
   ) {}
 
   /** Lifecycle hook called after the component is initialized. */
@@ -115,7 +114,7 @@ export class AddroomComponent implements OnInit {
     );
     get(roomRef).then((snapshot) => {
       if (snapshot.exists()) {
-        this.snackBar.open('Room name already exists!');
+        this.storageService.sendNotification('Room name already exists!');
       } else {
         // Create a new room in the database
         const newRoomRef = push(this.dbRef);

@@ -103,18 +103,20 @@ export class RoomlistComponent {
       this.PersonOnPage = await this.chatroomService.getPersonOnPage(db, user);
 
       // Filter rooms based on user authority
-      if (
-        this.PersonOnPage.Authority == 'Individual' ||
-        this.PersonOnPage.Authority == 'Company'
-      ) {
-        this.rooms = this.rooms.filter(
-          (room) => room.creater === this.PersonOnPage.ID
-        );
-      }
+      if (this.PersonOnPage) {
+        if (
+          this.PersonOnPage.Authority == 'Individual' ||
+          this.PersonOnPage.Authority == 'Company'
+        ) {
+          this.rooms = this.rooms.filter(
+            (room) => room.creater === this.PersonOnPage.ID
+          );
+        }
 
-      // Hide "Add" button for Staff users
-      if (this.PersonOnPage.Authority == 'Staff') {
-        this.seeAddButton = false;
+        // Hide "Add" button for Staff users
+        if (this.PersonOnPage.Authority == 'Staff') {
+          this.seeAddButton = false;
+        }
       }
     });
   }
