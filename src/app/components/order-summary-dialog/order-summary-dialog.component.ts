@@ -15,15 +15,18 @@ export class OrderSummaryDialogComponent {
     private dialogRef: MatDialogRef<OrderSummaryDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-      this.deliveryObj = data;
-    }
+    this.deliveryObj = data;
+  }
 
   saveQuotation() {
     //save quotation
   }
 
   proceedToPayment() {
-    this.router.navigate(['/payment']);
+    //redirect to payment page and pass the delivery object
+    this.router.navigate(['/payment'], {
+      queryParams: { delivery: JSON.stringify(this.deliveryObj) },
+    });
     this.dialogRef.close();
   }
 }
