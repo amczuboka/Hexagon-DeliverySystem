@@ -13,6 +13,7 @@ import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.compo
 import { RoomlistComponent } from './components/roomlist/roomlist.component';
 import { AddroomComponent } from './components/addroom/addroom.component';
 import { ChatroomComponent } from './components/chatroom/chatroom.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthguardGuard] },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'roomlist', component: RoomlistComponent, canActivate: [AuthguardGuard] },
   { path: 'addroom', component: AddroomComponent,canActivate: [AuthguardGuard]  },
   { path: 'chatroom/:roomname', component: ChatroomComponent,canActivate: [AuthguardGuard]  },
+  { path: 'user-profile', component: UserProfileComponent},
 ];
 
 @NgModule({
