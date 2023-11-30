@@ -37,6 +37,7 @@ export class CalculateTotalDeliveryService {
           let today = new Date();
           let futureDate = new Date(today.setDate(today.getDate() + estimatedTime)); // Add estimatedTime days to today's date
           delivery.EstimatedTime = futureDate.toISOString();
+          console.log(delivery);
           observer.next(delivery);
           observer.complete();
         });

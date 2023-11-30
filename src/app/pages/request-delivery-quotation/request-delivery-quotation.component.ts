@@ -127,6 +127,9 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
         ', ' +
         arrive_postalCode;
       let Frequency = this.deliveryDetailsForm.value.frequency;
+      if (Frequency === '') {
+        Frequency = DeliveryFrequency.Once; // Set default frequency here
+      }
 
       this.deliveryObj = new Delivery({
         DepartLocation: DepartLocation,
