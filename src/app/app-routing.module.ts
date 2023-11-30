@@ -9,10 +9,7 @@ import { RequestDeliveryQuotationComponent } from './pages/request-delivery-quot
 import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summary.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { PaymentComponent } from './pages/payment/payment.component';
-import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component'; 
-import { RoomlistComponent } from './components/roomlist/roomlist.component';
-import { AddroomComponent } from './components/addroom/addroom.component';
-import { ChatroomComponent } from './components/chatroom/chatroom.component';
+import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 const routes: Routes = [
@@ -44,6 +41,11 @@ const routes: Routes = [
   },
 
   //needs to be at the bottom or else it will override all the other routes
+  {
+    path: 'user-profile',
+    component: UserProfileComponent,
+    canActivate: [AuthguardGuard],
+  },
   {
     path: '**',
     redirectTo: '',
