@@ -46,12 +46,18 @@ const routes: Routes = [
     canActivate: [AuthguardGuard],
   },
   {
+    path: 'user-profile',
+    component: UserProfileComponent,
+    canActivate: [AuthguardGuard],
+  },
+
+  //needs to be at the bottom or else it will override all the other routes
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
     canActivate: [AuthguardGuard],
   },
-  { path: 'user-profile', component: UserProfileComponent},
 ];
 
 @NgModule({
