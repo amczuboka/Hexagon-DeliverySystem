@@ -1,4 +1,3 @@
-import { Delivery } from 'src/app/modules/delivery.models';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -92,7 +91,6 @@ export class PaymentComponent {
   matcher = new MyErrorStateMatcher();
   hide = true;
   preselectedValue = "Canada"
-  delivery!: Delivery;
   subTotalValue$: any;
   taxesValue$: any;
   totalValue$: any;
