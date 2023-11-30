@@ -33,6 +33,10 @@ export class CalculateTotalDeliveryService {
           var total = partialTotal + Math.floor(2 * (distance / 50));
           delivery.Total = total;
           delivery.Distance = distance;
+          let estimatedTime = this.calculateEstimatedDeliveryTime(distance);
+          let today = new Date();
+          let futureDate = new Date(today.setDate(today.getDate() + estimatedTime)); // Add estimatedTime days to today's date
+          delivery.EstimatedTime = futureDate.toISOString();
           observer.next(delivery);
           observer.complete();
         });
@@ -83,5 +87,17 @@ export class CalculateTotalDeliveryService {
     total = item.Quantity * (priceForSize + priceForWeight);
 
     return total;
+  }
+
+  private calculateEstimatedDeliveryTime(distance: number): number {
+    if (distance < 200) {
+      return 3; // 3 days for less than 200km
+    } else if (distance < 1000) {
+      return 8; // 8 days for less than 1000km and more than 200km
+    } else if (distance < 3000) {
+      return 15; // 15 days for less than 3000km and more than 1000km
+    } else {
+      return 30; // 30 days for distances greater than or equal to 3000km
+    }
   }
 }
