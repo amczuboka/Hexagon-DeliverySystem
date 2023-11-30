@@ -46,6 +46,21 @@ body {
 }
 
 
+  .mat-mdc-snack-bar-container,.mdc-snackbar__label  {
+    &.kawaiicolors-snackbar {
+      --mdc-snackbar-container-color: rgb(251, 207, 170);
+      --mat-mdc-snack-bar-button-color: #fff;
+      --mdc-snackbar-supporting-text-color: rgb(70, 20, 19);;
+     --mdc-snackbar-supporting-text-size: 20px;
+  
+    }
+  }
+
+
+  .mat-mdc-snack-bar-container .mdc-snackbar__label {
+    font-size: 30px;
+  }
+
 div.mat-expansion-panel-body {
   padding: 0 !important;
 }

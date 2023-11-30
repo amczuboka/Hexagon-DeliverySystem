@@ -178,8 +178,8 @@
                         <div *ngIf = "authority=='Company'">
                           <p>I would like to have my delivery placed: </p>
                           <mat-radio-group
-                            ngModel name="recurrence" 
-                            formControlName = "recurrence"
+                            ngModel name="frequency" 
+                            formControlName = "frequency"
                           >
                             <mat-radio-button value="once" [checked]="isChecked">Once</mat-radio-button>
                             <mat-radio-button value="weekly">Weekly</mat-radio-button>
@@ -207,7 +207,9 @@
     </div>
 
   </section>
-
+  <div class="loading-indicator" *ngIf="isLoading">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
 
 </div>
 

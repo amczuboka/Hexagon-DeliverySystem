@@ -86,11 +86,11 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 })
 
 export class PaymentComponent {
+  delivery!: Delivery;
   paymentForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
   hide = true;
   preselectedValue = "Canada"
-  delivery!: Delivery;
   subTotalValue$: any;
   taxesValue$: any;
   totalValue$: any;

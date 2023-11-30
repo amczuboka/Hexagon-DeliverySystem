@@ -1,3 +1,4 @@
+import { CalculateTotalDeliveryService } from './../../services/calculate-total-delivery.service';
 import { AfterViewChecked, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -5,8 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddItemDialogComponent } from 'src/app/components/add-item-dialog/add-item-dialog.component';
 import { OrderSummaryDialogComponent } from 'src/app/components/order-summary-dialog/order-summary-dialog.component';
-import { Item } from 'src/app/modules/delivery.models';import { AuthService } from 'src/app/services/auth.service';
-
+import { Item } from 'src/app/modules/delivery.models';
+import { Delivery } from 'src/app/modules/delivery.models';
+import { AuthService } from 'src/app/services/auth.service';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-request-delivery-quotation',
@@ -17,7 +20,6 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   [x: string]: any;
   deliveryDetailsForm!: FormGroup<any>;
   newDeliveryItem!: FormGroup<any>;
-  //matcher!: ErrorStateMatcher;
   closeResult!: string;
   content: any;
   itemDescription: any;
@@ -26,6 +28,11 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   myUser!: any;
   isChecked: boolean = true;
   deliveryItems: Item[] = [];
+  deliveryObj!: Delivery;
+  isLoading: boolean = false;
+
+  //departLocation!: string;  //depart location info concatenated
+  //arriveLocation!: string;  //arrive location info concatenated
 
   constructor(
     private form_builder: FormBuilder,
@@ -34,6 +41,8 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
     private router: Router,
     private Acrouter: ActivatedRoute,
     private nodalService: NgbModal,
+    private calculateTotalDeliveryService: CalculateTotalDeliveryService,
+    private storageService: StorageService
   ) {}
 
   //For user authentication
@@ -63,7 +72,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
       destinationPostalCode: ['', [Validators.required]],
 
       //Recurring
-      recurrence: [''],
+      frequency: [''],
     });
   }
 
@@ -84,11 +93,63 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
   }
 
   //Function to open "order summary dialog"
-  openOrderDialog(): void {
-    let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {});
 
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
+  openOrderDialog(): void {
+    if (this.deliveryDetailsForm.valid && this.deliveryItems.length > 0) {
+      this.isLoading = true;
+      //makes sure the form is filled out and there is at least one item in the delivery
+      //Obtaining values from form
+      let depart_address = this.deliveryDetailsForm.value.departAddress;
+      let depart_city = this.deliveryDetailsForm.value.departCity;
+      let depart_province = this.deliveryDetailsForm.value.departProvince;
+      let depart_postalCode = this.deliveryDetailsForm.value.departPostalCode;
+
+      let arrive_address = this.deliveryDetailsForm.value.destinationAddress;
+      let arrive_city = this.deliveryDetailsForm.value.destinationCity;
+      let arrive_province = this.deliveryDetailsForm.value.destinationProvince;
+      let arrive_postalCode =
+        this.deliveryDetailsForm.value.destinationPostalCode;
+
+      let DepartLocation =
+        depart_address +
+        ', ' +
+        depart_city +
+        ', ' +
+        depart_province +
+        ', ' +
+        depart_postalCode;
+      let ArriveLocation =
+        arrive_address +
+        ', ' +
+        arrive_city +
+        ', ' +
+        arrive_province +
+        ', ' +
+        arrive_postalCode;
+      let Frequency = this.deliveryDetailsForm.value.frequency;
+
+      this.deliveryObj = new Delivery({
+        DepartLocation: DepartLocation,
+        ArriveLocation: ArriveLocation,
+        Frequency: Frequency,
+        items: this.deliveryItems,
+      });
+
+      this.calculateTotalDeliveryService
+        .calculateTotalDeliveryPrice(this.deliveryObj)
+        .subscribe((delivery: Delivery) => {
+          this.deliveryObj = delivery;
+          this.isLoading = false;
+          let dialogRef = this.dialog.open(OrderSummaryDialogComponent, {
+            data: this.deliveryObj,
+          }); //opening dialog and sending delivery object
+
+          dialogRef.afterClosed().subscribe((result) => {
+            console.log('The dialog was closed');
+          });
+        });
+    } else {
+      this.storageService.sendNotification('Please fill out the form and add at least one item to the delivery');
+    }
   }
 }
