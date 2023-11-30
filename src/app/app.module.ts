@@ -157,12 +157,6 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     AuthService,
     AuthguardGuard,
     DatePipe,
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: {
-        subscriptSizing: 'dynamic',
-      },
-    },
   ],
   bootstrap: [AppComponent],
 })
