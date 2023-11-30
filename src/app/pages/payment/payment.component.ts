@@ -91,6 +91,7 @@ export class PaymentComponent {
   subTotalValue$: any;
   taxesValue$: any;
   totalValue$: any;
+  myUser!: any; //from authortity service
 
   // Define the countries array as a property of your component
   countries = [
@@ -187,28 +188,49 @@ export class PaymentComponent {
   }
 
   calculateTotal(subTotalValue: any, taxesValue: any): any {
-    const total = subTotalValue + taxesValue;
+    const number = subTotalValue + taxesValue;
+
+    const total = roundToTwoDecimalPlaces(number);
 
     return total;
   }
 
   placeOrder() {
     const { valid } = this.paymentForm;
+    //if form not valid mark as red
     if (!valid) {
       this.paymentForm.markAllAsTouched();
-    } else {
+    } 
+    
+    //if valid then 
+    else {
+      //if the delivery id exist it means object already create
+      if(this.delivery.Id){
       console.log(this.delivery.Id);
       this.deliveryService.updateDelivery(this.delivery.Id, {
         Status: DeliveryStatus.Pending,
       });
       this.storageService.sendNotification('Delivery status changed');
+     }
+     //Object is only local
+     else{
+      //get user
+      this.myUser = this.authService.getUser();
+
+      //update delivery object
+      this.delivery.Userid = this.myUser.uid;
+      this.delivery.Status = DeliveryStatus.Pending;
+
+      //add delivery to database 
+      this.deliveryService.addDelivery(this.delivery);
+     }
 
       this.openPaymentSummaryDialog();
     }
   }
 
   openPaymentSummaryDialog(): void {
-    let dialogRef = this.dialog.open(PaymentConfirmationDialogComponent, {});
+    let dialogRef = this.dialog.open(PaymentConfirmationDialogComponent, {data: this.delivery});
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
