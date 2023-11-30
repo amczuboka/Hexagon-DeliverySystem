@@ -22,6 +22,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -75,6 +77,8 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
 import { ReviewDialogComponent } from './components/review-dialog/review-dialog.component';
 import { DeleteReviewDialogComponent } from './components/delete-review-dialog/delete-review-dialog.component';
 import { ChangeDeliveryStatusDialogComponent } from './components/change-delivery-status-dialog/change-delivery-status-dialog.component';
+import { PaymentConfirmationDialogComponent } from './components/payment-confirmation-dialog/payment-confirmation-dialog.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,6 +106,7 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
     ReviewDialogComponent,
     DeleteReviewDialogComponent,
     ChangeDeliveryStatusDialogComponent,
+    PaymentConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,7 +120,7 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
     FontAwesomeModule,
     FormsModule,
     MatCardModule,
-    MatDialogModule, 
+    MatDialogModule,
     MatIconModule,
     MatProgressBarModule,
     MatFormFieldModule,
@@ -141,7 +146,8 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
     MatTableModule,
     MatSidenavModule,
     MatSortModule,
-    MatRadioModule
+    MatRadioModule,
+    MatExpansionModule,
   ],
   providers: [
     CookieService,
@@ -149,6 +155,12 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
     AuthService,
     AuthguardGuard,
     DatePipe,
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        subscriptSizing: 'dynamic',
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })

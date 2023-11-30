@@ -1,9 +1,32 @@
-<div class="myFooty" id="myFooty">
-    <footer class="bg-dark text-center text-white">
 
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        © 2020 Copyright:
-            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-        </div>
-    </footer>
+<div class="myFooty" id="myFooty">
+  <div class="basic-container" *ngIf="authService.isLoggedIn">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          Customer service
+        </mat-expansion-panel-header>
+        <app-roomlist
+          *ngIf="CustumorServicePage.pageNumber == 1"
+          (dataFromChild)="receiveData($event)"
+        ></app-roomlist>
+        <app-addroom
+          *ngIf="CustumorServicePage.pageNumber == 2"
+          (dataFromChild)="receiveData($event)"
+        ></app-addroom>
+        <app-chatroom
+          *ngIf="CustumorServicePage.pageNumber == 3"
+          (dataFromChild)="receiveData($event)"
+          [dataFromParent]="CustumorServicePage"
+
+        ></app-chatroom>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <footer class="bg-dark text-center text-white">
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      © 2020 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+  </footer>
 </div>

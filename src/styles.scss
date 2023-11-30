@@ -60,3 +60,7 @@ body {
   .mat-mdc-snack-bar-container .mdc-snackbar__label {
     font-size: 30px;
   }
+
+div.mat-expansion-panel-body {
+  padding: 0 !important;
+}
