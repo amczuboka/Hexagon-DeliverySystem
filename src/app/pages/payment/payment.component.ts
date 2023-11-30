@@ -91,7 +91,6 @@ export class PaymentComponent {
   matcher = new MyErrorStateMatcher();
   hide = true;
   preselectedValue = "Canada"
-  delivery!: Delivery;
   subTotalValue$: any;
   taxesValue$: any;
   totalValue$: any;
