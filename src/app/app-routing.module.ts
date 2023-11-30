@@ -38,6 +38,13 @@ const routes: Routes = [
   { path: 'chatroom/:roomname', component: ChatroomComponent,canActivate: [AuthguardGuard]  },
   { path: 'user-profile', component: UserProfileComponent},
   {
+    path: 'user-profile',
+    component: UserProfileComponent,
+    canActivate: [AuthguardGuard],
+  },
+
+  //needs to be at the bottom or else it will override all the other routes
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
