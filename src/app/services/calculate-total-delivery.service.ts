@@ -32,6 +32,7 @@ export class CalculateTotalDeliveryService {
           // Calculate the total delivery price
           var total = partialTotal + Math.floor(2 * (distance / 50));
           delivery.Total = total;
+          delivery.Distance = distance;
           observer.next(delivery);
           observer.complete();
         });
