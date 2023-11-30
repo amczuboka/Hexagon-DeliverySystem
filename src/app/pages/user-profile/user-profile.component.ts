@@ -25,16 +25,4 @@ export class UserProfileComponent {
         this.userDTO = user;
     });
   }
-
-  ngAfterViewChecked() {
-    this.myUser = this.authService.getUser();
-    const type = this['Acrouter'].snapshot.params['type'];
-    if (type != undefined) {
-      this.authority = type;
-    }
-    if (this.myUser) {
-      this.authority = this.myUser.photoURL;
-    }
-  }
-
 }
