@@ -77,6 +77,8 @@ import { OrderSummaryDialogComponent } from './components/order-summary-dialog/o
 import { ReviewDialogComponent } from './components/review-dialog/review-dialog.component';
 import { DeleteReviewDialogComponent } from './components/delete-review-dialog/delete-review-dialog.component';
 import { ChangeDeliveryStatusDialogComponent } from './components/change-delivery-status-dialog/change-delivery-status-dialog.component';
+import { PaymentConfirmationDialogComponent } from './components/payment-confirmation-dialog/payment-confirmation-dialog.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,6 +106,7 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
     ReviewDialogComponent,
     DeleteReviewDialogComponent,
     ChangeDeliveryStatusDialogComponent,
+    PaymentConfirmationDialogComponent,
   ],
   imports: [
     BrowserModule,
