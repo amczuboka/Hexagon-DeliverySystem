@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddItemDialogComponent } from 'src/app/components/add-item-dialog/add-item-dialog.component';
 import { OrderSummaryDialogComponent } from 'src/app/components/order-summary-dialog/order-summary-dialog.component';
-import { Item } from 'src/app/modules/delivery.models';
+import { DeliveryFrequency, Item } from 'src/app/modules/delivery.models';
 import { Delivery } from 'src/app/modules/delivery.models';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from '../../services/storage.service';
@@ -72,7 +72,7 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
       destinationPostalCode: ['', [Validators.required]],
 
       //Recurring
-      frequency: [''],
+      frequency: [DeliveryFrequency.Once],
     });
   }
 
