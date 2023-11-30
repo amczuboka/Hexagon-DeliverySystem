@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, take } from 'rxjs';
+import { map, take, Observable, switchMap } from 'rxjs';
 import { secrets } from 'src/environments/secrets';
 
 @Injectable({
@@ -10,13 +10,14 @@ export class DistanceCalculationService {
   constructor(private http: HttpClient) {}
 
   // Returns distance in km
-  public calculateDistance(address1: string, address2: string) {
-    this.getCoordinates(address1)
-      .pipe(take(1))
-      .subscribe((location1) => {
-        this.getCoordinates(address2)
-          .pipe(take(1))
-          .subscribe((location2) => {
+  public calculateDistance(
+    address1: string,
+    address2: string
+  ): Observable<number> {
+    return this.getCoordinates(address1).pipe(
+      switchMap((location1) =>
+        this.getCoordinates(address2).pipe(
+          map((location2) => {
             if (location1 && location2) {
               const distance = this.getDistanceFromLatLonInKm(
                 location1.latitude,
@@ -24,13 +25,13 @@ export class DistanceCalculationService {
                 location2.latitude,
                 location2.longitude
               );
-              const roundedDistance = distance.toFixed(2); // Round to 2 decimals
-              console.log(roundedDistance);
-              return roundedDistance;
+              return parseFloat(distance.toFixed(2)); // Round to 2 decimals
             }
-            return null;
-          });
-      });
+            return 0;
+          })
+        )
+      )
+    );
   }
 
   private getCoordinates(address: string) {

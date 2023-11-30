@@ -24,7 +24,8 @@ export class AddItemDialogComponent implements OnInit {
       Name: ['', [Validators.required]],
       Weight: ['', [Validators.required]],
       Size: ['', [Validators.required]],
-      Quantity: ['', [Validators.required]]
+      Quantity: ['', [Validators.required]],
+      itemPrice: [0]
     });
     
 
