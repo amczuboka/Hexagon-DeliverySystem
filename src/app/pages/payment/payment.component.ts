@@ -1,3 +1,4 @@
+import { Delivery } from 'src/app/modules/delivery.models';
 import { Component } from '@angular/core';
 import {
   FormBuilder,
@@ -11,6 +12,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -79,6 +81,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   styleUrls: ['./payment.component.scss']
 })
 export class PaymentComponent {
+  delivery!: Delivery;
   paymentForm!: FormGroup;
   matcher = new MyErrorStateMatcher();
   hide = true;
@@ -110,10 +113,15 @@ export class PaymentComponent {
   constructor(
     public authService: AuthService,
     private formBuilder: FormBuilder,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private Acrouter: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.Acrouter.queryParams.subscribe((params) => {
+      const deliveryProps = JSON.parse(params['delivery']);
+      this.delivery = new Delivery(deliveryProps);
+    });
     this.paymentForm = this.formBuilder.group({
       Email: ['', [Validators.required, Validators.email]],
       CardNumber: ['', [Validators.required, Validators.minLength(16), Validators.pattern(/^[0-9]*$/)]],
