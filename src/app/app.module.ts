@@ -22,6 +22,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -115,7 +117,7 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
     FontAwesomeModule,
     FormsModule,
     MatCardModule,
-    MatDialogModule, 
+    MatDialogModule,
     MatIconModule,
     MatProgressBarModule,
     MatFormFieldModule,
@@ -141,7 +143,8 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
     MatTableModule,
     MatSidenavModule,
     MatSortModule,
-    MatRadioModule
+    MatRadioModule,
+    MatExpansionModule,
   ],
   providers: [
     CookieService,
@@ -149,6 +152,12 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
     AuthService,
     AuthguardGuard,
     DatePipe,
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        subscriptSizing: 'dynamic',
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })
