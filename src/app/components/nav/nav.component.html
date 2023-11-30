@@ -51,7 +51,9 @@
             </ul>
           </div>
         </li>
-   
+        <li *ngIf="authService.isLoggedIn" class="nav-item">
+          <a class="nav-link" href="user-profile">Profile</a>
+        </li>
         <li *ngIf="authService.isLoggedIn" class="nav-item">
           <a class="nav-link" (click)="authService.SignOut()">Log Out</a>
         </li>

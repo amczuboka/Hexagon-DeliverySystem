@@ -9,8 +9,8 @@ import { RequestDeliveryQuotationComponent } from './pages/request-delivery-quot
 import { DeliverySummaryComponent } from './pages/delivery-summary/delivery-summary.component';
 import { ReviewsComponent } from './pages/reviews/reviews.component';
 import { PaymentComponent } from './pages/payment/payment.component';
-import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component'; 
-
+import { MyDeliveriesComponent } from './pages/my-deliveries/my-deliveries.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthguardGuard] },
@@ -42,6 +42,13 @@ const routes: Routes = [
     component: MyDeliveriesComponent,
     canActivate: [AuthguardGuard],
   },
+  {
+    path: 'user-profile',
+    component: UserProfileComponent,
+    canActivate: [AuthguardGuard],
+  },
+
+  //needs to be at the bottom or else it will override all the other routes
   {
     path: '**',
     redirectTo: '',

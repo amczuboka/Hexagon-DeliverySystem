@@ -1,0 +1,33 @@
+
+form div {
+    width: 100%;
+}
+
+form div mat-form-field{
+    width: 100%;
+}
+
+#hide{
+    color:black;
+}
+
+.rounded-image-container {
+    overflow: hidden;
+    border-radius: 50%; /* 50% for a perfect circle, adjust as needed */
+    width: 100px; /* Adjust the width and height according to your design */
+    height: 100px;
+  }
+  
+  
+.rounded-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Maintains the aspect ratio while covering the container */
+}
+.photoDiv {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
