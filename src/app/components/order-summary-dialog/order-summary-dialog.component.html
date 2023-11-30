@@ -1,22 +1,26 @@
 <div class="card">
-    <div class="card-body mx-4">
-      <div class="container">
-        <br><br>
-        <div class="modal-header">
-          <h2 class="modal-title" id="modal-basic-title">Order Summary</h2>
-        </div>
-        
-        <br>
-        <div class="row">
-          <ul class="list-unstyled">
-            <!--<li class="text-black">John Doe</li>-->
-            <li class="text-black mt-1">Depart Location: {{deliveryObj.DepartLocation}}</li>
-            <li class="text-black mt-1">Destination: {{deliveryObj.ArriveLocation}}</li>
-          </ul>
-          <hr>
-          
-          <!--One Line Item-->
-          <!--<div class="col-xl-10"
+  <div class="card-body mx-4">
+    <div class="container">
+      <br /><br />
+      <div class="modal-header">
+        <h2 class="modal-title" id="modal-basic-title">Order Summary</h2>
+      </div>
+
+      <br />
+      <div class="row">
+        <ul class="list-unstyled">
+          <!--<li class="text-black">John Doe</li>-->
+          <li class="text-black mt-1">
+            Depart Location: {{ deliveryObj.DepartLocation }}
+          </li>
+          <li class="text-black mt-1">
+            Destination: {{ deliveryObj.ArriveLocation }}
+          </li>
+        </ul>
+        <hr />
+
+        <!--One Line Item-->
+        <!--<div class="col-xl-10"
           
           >
             <p>Pro Package (Qty:1)</p>
@@ -26,25 +30,24 @@
             </p>
           </div>
           <hr>-->
-          
+      </div>
+      <!--One Line Item-->
+      <div class="row" *ngFor="let item of deliveryObj.items">
+        <div class="col-xl-10">
+          <p>{{ item.Name }} (Qty: {{ item.Quantity }})</p>
+          <!--<p>Consulting (Qty:1)</p>-->
         </div>
-        <!--One Line Item-->
-        <div 
-          class="row"
-          *ngFor="let item of deliveryObj.items"
-        >
-          <div class="col-xl-10">
-            <p>{{item.Name}} (Qty: {{item.Quantity}})</p>
-            <!--<p>Consulting (Qty:1)</p>-->
-          </div>
-          <div class="col-xl-2">
-            <p class="float-end">$100.00
-            </p>
-          </div>
-          <hr>
+        <div class="col-xl-2">
+          <p class="float-end">${{ item.itemPrice }}</p>
         </div>
-        <!--End of One Line Item-->
-        <!--<div class="row">
+        <hr />
+      </div>
+      <div>
+        <p class="float-end fw-bold">Total: ${{ deliveryObj.Total }}</p>
+      </div>
+
+      <!--End of One Line Item-->
+      <!--<div class="row">
           <div class="col-xl-10">
             <p>Support (Qty:1)</p>
           </div>
@@ -63,13 +66,22 @@
           <hr style="border: 2px solid black;">
         </div>-->
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" (click)="proceedToPayment()">Proceed to Payment</button>
-            <button type="button" class="btn btn-outline-dark" (click)="saveQuotation()">Save Quotation</button>
-        </div>
-        
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="proceedToPayment()"
+        >
+          Proceed to Payment
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          (click)="saveQuotation()"
+        >
+          Save Quotation
+        </button>
       </div>
     </div>
   </div>
-
-  
+</div>
