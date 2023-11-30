@@ -7,6 +7,8 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { StorageService } from './storage.service';
+import { ChatroomService } from './chatroom.service';
+import { PageInfo } from '../modules/chatbox.models';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +21,8 @@ export class AuthService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,
     private storageService: StorageService,
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    private chatrommService: ChatroomService,
   ) {
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
@@ -123,6 +126,10 @@ export class AuthService {
   async SignOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('user');
+      this.chatrommService.setPageNumber({
+        roomName: '',
+        pageNumber:1,
+      } as PageInfo);
       this.router.navigate(['login']);
     });
   }
