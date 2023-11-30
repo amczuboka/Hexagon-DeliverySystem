@@ -1,4 +1,4 @@
-<section class="py-2">
+<section *ngIf="delivery" class="py-2">
   <div
     class="container py-2 h-100 px-xs-0 d-flex justify-content-center align-items-center"
   >
@@ -142,14 +142,23 @@
               </ng-template>
               {{ delivery.EstimatedTime | date : "MMMM d, y" }} <br />
             </div>
-            <ng-container *ngIf="myUser.Authority === 'Company'"
+            <ng-container *ngIf="authority === 'Company'"
               ><b>Recurring: </b>{{ delivery.Recurring }} <br
             /></ng-container>
             <b>Total: </b>${{ delivery.Total }} <br />
           </div>
         </div>
-        <div class="pb-2">
+        <div class="pb-2 tracking-container">
           <app-tracking [delivery]="delivery"></app-tracking>
+          <ng-container *ngIf="authority === 'Staff'">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="changeTrackingStatus()"
+            >
+              Change Tracking Status
+            </button>
+          </ng-container>
         </div>
       </div>
     </div>

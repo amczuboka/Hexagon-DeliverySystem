@@ -21,7 +21,9 @@ import { DatePipe } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
-
+import { MatRadioModule } from '@angular/material/radio';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -72,7 +74,12 @@ import { AddroomComponent } from './components/addroom/addroom.component';
 import { ChatroomComponent } from './components/chatroom/chatroom.component';
 import { environment } from '../environments/environment';
 import { OrderSummaryDialogComponent } from './components/order-summary-dialog/order-summary-dialog.component';
+import { ReviewDialogComponent } from './components/review-dialog/review-dialog.component';
+import { DeleteReviewDialogComponent } from './components/delete-review-dialog/delete-review-dialog.component';
+import { ChangeDeliveryStatusDialogComponent } from './components/change-delivery-status-dialog/change-delivery-status-dialog.component';
+import { PaymentConfirmationDialogComponent } from './components/payment-confirmation-dialog/payment-confirmation-dialog.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -97,6 +104,10 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     RoomlistComponent,
     AddroomComponent,
     ChatroomComponent,
+    ReviewDialogComponent,
+    DeleteReviewDialogComponent,
+    ChangeDeliveryStatusDialogComponent,
+    PaymentConfirmationDialogComponent,
     UserProfileComponent,
   ],
   imports: [
@@ -111,7 +122,7 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     FontAwesomeModule,
     FormsModule,
     MatCardModule,
-    MatDialogModule, 
+    MatDialogModule,
     MatIconModule,
     MatProgressBarModule,
     MatFormFieldModule,
@@ -137,6 +148,8 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     MatTableModule,
     MatSidenavModule,
     MatSortModule,
+    MatRadioModule,
+    MatExpansionModule,
   ],
   providers: [
     CookieService,
@@ -144,6 +157,12 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     AuthService,
     AuthguardGuard,
     DatePipe,
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: {
+        subscriptSizing: 'dynamic',
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })

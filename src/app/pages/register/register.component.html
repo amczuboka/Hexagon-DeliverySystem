@@ -203,6 +203,7 @@
                       Your password must be at least 6 characters long
                     </mat-error>
                     <button
+                      type="button"
                       mat-icon-button
                       matSuffix
                       (click)="hide = !hide"
@@ -250,6 +251,7 @@
                       {{ passwordConfirmationValidator(registerForm) }}
                     </mat-error>
                     <button
+                      type="button"
                       mat-icon-button
                       matSuffix
                       (click)="hide = !hide"
@@ -318,7 +320,6 @@
                   <button
                     (click)="onSubmit()"
                     type="submit"
-                    type="button"
                     class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
                     style="
                       background-color: #93aff6;

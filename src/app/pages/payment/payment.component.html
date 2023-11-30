@@ -409,14 +409,14 @@
                     <mat-label class="form-label" for="form2Example17"
                       >Province</mat-label
                     >
-                    <select matNativeControl formControlName="Province">
-                      <option
+                    <mat-select matNativeControl formControlName="Province">
+                      <mat-option
                         *ngFor="let province of provinces"
                         [value]="province.code"
                       >
                         {{ province.name }}
-                      </option>
-                    </select>
+                      </mat-option>
+                    </mat-select>
                     <mat-error
                       *ngIf="paymentForm.get('province')?.hasError('required')"
                     >
@@ -482,14 +482,14 @@
                     <mat-label class="form-label" for="form2Example17"
                       >Country</mat-label
                     >
-                    <select matNativeControl formControlName="Country">
-                      <option
+                    <mat-select matNativeControl formControlName="Country">
+                      <mat-option
                         *ngFor="let country of countries"
                         [value]="country.code"
                       >
                         {{ country.name }}
-                      </option>
-                    </select>
+                      </mat-option>
+                    </mat-select>
                     <mat-error
                       *ngIf="paymentForm.get('country')?.hasError('required')"
                     >
@@ -545,15 +545,15 @@
             </div>
           </div>
 
-          <div class="content-padding">
+          <!--<div class="content-padding">
             <div class="email-confirmation">
               <div class="center_title">
                 <p class="delivery">Email Confirmation</p>
                 <hr />
               </div>
 
-              <!-- Input for email -->
-              <div class="form-outline mb-4">
+              
+               <div class="form-outline mb-4">
                 <mat-form-field appearance="outline">
                   <mat-label class="form-label" for="form2Example17"
                     >Email</mat-label
@@ -591,9 +591,9 @@
                     Email is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
-              </div>
+              </div> 
             </div>
-          </div>
+          </div> -->
         </form>
       </div>
 
@@ -605,10 +605,10 @@
                 Order Summary<br />
                 <hr />
               </div>
-              <b>Subtotal: </b> <br />
-              <b>Taxes: </b> <br />
+              <b>Subtotal: {{ subTotalValue$ }}$ </b> <br />
+              <b>Taxes: {{ taxesValue$ }}$ </b> <br />
               <br />
-              <b>Order Total: </b> <br />
+              <b>Order Total: {{ totalValue$ }}$</b> <br />
             </div>
           </div>
 
@@ -617,6 +617,7 @@
               mat-raised-button
               class="my-button"
               style="background-color: #007bff; color: white"
+              (click)="placeOrder()"
             >
               Place Order
             </button>
