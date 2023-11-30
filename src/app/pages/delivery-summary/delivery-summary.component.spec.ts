@@ -13,6 +13,7 @@ import {
   DeliveryFrequency,
 } from '../../modules/delivery.models';
 import { AppModule } from 'src/app/app.module';
+import { UserService } from 'src/app/services/user.service';
 
 describe('DeliverySummaryComponent', () => {
   let component: DeliverySummaryComponent;
@@ -20,6 +21,16 @@ describe('DeliverySummaryComponent', () => {
   let dialog: MatDialog;
   let deliveryService: DeliveryService;
   let afterClosedSubject: Subject<any>;
+  let myUserMock = {
+    uid: 'testId',
+    email: '',
+    displayName: '',
+    photoURL: '',
+    phoneNumber: '',
+  };
+  let userServiceMock = {
+    getUser: () => Promise.resolve(myUserMock),
+  };
 
   beforeEach(async () => {
     let deliveryServiceMock = {
@@ -45,7 +56,6 @@ describe('DeliverySummaryComponent', () => {
           Frequency: DeliveryFrequency.Once,
           items: [],
           Total: 0,
-          calculateTotal: () => 0,
         }),
     };
 
@@ -58,6 +68,7 @@ describe('DeliverySummaryComponent', () => {
           useValue: { open: () => ({ afterClosed: () => of(null) }) },
         },
         { provide: DeliveryService, useValue: deliveryServiceMock },
+        { provide: UserService, useValue: userServiceMock },
       ],
     }).compileComponents();
   });
@@ -65,10 +76,11 @@ describe('DeliverySummaryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DeliverySummaryComponent);
     component = fixture.componentInstance;
+    component.myUser = myUserMock;
+    fixture.detectChanges();
     dialog = TestBed.inject(MatDialog);
     deliveryService = TestBed.inject(DeliveryService);
     afterClosedSubject = new Subject<any>();
-    fixture.detectChanges();
   });
 
   it('should create', () => {
@@ -92,19 +104,22 @@ describe('DeliverySummaryComponent', () => {
         stars: 0,
         description: '',
         title: '',
-        date: new Date(),
+        date: '',
         id: 'testId',
+        fromLocation: '',
+        toLocation: '',
+        username: '',
+        itemNames: [],
       },
       Distance: 0,
       DepartLocation: '',
       ArriveLocation: '',
-      orderDate: new Date(),
-      EstimatedTime: new Date(),
+      OrderDate: '',
+      EstimatedTime: '',
       Recurring: false,
       Frequency: DeliveryFrequency.Once,
       items: [],
       Total: 0,
-      calculateTotal: () => 0,
     };
 
     component.changeTrackingStatus();
@@ -135,21 +150,25 @@ describe('DeliverySummaryComponent', () => {
         stars: 0,
         description: '',
         title: '',
-        date: new Date(),
+        date: '',
         id: 'testId',
+        fromLocation: '',
+        toLocation: '',
+        username: '',
+        itemNames: [],
       },
       Distance: 0,
       DepartLocation: '',
       ArriveLocation: '',
-      orderDate: new Date(),
-      EstimatedTime: new Date(),
+      OrderDate: '',
+      EstimatedTime: '',
       Recurring: false,
       Frequency: DeliveryFrequency.Once,
       items: [],
       Total: 0,
-      calculateTotal: () => 0,
     };
 
+    component.myUser = myUserMock;
     component.addReview();
 
     afterClosedSubject.next({
@@ -184,19 +203,22 @@ describe('DeliverySummaryComponent', () => {
         stars: 0,
         description: '',
         title: '',
-        date: new Date(),
+        date: '',
         id: 'testId',
+        fromLocation: '',
+        toLocation: '',
+        username: '',
+        itemNames: [],
       },
       Distance: 0,
       DepartLocation: '',
       ArriveLocation: '',
-      orderDate: new Date(),
-      EstimatedTime: new Date(),
+      OrderDate: '',
+      EstimatedTime: '',
       Recurring: false,
       Frequency: DeliveryFrequency.Once,
       items: [],
       Total: 0,
-      calculateTotal: () => 0,
     };
 
     // Mock the deliveryService.getDeliveryById method
@@ -209,19 +231,22 @@ describe('DeliverySummaryComponent', () => {
           stars: 0,
           description: '',
           title: '',
-          date: new Date(),
+          date: '',
           id: 'testId',
+          fromLocation: '',
+          toLocation: '',
+          username: '',
+          itemNames: [],
         },
         Distance: 0,
         DepartLocation: '',
         ArriveLocation: '',
-        orderDate: new Date(),
-        EstimatedTime: new Date(),
+        OrderDate: '',
+        EstimatedTime: '',
         Recurring: false,
         Frequency: DeliveryFrequency.Once,
         items: [],
         Total: 0,
-        calculateTotal: () => 0,
       })
     );
 
@@ -255,21 +280,25 @@ describe('DeliverySummaryComponent', () => {
         stars: 0,
         description: '',
         title: '',
-        date: new Date(),
+        date: '',
         id: 'testId',
+        fromLocation: '',
+        toLocation: '',
+        username: '',
+        itemNames: [],
       },
       Distance: 0,
       DepartLocation: '',
       ArriveLocation: '',
-      orderDate: new Date(),
-      EstimatedTime: new Date(),
+      OrderDate: '',
+      EstimatedTime: '',
       Recurring: false,
       Frequency: DeliveryFrequency.Once,
       items: [],
       Total: 0,
-      calculateTotal: () => 0,
     };
 
+    component.myUser = myUserMock;
     component.editReview();
 
     afterClosedSubject.next({
