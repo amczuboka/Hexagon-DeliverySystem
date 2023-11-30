@@ -9,6 +9,7 @@ import { OrderSummaryDialogComponent } from 'src/app/components/order-summary-di
 import { Item } from 'src/app/modules/delivery.models';
 import { Delivery } from 'src/app/modules/delivery.models';
 import { AuthService } from 'src/app/services/auth.service';
+import { StorageService } from '../../services/storage.service';
 
 @Component({
   selector: 'app-request-delivery-quotation',
@@ -40,7 +41,8 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
     private router: Router,
     private Acrouter: ActivatedRoute,
     private nodalService: NgbModal,
-    private calculateTotalDeliveryService: CalculateTotalDeliveryService
+    private calculateTotalDeliveryService: CalculateTotalDeliveryService,
+    private storageService: StorageService
   ) {}
 
   //For user authentication
@@ -146,6 +148,8 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
             console.log('The dialog was closed');
           });
         });
+    } else {
+      this.storageService.sendNotification('Please fill out the form and add at least one item to the delivery');
     }
   }
 }
