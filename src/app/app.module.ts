@@ -80,6 +80,7 @@ import { ChangeDeliveryStatusDialogComponent } from './components/change-deliver
 import { PaymentConfirmationDialogComponent } from './components/payment-confirmation-dialog/payment-confirmation-dialog.component';
 
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,

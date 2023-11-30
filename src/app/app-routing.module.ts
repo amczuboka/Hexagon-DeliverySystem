@@ -30,21 +30,12 @@ const routes: Routes = [
     component: DeliverySummaryComponent,
     canActivate: [AuthguardGuard],
   },
-  {
-    path: 'reviews',
-    component: ReviewsComponent,
-    canActivate: [AuthguardGuard],
-  },
-  {
-    path: 'payment',
-    component: PaymentComponent,
-    canActivate: [AuthguardGuard],
-  },
-  {
-    path: 'my-deliveries',
-    component: MyDeliveriesComponent,
-    canActivate: [AuthguardGuard],
-  },
+  { path: 'reviews', component: ReviewsComponent, canActivate: [AuthguardGuard] },
+  { path: 'payment', component: PaymentComponent, canActivate: [AuthguardGuard] },
+  { path: 'my-deliveries', component: MyDeliveriesComponent, canActivate: [AuthguardGuard] },
+  { path: 'roomlist', component: RoomlistComponent, canActivate: [AuthguardGuard] },
+  { path: 'addroom', component: AddroomComponent,canActivate: [AuthguardGuard]  },
+  { path: 'chatroom/:roomname', component: ChatroomComponent,canActivate: [AuthguardGuard]  },
   { path: 'user-profile', component: UserProfileComponent},
   {
     path: '**',
