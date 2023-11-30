@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Item } from 'src/app/modules/delivery.models';import { AuthService } from 'src/app/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { User, UserDTO} from 'src/app/modules/user.models';
 
 @Component({
   selector: 'app-user-profile',
@@ -25,9 +24,6 @@ export class UserProfileComponent {
     this.userService.getUser(this.myUser.uid).then((user) => {
         this.userDTO = user;
     });
-      console.log(this.userService.getUser(this.myUser.uid));
-      console.log(this.myUser.uid);
-      console.log(this.userDTO?.FirstName);
   }
 
   ngAfterViewChecked() {
