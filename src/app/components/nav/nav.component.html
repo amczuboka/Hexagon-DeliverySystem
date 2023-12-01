@@ -29,18 +29,33 @@
                 class="nav-item dropdown"
               >
                 <!-- Delivery functions -->
-                <a ngbDropdownToggle class="nav-link">Deliveries & Quotations</a>
+                <a ngbDropdownToggle class="nav-link"
+                  >Deliveries & Quotations</a
+                >
                 <div
                   ngbDropdownMenu
                   class="bg-dark drop-menu"
                   aria-labelledby="deliveryDropdown"
                 >
                   <!-- View Deliveries function -->
-                  <a class="dropdown-item nav-link" aria-current="page" href="my-deliveries"
+                  <a *ngIf="authority != 'Staff'"
+                    class="dropdown-item nav-link"
+                    aria-current="page"
+                    href="my-deliveries"
                     >My Deliveries & Quotations</a
                   >
+                  <a
+                  *ngIf="authority == 'Staff'"
+                    class="dropdown-item nav-link"
+                    aria-current="page"
+                    href="my-deliveries"
+                    >All Deliveries & Quotations</a
+                  >
                   <!-- Request Delivery/Quotation function -->
-                  <a class="dropdown-item nav-link" aria-current="page" href="request-delivery-quotation"
+                  <a
+                    class="dropdown-item nav-link"
+                    aria-current="page"
+                    href="request-delivery-quotation"
                     >Request Delivery or Quotation</a
                   >
                 </div>
@@ -51,7 +66,7 @@
             </ul>
           </div>
         </li>
-   
+
         <li *ngIf="authService.isLoggedIn" class="nav-item">
           <a class="nav-link" href="user-profile">Profile</a>
         </li>
