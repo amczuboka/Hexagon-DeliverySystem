@@ -1,20 +1,5 @@
 <div class="example-container mat-elevation-z8">
   <mat-drawer-container class="drawer-container">
-    <mat-drawer mode="side" opened class="left-drawer">
-      <div class="users-pane">
-        <mat-card class="users-card">
-          <button type="button" mat-button matSuffix  aria-label="Exit" (click)="exitChat()">
-            <mat-icon>logout</mat-icon>
-          </button>
-        </mat-card>
-        <mat-card class="users-card" >
-          <mat-icon>person</mat-icon><div *ngIf="creater"><div class="username">{{creater.FirstName}}</div>
-          <div class="username">{{creater.LastName}}</div>
-        <div class="username">{{creater.Email}}</div>
-      </div> 
-        </mat-card>
-      </div>
-    </mat-drawer>
     <mat-drawer-content class="chat-pane">
       <div #chatcontent [scrollTop]="scrolltop" class="chat-content">
         <div class="message-box" *ngFor="let chat of chats">
@@ -79,11 +64,9 @@
             </a>
           </button>
 
-            <button mat-menu-item *ngIf="creater && CompanyName">
-            
-              <mat-icon> business</mat-icon>
-              <div class="username">{{ CompanyName }}</div>
-           
+          <button mat-menu-item *ngIf="creater && CompanyName">
+            <mat-icon> business</mat-icon>
+            <div class="username">{{ CompanyName }}</div>
           </button>
 
           <button mat-menu-item (click)="exitChat()">
