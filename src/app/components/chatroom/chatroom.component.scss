@@ -1,5 +1,11 @@
 * {
   word-wrap: break-word;
+   -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 .example-container {
   display: flex;
