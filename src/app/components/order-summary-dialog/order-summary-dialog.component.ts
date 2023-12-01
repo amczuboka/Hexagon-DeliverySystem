@@ -28,6 +28,7 @@ export class OrderSummaryDialogComponent {
     //save quotation
     this.deliveryService.addDelivery(this.deliveryObj);
     this.storageService.sendNotification('Delivery has been saved as quotation!');
+    this.dialogRef.close();
   }
 
   proceedToPayment() {
