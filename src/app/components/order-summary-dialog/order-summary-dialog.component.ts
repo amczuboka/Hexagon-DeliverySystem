@@ -11,7 +11,6 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class OrderSummaryDialogComponent {
   deliveryObj: any;
-  //storageService: any;
   
   constructor(
     private router: Router,
