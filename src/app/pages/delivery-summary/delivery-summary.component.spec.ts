@@ -36,7 +36,7 @@ describe('DeliverySummaryComponent', () => {
     let deliveryServiceMock = {
       updateDelivery: () => of(null),
       getDeliveryById: () =>
-        of({
+        Promise.resolve({
           Id: 'testId',
           Status: DeliveryStatus.EnRoute,
           Userid: '',
