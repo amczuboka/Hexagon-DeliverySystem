@@ -131,10 +131,17 @@ export class RequestDeliveryQuotationComponent implements AfterViewChecked {
         Frequency = DeliveryFrequency.Once; // Set default frequency here
       }
 
+      //Getting User ID
+      this.myUser = this.authService.getUser();
+      this.myUser.uid;
+      let id = this.myUser.uid;
+      console.log(id);
+
       this.deliveryObj = new Delivery({
         DepartLocation: DepartLocation,
         ArriveLocation: ArriveLocation,
         Frequency: Frequency,
+        Userid: id,
         items: this.deliveryItems,
       });
 
