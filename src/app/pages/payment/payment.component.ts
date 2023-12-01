@@ -181,7 +181,7 @@ export class PaymentComponent {
     const taxAmount = subTotalValue * 0.14975;
 
     // Round off the total amount to two decimal places
-    const taxes = this.roundToTwoDecimalPlaces(taxAmount);
+    const taxes = roundToTwoDecimalPlaces(taxAmount);
 
     return taxes;
   }
@@ -214,9 +214,7 @@ export class PaymentComponent {
       console.log('The dialog was closed');
     });
   }
-
-  roundToTwoDecimalPlaces(value: any) {
-    return Number(value.toFixed(2));
-  }
 }
-
+function roundToTwoDecimalPlaces(value: any) {
+  return Number(value.toFixed(2));
+}
