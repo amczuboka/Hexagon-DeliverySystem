@@ -61,7 +61,7 @@ export class DeliverySummaryComponent {
     });
 
     this.myUser = this.authService.getUser();
-    if(this.myUser){
+    if (this.myUser) {
       this.authority = this.myUser.photoURL;
     }
   }
@@ -80,12 +80,23 @@ export class DeliverySummaryComponent {
 
     dialogRef.afterClosed().subscribe((review) => {
       if (review) {
-        this.userService.getUser(this.myUser.uid).then((user) => {
-          review = this.setReviewUserAndDeliveryData(review, user);
-        }).then(() => {
-          this.reviewService.editReview(review);
-          this.storageService.sendNotification('Review edited');
-        });
+        this.userService
+          .getUser(this.myUser.uid)
+          .then((user) => {
+            review = this.setReviewUserAndDeliveryData(review, user);
+          })
+          .then(() => {
+            this.reviewService.editReview(review).then(() => {
+              this.storageService.sendNotification('Review edited');
+              this.deliveryService
+                .getDeliveryById(this.delivery.Id)
+                .then((delivery) => {
+                  if (delivery) {
+                    this.delivery = delivery;
+                  }
+                });
+            });
+          });
       }
     });
   }
@@ -95,8 +106,16 @@ export class DeliverySummaryComponent {
 
     dialogRef.afterClosed().subscribe((confirm) => {
       if (confirm) {
-        this.reviewService.deleteSpecificReview(this.delivery.Id);
-        this.storageService.sendNotification('Review deleted');
+        this.reviewService.deleteSpecificReview(this.delivery.Id).then(() => {
+          this.storageService.sendNotification('Review deleted');
+          this.deliveryService
+            .getDeliveryById(this.delivery.Id)
+            .then((delivery) => {
+              if (delivery) {
+                this.delivery = delivery;
+              }
+            });
+        });
       }
     });
   }
@@ -107,28 +126,49 @@ export class DeliverySummaryComponent {
     });
     dialogRef.afterClosed().subscribe((review) => {
       if (review) {
-        this.userService.getUser(this.myUser.uid).then((user) => {
-          review = this.setReviewUserAndDeliveryData(review, user);
-        }).then(() => {
-          this.reviewService.addReview(review);
-          this.storageService.sendNotification('Review added');
-        });
+        this.userService
+          .getUser(this.myUser.uid)
+          .then((user) => {
+            review = this.setReviewUserAndDeliveryData(review, user);
+          })
+          .then(() => {
+            this.reviewService.addReview(review).then(() => {
+              this.storageService.sendNotification('Review added');
+              this.deliveryService
+                .getDeliveryById(this.delivery.Id)
+                .then((delivery) => {
+                  if (delivery) {
+                    this.delivery = delivery;
+                  }
+                });
+            });
+          });
       }
     });
   }
 
   changeTrackingStatus() {
-    if(this.delivery) {
+    if (this.delivery) {
       const dialogRef = this.dialog.open(ChangeDeliveryStatusDialogComponent, {
         data: this.delivery.Status as DeliveryStatus,
       });
-  
+
       dialogRef.afterClosed().subscribe((status) => {
         if (status != null) {
-          this.deliveryService.updateDelivery(this.delivery.Id, {
-            Status: status,
-          });
-          this.storageService.sendNotification('Delivery status changed');
+          this.deliveryService
+            .updateDelivery(this.delivery.Id, {
+              Status: status,
+            })
+            .then(() => {
+              this.storageService.sendNotification('Delivery status changed');
+              this.deliveryService
+                .getDeliveryById(this.delivery.Id)
+                .then((delivery) => {
+                  if (delivery) {
+                    this.delivery = delivery;
+                  }
+                });
+            });
         }
       });
     }
