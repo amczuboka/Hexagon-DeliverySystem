@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Delivery, DeliveryStatus } from 'src/app/modules/delivery.models';
 import { DeliveryService } from 'src/app/services/delivery.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-payment-confirmation-dialog',
@@ -18,16 +17,9 @@ export class PaymentConfirmationDialogComponent {
     private router: Router,
     private dialogRef: MatDialogRef<PaymentConfirmationDialogComponent>,
     public deliveryService: DeliveryService,
-    private Acrouter: ActivatedRoute
-  ) {}
-
-  ngOnInit(): void {
-    this.Acrouter.queryParams.subscribe((params) => {
-      const deliveryProps = JSON.parse(params['delivery']);
-      this.delivery = new Delivery(deliveryProps);
-      this.id$ = this.delivery.Id;
-      console.log(this.id$);
-    });
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.delivery = data;
   }
 
   close() {
