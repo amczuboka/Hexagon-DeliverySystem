@@ -9,7 +9,7 @@
       <br />
       <div class="row">
         <ul class="list-unstyled">
-          <!--<li class="text-black">John Doe</li>-->
+          
           <li class="text-black mt-1">
             Depart Location: {{ deliveryObj.DepartLocation }}
           </li>
@@ -24,7 +24,6 @@
       <div class="row" *ngFor="let item of deliveryObj.items">
         <div class="col-xl-10">
           <p>{{ item.Name }} (Qty: {{ item.Quantity }})</p>
-          <!--<p>Consulting (Qty:1)</p>-->
         </div>
         <div class="col-xl-2">
           <p class="float-end">${{ item.itemPrice }}</p>
@@ -54,3 +53,5 @@
     </div>
   </div>
 </div>
+
+
