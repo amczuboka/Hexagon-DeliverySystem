@@ -35,7 +35,10 @@ export class CalculateTotalDeliveryService {
           delivery.Distance = distance;
           let estimatedTime = this.calculateEstimatedDeliveryTime(distance);
           let today = new Date();
-          let futureDate = new Date(today.setDate(today.getDate() + estimatedTime)); // Add estimatedTime days to today's date
+          let futureDate = new Date(
+            today.setDate(today.getDate() + estimatedTime)
+          ); // Add estimatedTime days to today's date
+          delivery.OrderDate = today.toISOString();
           delivery.EstimatedTime = futureDate.toISOString();
           console.log(delivery);
           observer.next(delivery);
