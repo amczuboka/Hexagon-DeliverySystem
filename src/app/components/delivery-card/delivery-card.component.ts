@@ -11,6 +11,7 @@ import {
 } from 'src/app/modules/delivery.models';
 import AOS from 'aos';
 import { DeliveryService } from 'src/app/services/delivery.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-delivery-card',
@@ -38,37 +39,55 @@ export class DeliveryCardComponent {
    *
    * @param authService - The authentication service
    */
-  constructor(private deliveryService: DeliveryService, private router: Router) {}
+  constructor(
+    private deliveryService: DeliveryService,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   /**
    * Lifecycle hook called after component initialization
    */
   ngOnInit() {
     AOS.init();
-    // Retrieve user's deliveries from Real Time Database 
-    this.deliveryService.getAllDeliveriesMatchingTheUser()
-    .then(deliveries => {
-      this.deliveries = deliveries;
-    })
-    .catch(error => {
-      console.error('Error getting deliveries:', error);
-      // Handle error as needed
-    });
-  }
-
-/**
- * Lifecycle hook called after every check of the component's content.
- * Checks if deliveries exist and updates the flag accordingly.
- */
-ngAfterContentChecked() {
-  if (this.deliveries) {
-    if (this.deliveries.length === 0) {
-      this.deliveriesExist = false;
-    } else {
-      this.deliveriesExist = true;
+    var myUser = this.authService.getUser();
+    if (myUser) {
+      if (myUser.photoURL == 'Staff') {
+        this.deliveryService
+          .getAllDeliveries()
+          .then((deliveries) => {
+            this.deliveries = deliveries;
+            console.log(this.deliveries)
+          })
+          .catch((error) => {
+            console.log('Error getting deliveries:', error);
+          });
+      } else {
+        this.deliveryService
+          .getAllDeliveriesMatchingTheUser()
+          .then((deliveries) => {
+            this.deliveries = deliveries;
+          })
+          .catch((error) => {
+            console.log('Error getting deliveries:', error);
+          });
+      }
     }
   }
-}
+
+  /**
+   * Lifecycle hook called after every check of the component's content.
+   * Checks if deliveries exist and updates the flag accordingly.
+   */
+  ngAfterContentChecked() {
+    if (this.deliveries) {
+      if (this.deliveries.length === 0) {
+        this.deliveriesExist = false;
+      } else {
+        this.deliveriesExist = true;
+      }
+    }
+  }
 
   /**
    * Format items list for display
@@ -149,7 +168,7 @@ ngAfterContentChecked() {
     let navigationExtras = { queryParams: { delivery: JSON.stringify(item) } };
 
     // Navigate to the delivery summary page with the specified navigation extras
-     this.router.navigate(['../delivery-summary'], navigationExtras);
+    this.router.navigate(['../delivery-summary'], navigationExtras);
   }
 
   /**

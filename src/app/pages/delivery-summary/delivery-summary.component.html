@@ -143,7 +143,7 @@
               {{ delivery.EstimatedTime | date : "MMMM d, y" }} <br />
             </div>
             <ng-container *ngIf="authority === 'Company'"
-              ><b>Recurring: </b>{{ delivery.Recurring }} <br
+              ><b>Recurring: </b>{{ delivery.Frequency }} <br
             /></ng-container>
             <b>Total: </b>${{ delivery.Total }} <br />
           </div>

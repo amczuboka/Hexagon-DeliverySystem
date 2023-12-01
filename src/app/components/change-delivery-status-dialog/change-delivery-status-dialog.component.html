@@ -1,12 +1,12 @@
 <div class="dialog-container">
-    <h2>Change Delivery Status</h2>
+  <h2>Change Delivery Status</h2>
   <form [formGroup]="statusForm">
     <mat-form-field>
       <mat-label>Choose a status</mat-label>
       <mat-select formControlName="status">
         <mat-option value="Quotation">Quotation</mat-option>
         <mat-option value="Pending">Pending</mat-option>
-        <mat-option value="In Progress">In Progress</mat-option>
+        <mat-option value="En Route">En Route</mat-option>
         <mat-option value="Delivered">Delivered</mat-option>
       </mat-select>
     </mat-form-field>
