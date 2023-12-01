@@ -1,3 +1,5 @@
+import { from } from "rxjs";
+
 export interface DeliveryInterface {
   Userid: string;
   Review: Review;
@@ -5,33 +7,47 @@ export interface DeliveryInterface {
   DepartLocation: string;
   ArriveLocation: string;
   Status: DeliveryStatus;
-  orderDate: Date;
-  EstimatedTime: Date;
+  OrderDate: string;
+  EstimatedTime: string;
   Id: string;
   Recurring: boolean;
   Frequency: DeliveryFrequency;
   Total: number;
 
-  calculateTotal(): number;
-
-  [key: string]: string | number | boolean | Date | Review | Item[]| (() => number);
-
+  [key: string]: string | number | boolean | Review | Item[] | (() => number);
 }
 export interface Review {
   stars: number;
   title: string;
   description: string;
-  date: Date;
+  date: string;
+  fromLocation: string;
+  toLocation: string;
+  username: string;
+  itemNames: string[];
+  id: string;
 }
 export interface ItemInterface {
   Name: string;
   Quantity: number;
-  Height: number;
-  Length: number;
-  Width: number;
-  Weight: number;
-  calculateItemPrice(): number;
+  Size: ItemSize;
+  Weight: ItemWeight;
 }
+
+export enum ItemSize {
+  size1 = '0.23m X 0.20m X 0.025m',
+  size2 = '0.5m X 0.5m X 0.5m',
+  size3 = '1m X 1m X 1m',
+  size4 = '2m X 2m X 2m',
+}
+
+export enum ItemWeight {
+  weight1 = '0.1kg - 5kg',
+  weight2 = '5kg - 10kg',
+  weight3 = '10kg - 20kg',
+  weight4 = '20kg - 30kg',
+}
+
 export enum DeliveryStatus {
   Quotation = 'Quotation',
   Pending = 'Pending',
@@ -52,56 +68,47 @@ export class Delivery implements DeliveryInterface {
     stars: 0,
     description: '',
     title: '',
-    date: new Date(),
+    date: '',
+    fromLocation: '',
+    toLocation: '',
+    username: '',
+    itemNames: [],
+    id: '',
   };
   Distance: number = 0;
   DepartLocation: string = '';
   ArriveLocation: string = '';
   Status: DeliveryStatus = DeliveryStatus.Quotation;
-  orderDate: Date = new Date();
-  EstimatedTime: Date = new Date();
+  OrderDate: string = '';
+  EstimatedTime: string = '';
   Id: string = '';
   Recurring: boolean = false;
   Frequency: DeliveryFrequency = DeliveryFrequency.Once;
   items: Item[] = [];
-  Total: number = this.calculateTotal();
+  Total: number = 0;
 
   constructor(init?: Partial<Delivery>) {
     Object.assign(this, init);
   }
-  [key: string]: string | number | boolean | Date | Review | Item[] | (() => number);
-
-  calculateTotal(): number {
-    return 0;
-  }
+  [key: string]: string | number | boolean | Review | Item[] | (() => number);
 }
 
 export class Item implements ItemInterface {
   Name: string = '';
   Quantity: number = 0;
-  Height: number = 0;
-  Length: number = 0;
-  Width: number = 0;
-  Weight: number = 0;
-  itemPrice = this.calculateItemPrice();
+  Size: ItemSize = ItemSize.size1;
+  Weight: ItemWeight = ItemWeight.weight1;
+  itemPrice = 0;
 
   constructor(
     name: string,
     quantity: number,
-    height: number,
-    length: number,
-    width: number,
-    weight: number
+    size: ItemSize,
+    weight: ItemWeight
   ) {
     this.Name = name;
     this.Quantity = quantity;
-    this.Height = height;
-    this.Length = length;
-    this.Width = width;
+    this.Size = size;
     this.Weight = weight;
-  }
-
-  calculateItemPrice(): number {
-    return 0;
   }
 }

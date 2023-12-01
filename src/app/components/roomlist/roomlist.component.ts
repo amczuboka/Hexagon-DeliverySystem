@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import firebase from 'firebase/compat/app';
@@ -14,10 +14,18 @@ import {
   update,
   Database,
   get,
+  remove,
 } from 'firebase/database';
 import { User, UserDTO } from 'src/app/modules/user.models';
 import { AuthService } from 'src/app/services/auth.service';
+import { ChatroomService } from 'src/app/services/chatroom.service';
+import { PageInfo } from 'src/app/modules/chatbox.models';
 
+/**
+ * Utility function to convert Firebase snapshot to an array.
+ * @param snapshot - The Firebase snapshot to be converted.
+ * @returns An array containing the snapshot data.
+ */
 export const snapshotToArray = (snapshot: any) => {
   const returnArr: any[] = [];
 
@@ -29,70 +37,136 @@ export const snapshotToArray = (snapshot: any) => {
 
   return returnArr;
 };
+
+/**
+ * RoomlistComponent represents the component for displaying and managing chat rooms.
+ */
 @Component({
   selector: 'app-roomlist',
   templateUrl: './roomlist.component.html',
   styleUrls: ['./roomlist.component.scss'],
 })
 export class RoomlistComponent {
-  email: string;
+  /** Event emitter to send data to the parent component. */
+  @Output() dataFromChild = new EventEmitter<any>();
+
+  /** Email of the current user. */
+  email: string | undefined;
+
+  /** Displayed columns in the room list. */
   displayedColumns: string[] = ['roomname'];
+
+  /** Array containing information about chat rooms. */
   rooms: any[] = [];
+
+  /** Loading indicator for room data. */
   isLoadingResults = true;
-  PersonOnPage!: UserDTO;
 
+  /** Information about the person currently on the page. */
+  PersonOnPage: UserDTO = {
+    FirstName: '',
+    LastName: '',
+    ID: '',
+    Authority: '',
+    Email: '',
+    uid: '',
+    email: '',
+    photoURL: '',
+    emailVerified: false,
+  };
+
+  /** Flag to determine whether to display the "Add" button. */
+  seeAddButton = true;
+
+  /**
+   * Constructor of the RoomlistComponent.
+   * @param datepipe - The DatePipe service for formatting dates.
+   * @param authService - The AuthService for user authentication.
+   * @param chatroomService - The ChatroomService for managing chatroom-related functionality.
+   */
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
     public datepipe: DatePipe,
-    private authService: AuthService
+    private authService: AuthService,
+    private chatroomService: ChatroomService
   ) {
+    // Get the current user's email
     const user = this.authService.getUser();
-    this.email = user.email;
+    if (user != undefined) this.email = user.email;
+    else this.email = '';
 
+    // Initialize Firebase database and subscribe to changes in room data
     const db = getDatabase();
-    onValue(ref(db, 'rooms/'), (snapshot) => {
+    onValue(ref(db, 'rooms/'), async (snapshot) => {
       this.rooms = [];
       this.rooms = snapshotToArray(snapshot);
       this.isLoadingResults = false;
-    });
+      this.PersonOnPage = await this.chatroomService.getPersonOnPage(db, user);
 
-    this.getPersonOnPage(db, user);
-  }
-
-  async getPersonOnPage(db: Database, user: User) {
-    if (user.photoURL == 'Individual') {
-      const userRef = query(ref(db, 'individual/' + user.uid));
-      get(userRef).then((snapshot) => {
-        if (snapshot.exists()) {
-          this.PersonOnPage = snapshot.val();
+      // Filter rooms based on user authority
+      if (this.PersonOnPage) {
+        if (
+          this.PersonOnPage.Authority == 'Individual' ||
+          this.PersonOnPage.Authority == 'Company'
+        ) {
+          this.rooms = this.rooms.filter(
+            (room) => room.creater === this.PersonOnPage.ID
+          );
         }
-      });
-    }
+
+        // Hide "Add" button for Staff users
+        if (this.PersonOnPage.Authority == 'Staff') {
+          this.seeAddButton = false;
+        }
+      }
+    });
   }
 
-  enterChatRoom(roomname: string) {
-    const chat = {
-      roomname: '',
-      email: '',
-      message: '',
-      date: '',
-      type: '',
+  /**
+   * Navigate to a specific page with room data.
+   * @param pagenumber - The page number to navigate to.
+   * @param roomname - Optional room name to pass to the parent component.
+   */
+  GotoPage(pagenumber: number, roomname?: string) {
+    const dataToSend: PageInfo = {
+      pageNumber: pagenumber,
+      roomName: roomname!,
     };
-    chat.roomname = roomname;
-    chat.email = this.email;
-    chat.date = new Date().toISOString();
-    chat.date = chat.date.replace(' ', 'T');
-    chat.date = this.datepipe.transform(
-      chat.date.replace(' ', 'T'),
-      'yyyy-MM-ddTHH:mm'
-    )!;
-    chat.message = ` ${this.PersonOnPage.FirstName} enter the room`;
-    chat.type = 'join';
-    const db = getDatabase();
-    const newMessageRef = push(ref(db, 'chats/'));
-    set(newMessageRef, chat);
+    this.dataFromChild.emit(dataToSend);
+  }
 
-    this.router.navigate(['/chatroom', roomname]);
+  /**
+   * Enter a chat room and emit a "join" chat message.
+   * @param roomname - The name of the chat room to enter.
+   */
+  enterChatRoom(roomname: string) {
+    this.chatroomService.addChat(
+      roomname,
+      this.PersonOnPage,
+      this.datepipe,
+      'join'
+    );
+    this.GotoPage(3, roomname);
+  }
+
+  /**
+   * Delete a chat room and its associated chat messages.
+   * @param roomname - The name of the chat room to delete.
+   */
+  deleteRoom(roomname: string) {
+    const db = getDatabase();
+
+    const RoomRef = ref(db, 'rooms/');
+    const ChatRef = ref(db, 'chats/');
+
+    // Delete the room
+    const roomRef = query(RoomRef, orderByChild('roomname'), equalTo(roomname));
+    get(roomRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        snapshot.forEach((childSnapshot) => {
+          const childRef = ref(db, `rooms/${childSnapshot.key}`);
+          remove(childRef);
+        });
+      }
+    });
   }
 }

@@ -7,21 +7,21 @@
                 <h2>New Item</h2>
                 <!--Description-->
                 <mat-form-field appearance="outline" style="width: 100%;">
-                    <mat-label>Item Description</mat-label>
+                    <mat-label>Item Name</mat-label>
                     <input 
                     matInput
                     required
-                    ngModel name="itemDescription"
-                    formControlName="itemDescription"
+                    ngModel name="Name"
+                    formControlName="Name"
                     >
                     <mat-icon
                     matSuffix
                     *ngIf="
-                        newDeliveryItem.controls['itemDescription'].hasError('required') &&
-                        newDeliveryItem.controls['itemDescription'].touched"
+                        newDeliveryItem.controls['Name'].hasError('required') &&
+                        newDeliveryItem.controls['Name'].touched"
                         >error_outline</mat-icon>
                     <mat-error
-                    *ngIf="newDeliveryItem.controls['itemDescription'].hasError('required')"
+                    *ngIf="newDeliveryItem.controls['Name'].hasError('required')"
                         >Enter description</mat-error>
                 </mat-form-field>
                 <br>
@@ -31,22 +31,22 @@
                     <mat-select 
                     matInput
                     required
-                    ngModel name="itemWeight"
-                    formControlName="itemWeight"
+                    ngModel name="Weight"
+                    formControlName="Weight"
                     >
-                        <mat-option value="examplevalue">0.1kg - 5kg</mat-option>
-                        <mat-option value="examplevalue">5kg - 10kg</mat-option>
-                        <mat-option value="examplevalue">10kg - 20kg</mat-option>
-                        <mat-option value="examplevalue">20kg - 30kg</mat-option>
+                        <mat-option value="0.1kg - 5kg">0.1kg - 5kg</mat-option>
+                        <mat-option value="5kg - 10kg">5kg - 10kg</mat-option>
+                        <mat-option value="10kg - 20kg">10kg - 20kg</mat-option>
+                        <mat-option value="20kg - 30kg">20kg - 30kg</mat-option>
                     </mat-select>
                     <mat-icon
                     matSuffix
                     *ngIf="
-                        newDeliveryItem.controls['itemWeight'].hasError('required') &&
-                        newDeliveryItem.controls['itemWeight'].touched"
+                        newDeliveryItem.controls['Weight'].hasError('required') &&
+                        newDeliveryItem.controls['Weight'].touched"
                         >error_outline</mat-icon>
                     <mat-error
-                    *ngIf="newDeliveryItem.controls['itemWeight'].hasError('required')"
+                    *ngIf="newDeliveryItem.controls['Weight'].hasError('required')"
                         >Enter weight</mat-error>
                 </mat-form-field>
                 <br>
@@ -56,22 +56,22 @@
                     <mat-select 
                     matInput
                     required
-                    ngModel name="itemSize"
-                    formControlName="itemSize"
+                    ngModel name="Size"
+                    formControlName="Size"
                     >
-                        <mat-option value="examplevalue">0.23m X 0.20m X 0.025m</mat-option>
-                        <mat-option value="examplevalue">0.5m X 0.5m X 0.5m</mat-option>
-                        <mat-option value="examplevalue">1m X 1m X 1m</mat-option>
-                        <mat-option value="examplevalue">2m X 2m X 2m</mat-option>
+                        <mat-option value="0.23m X 0.20m X 0.025m">0.23m X 0.20m X 0.025m</mat-option>
+                        <mat-option value="0.5m X 0.5m X 0.5m">0.5m X 0.5m X 0.5m</mat-option>
+                        <mat-option value="1m X 1m X 1m">1m X 1m X 1m</mat-option>
+                        <mat-option value="2m X 2m X 2m">2m X 2m X 2m</mat-option>
                     </mat-select>
                     <mat-icon
                     matSuffix
                     *ngIf="
-                        newDeliveryItem.controls['itemSize'].hasError('required') &&
-                        newDeliveryItem.controls['itemSize'].touched"
+                        newDeliveryItem.controls['Size'].hasError('required') &&
+                        newDeliveryItem.controls['Size'].touched"
                         >error_outline</mat-icon>
                     <mat-error
-                    *ngIf="newDeliveryItem.controls['itemSize'].hasError('required')"
+                    *ngIf="newDeliveryItem.controls['Size'].hasError('required')"
                         >Enter size</mat-error>
                 </mat-form-field>
                 <br>
@@ -83,17 +83,17 @@
                     min="1"
                     matInput
                     required
-                    ngModel name="qty"
-                    formControlName="qty"
+                    ngModel name="Quantity"
+                    formControlName="Quantity"
                     >
                     <mat-icon
                     matSuffix
                     *ngIf="
-                        newDeliveryItem.controls['qty'].hasError('required') &&
-                        newDeliveryItem.controls['qty'].touched"
+                        newDeliveryItem.controls['Quantity'].hasError('required') &&
+                        newDeliveryItem.controls['Quantity'].touched"
                         >error_outline</mat-icon>
                     <mat-error
-                    *ngIf="newDeliveryItem.controls['qty'].hasError('required')"
+                    *ngIf="newDeliveryItem.controls['Quantity'].hasError('required')"
                         >Enter quantity</mat-error>
                 </mat-form-field>
 

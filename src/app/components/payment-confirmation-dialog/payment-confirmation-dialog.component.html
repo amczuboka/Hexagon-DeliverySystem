@@ -1,0 +1,19 @@
+<div class="card">
+  <div class="card-body mx-4">
+    <div class="container">
+      <br /><br />
+      <div class="header">Order Confirmation</div>
+      <hr />
+      <div class="body">
+        <p>Order successfully placed!</p>
+        <p>Check out your order with id: {{ delivery.Id }}</p>
+        <p>Rerouting you to "My Deliveries"</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="close()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

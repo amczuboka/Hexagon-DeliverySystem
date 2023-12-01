@@ -22,27 +22,48 @@ body {
   background-color: rgb(251, 207, 170);
   filter: brightness(1.1);
   border-color: rgb(70, 20, 19);
-    color: rgb(70, 20, 19);
+  color: rgb(70, 20, 19);
 
   transform: scale(1.1);
   transition: all 0, 5s ease-in-out;
 }
 
 .kawaii-icon:hover {
-
   /* Start the shake animation and make the animation last for 0.5 seconds */
-  animation: tilt-shaking  0.5s;
+  animation: tilt-shaking 0.5s;
 
   /* When the animation is finished, start again */
   animation-iteration-count: infinite;
 }
 
 @keyframes tilt-shaking {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(5deg); }
-  50% { transform: rotate(0eg); }
-  75% { transform: rotate(-5deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(5deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
+.mat-mdc-snack-bar-container,
+.mdc-snackbar__label {
+  &.kawaiicolors-snackbar {
+    --mdc-snackbar-container-color: rgb(251, 207, 170);
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: rgb(70, 20, 19);
+    --mdc-snackbar-supporting-text-size: 20px;
+  }
+}
 
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  font-size: 30px;
+}

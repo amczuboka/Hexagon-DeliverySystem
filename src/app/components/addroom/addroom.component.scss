@@ -5,7 +5,6 @@
 
 .example-form {
   min-width: 150px;
-  max-width: 500px;
   width: 100%;
 }
 
@@ -18,9 +17,23 @@
 }
 
 .button-row {
-  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 3%;
 }
 
 .mat-flat-button {
   margin: 5px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border: 0;
+  background-color: transparent;
+
+  #save {
+    color: #5798d1;
+  }
 }

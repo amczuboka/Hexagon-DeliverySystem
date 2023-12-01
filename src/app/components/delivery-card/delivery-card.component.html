@@ -1,6 +1,9 @@
 <app-search (searchTextChanged)="onSearchTextEntered($event)"></app-search>
 
 <div class="cardz">
+  <div *ngIf="!deliveriesExist">
+    <p>You have not requested any deliveries or quotations!</p>
+  </div>
   <div
     *ngFor="let item of deliveries; let i = index"
     data-aos="fade-up"
@@ -15,7 +18,7 @@
             <div class="header-item">
               <div>QUOTATION PLACED ON</div>
               <div class="order-date">
-                {{ item.orderDate | date : "MMMM d, y" }}
+                {{ item.OrderDate | date : "MMMM d, y" }}
               </div>
             </div>
             <div class="header-item">
@@ -38,7 +41,7 @@
               </div>
               <div class="icon-container">
                 <img
-                  class="kawaii-icon brown-icon "
+                  class="kawaii-icon brown-icon"
                   src="../../../assets/imgs/package.png"
                   alt=""
                 />
@@ -53,8 +56,7 @@
                   RECURRING: {{ item.Frequency }}
                 </div>
                 <button
-                  class=" button"
-                  
+                  class="button"
                   (click)="navigateToDeliverySummary(item)"
                 >
                   View Quotation Details
@@ -69,7 +71,7 @@
             <div class="header-item">
               <div>ORDER PLACED ON</div>
               <div class="order-date">
-                {{ item.orderDate | date : "MMMM d, y" }}
+                {{ item.OrderDate | date : "MMMM d, y" }}
               </div>
             </div>
             <div class="header-item">
@@ -92,7 +94,7 @@
               </div>
               <div class="icon-container">
                 <img
-                  class="brown-icon  kawaii-icon"
+                  class="brown-icon kawaii-icon"
                   src="../../../assets/imgs/package.png"
                   alt=""
                 />
@@ -127,7 +129,7 @@
             <div class="header-item">
               <div>ORDER PLACED ON</div>
               <div class="order-date">
-                {{ item.orderDate | date : "MMMM d, y" }}
+                {{ item.OrderDate | date : "MMMM d, y" }}
               </div>
             </div>
             <div class="header-item">
@@ -150,7 +152,7 @@
               </div>
               <div class="icon-container">
                 <img
-                  class="brown-icon  kawaii-icon"
+                  class="brown-icon kawaii-icon"
                   src="../../../assets/imgs/package.png"
                   alt=""
                 />
@@ -185,7 +187,7 @@
             <div class="header-item">
               <div>ORDER PLACED ON</div>
               <div class="order-date">
-                {{ item.orderDate | date : "MMMM d, y" }}
+                {{ item.OrderDate | date : "MMMM d, y" }}
               </div>
             </div>
             <div class="header-item">
@@ -208,7 +210,7 @@
               </div>
               <div class="icon-container">
                 <img
-                  class="brown-icon  kawaii-icon"
+                  class="brown-icon kawaii-icon"
                   src="../../../assets/imgs/package.png"
                   alt=""
                 />

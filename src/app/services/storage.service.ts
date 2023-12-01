@@ -36,6 +36,7 @@ export class StorageService {
       duration: 3000,
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
+      panelClass: ['kawaiicolors-snackbar'],
     });
   }
 

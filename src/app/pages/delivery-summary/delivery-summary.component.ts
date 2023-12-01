@@ -20,7 +20,16 @@ import {
   Delivery,
   DeliveryStatus,
   Item,
+  Review,
 } from 'src/app/modules/delivery.models';
+import { ReviewService } from 'src/app/services/review.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ReviewDialogComponent } from 'src/app/components/review-dialog/review-dialog.component';
+import { from } from 'rxjs';
+import { DeleteReviewDialogComponent } from 'src/app/components/delete-review-dialog/delete-review-dialog.component';
+import { DeliveryService } from 'src/app/services/delivery.service';
+import { UserService } from 'src/app/services/user.service';
+import { ChangeDeliveryStatusDialogComponent } from 'src/app/components/change-delivery-status-dialog/change-delivery-status-dialog.component';
 
 @Component({
   selector: 'app-delivery-summary',
@@ -28,9 +37,8 @@ import {
   styleUrls: ['./delivery-summary.component.scss'],
 })
 export class DeliverySummaryComponent {
-  // status: string = DeliveryStatus.EnRoute.toString();
   delivery!: Delivery;
-  authority!: string; // Don't thik it is needed
+  authority: string = 'user';
   myUser!: any;
 
   constructor(
@@ -39,7 +47,11 @@ export class DeliverySummaryComponent {
     private authService: AuthService,
     public database: Database,
     public storage: Storage,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private reviewService: ReviewService,
+    private deliveryService: DeliveryService,
+    private userService: UserService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -49,24 +61,126 @@ export class DeliverySummaryComponent {
     });
 
     this.myUser = this.authService.getUser();
-
+    if (this.myUser) {
+      this.authority = this.myUser.photoURL;
+    }
   }
 
-  placeOrder(){
-    console.log('place order');
+  placeOrder() {
+    // redirect to the payment page and pass the delivery object
+    this.router.navigate(['/payment'], {
+      queryParams: { delivery: JSON.stringify(this.delivery) },
+    });
   }
 
   editReview() {
-    console.log('edit');
+    const dialogRef = this.dialog.open(ReviewDialogComponent, {
+      data: this.delivery.Review as Review,
+    });
+
+    dialogRef.afterClosed().subscribe((review) => {
+      if (review) {
+        this.userService
+          .getUser(this.myUser.uid)
+          .then((user) => {
+            review = this.setReviewUserAndDeliveryData(review, user);
+          })
+          .then(() => {
+            this.reviewService.editReview(review).then(() => {
+              this.storageService.sendNotification('Review edited');
+              this.deliveryService
+                .getDeliveryById(this.delivery.Id)
+                .then((delivery) => {
+                  if (delivery) {
+                    this.delivery = delivery;
+                  }
+                });
+            });
+          });
+      }
+    });
   }
 
   deleteReview() {
-    // Add a confirm dialog
-    console.log('delete');
+    const dialogRef = this.dialog.open(DeleteReviewDialogComponent);
+
+    dialogRef.afterClosed().subscribe((confirm) => {
+      if (confirm) {
+        this.reviewService.deleteSpecificReview(this.delivery.Id).then(() => {
+          this.storageService.sendNotification('Review deleted');
+          this.deliveryService
+            .getDeliveryById(this.delivery.Id)
+            .then((delivery) => {
+              if (delivery) {
+                this.delivery = delivery;
+              }
+            });
+        });
+      }
+    });
   }
 
   addReview() {
-    // Create a dialog to add a review
-    console.log('add');
+    const dialogRef = this.dialog.open(ReviewDialogComponent, {
+      data: {} as Review,
+    });
+    dialogRef.afterClosed().subscribe((review) => {
+      if (review) {
+        this.userService
+          .getUser(this.myUser.uid)
+          .then((user) => {
+            review = this.setReviewUserAndDeliveryData(review, user);
+          })
+          .then(() => {
+            this.reviewService.addReview(review).then(() => {
+              this.storageService.sendNotification('Review added');
+              this.deliveryService
+                .getDeliveryById(this.delivery.Id)
+                .then((delivery) => {
+                  if (delivery) {
+                    this.delivery = delivery;
+                  }
+                });
+            });
+          });
+      }
+    });
+  }
+
+  changeTrackingStatus() {
+    if (this.delivery) {
+      const dialogRef = this.dialog.open(ChangeDeliveryStatusDialogComponent, {
+        data: this.delivery.Status as DeliveryStatus,
+      });
+
+      dialogRef.afterClosed().subscribe((status) => {
+        if (status != null) {
+          this.deliveryService
+            .updateDelivery(this.delivery.Id, {
+              Status: status,
+            })
+            .then(() => {
+              this.storageService.sendNotification('Delivery status changed');
+              this.deliveryService
+                .getDeliveryById(this.delivery.Id)
+                .then((delivery) => {
+                  if (delivery) {
+                    this.delivery = delivery;
+                  }
+                });
+            });
+        }
+      });
+    }
+  }
+
+  private setReviewUserAndDeliveryData(review: Review, user: any): Review {
+    review.username = user?.FirstName + ' ' + user?.LastName;
+    review.id = this.delivery.Id;
+    review.date = new Date().toISOString();
+    review.fromLocation = this.delivery.DepartLocation;
+    review.toLocation = this.delivery.ArriveLocation;
+    review.itemNames = this.delivery.items.map((item) => item.Name);
+    return review;
   }
 }
