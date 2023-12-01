@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaymentConfirmationDialogComponent } from './payment-confirmation-dialog.component';
 import { AppModule } from 'src/app/app.module';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 describe('PaymentConfirmationDialogComponent', () => {
   let component: PaymentConfirmationDialogComponent;
@@ -14,7 +14,7 @@ describe('PaymentConfirmationDialogComponent', () => {
       declarations: [PaymentConfirmationDialogComponent],
       providers: [
         { provide: MatDialogRef, useValue: {} },
-        // other providers...
+        {provide: MAT_DIALOG_DATA, useValue: {}}
       ],
     });
     fixture = TestBed.createComponent(PaymentConfirmationDialogComponent);
