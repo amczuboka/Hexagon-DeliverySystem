@@ -190,7 +190,7 @@ export class PaymentComponent {
   calculateTotal(subTotalValue: any, taxesValue: any): any {
     const number = subTotalValue + taxesValue;
 
-    const total = roundToTwoDecimalPlaces(number);
+    const total = this.roundToTwoDecimalPlaces(number);
 
     return total;
   }
@@ -200,37 +200,39 @@ export class PaymentComponent {
     //if form not valid mark as red
     if (!valid) {
       this.paymentForm.markAllAsTouched();
-    } 
-    
-    //if valid then 
+    }
+
+    //if valid then
     else {
       //if the delivery id exist it means object already create
-      if(this.delivery.Id){
-      console.log(this.delivery.Id);
-      this.deliveryService.updateDelivery(this.delivery.Id, {
-        Status: DeliveryStatus.Pending,
-      });
-      this.storageService.sendNotification('Delivery status changed');
-     }
-     //Object is only local
-     else{
-      //get user
-      this.myUser = this.authService.getUser();
+      if (this.delivery.Id) {
+        console.log(this.delivery.Id);
+        this.deliveryService.updateDelivery(this.delivery.Id, {
+          Status: DeliveryStatus.Pending,
+        });
+        this.storageService.sendNotification('Delivery status changed');
+      }
+      //Object is only local
+      else {
+        //get user
+        this.myUser = this.authService.getUser();
 
-      //update delivery object
-      this.delivery.Userid = this.myUser.uid;
-      this.delivery.Status = DeliveryStatus.Pending;
+        //update delivery object
+        this.delivery.Userid = this.myUser.uid;
+        this.delivery.Status = DeliveryStatus.Pending;
 
-      //add delivery to database 
-      this.deliveryService.addDelivery(this.delivery);
-     }
+        //add delivery to database
+        this.deliveryService.addDelivery(this.delivery);
+      }
 
       this.openPaymentSummaryDialog();
     }
   }
 
   openPaymentSummaryDialog(): void {
-    let dialogRef = this.dialog.open(PaymentConfirmationDialogComponent, {data: this.delivery});
+    let dialogRef = this.dialog.open(PaymentConfirmationDialogComponent, {
+      data: this.delivery,
+    });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
@@ -241,4 +243,3 @@ export class PaymentComponent {
     return Number(value.toFixed(2));
   }
 }
-

@@ -57,7 +57,6 @@ export class DeliveryCardComponent {
           .getAllDeliveries()
           .then((deliveries) => {
             this.deliveries = deliveries;
-            console.log(this.deliveries)
           })
           .catch((error) => {
             console.log('Error getting deliveries:', error);
