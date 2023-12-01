@@ -19,17 +19,6 @@
         </ul>
         <hr />
 
-        <!--One Line Item-->
-        <!--<div class="col-xl-10"
-          
-          >
-            <p>Pro Package (Qty:1)</p>
-          </div>
-          <div class="col-xl-2">
-            <p class="float-end">$199.00
-            </p>
-          </div>
-          <hr>-->
       </div>
       <!--One Line Item-->
       <div class="row" *ngFor="let item of deliveryObj.items">
@@ -46,27 +35,7 @@
         <p class="float-end fw-bold">Total: ${{ deliveryObj.Total }}</p>
       </div>
 
-      <!--End of One Line Item-->
-      <!--<div class="row">
-          <div class="col-xl-10">
-            <p>Support (Qty:1)</p>
-          </div>
-          <div class="col-xl-2">
-            <p class="float-end">$10.00
-            </p>
-          </div>
-          <hr style="border: 2px solid black;">
-        </div>
-        <div class="row text-black">
-  
-          <div class="col-xl-12">
-            <p class="float-end fw-bold">Total: $10.00
-            </p>
-          </div>
-          <hr style="border: 2px solid black;">
-        </div>-->
-
-      <div class="modal-footer">
+      <div class="modal-footer buttons">
         <button
           type="button"
           class="btn btn-outline-dark"
