@@ -20,7 +20,7 @@ The project is about a software system for delivery service. A "Delivery" servic
 ~ Guillaume Lachapelle (GitHub: Guillaume-Lachapelle) Project Manager & Developer <br />
 ~ Nicholas Piperni (GitHub: npiperni) Developer <br />
 ~ Karina Sanchez-Duran (GitHub: KarinaSandur) Developer <br />
-~ Olivier Vilney (GitHub: Holyvert) Developer 
+~ Oliver Vilney (GitHub: Holyvert) Developer 
 
 ## Languages & Techniques
 
