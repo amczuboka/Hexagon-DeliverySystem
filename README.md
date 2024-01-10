@@ -1,9 +1,9 @@
 # Hexagon-DeliverySystem
 Delivery System Application
 
-## Where to Access Repository
+## Where to Access Documentation
 
-https://github.com/amczuboka/Hexagon-DeliverySystem 
+Link to google drive with documentation: https://drive.google.com/drive/folders/1XTkQnpd3fBCVHEAsX2TQxAsdB5yNfWlX?usp=sharing
 
 ## Objective
 
@@ -30,6 +30,8 @@ Languages: <br />
 Frameworks: Angular, Bootstrap <br />
 Environment: Node.js <br />
 IDE/Code Editor: Visual Studio Code <br />
+
+**Info:** The API keys have been put in a secrets.ts file but that file is in .gitignore as they otherwise could be used by other people.
 
 # HexagonDeliverySystem
 
